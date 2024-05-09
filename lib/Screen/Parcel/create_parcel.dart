@@ -1,9 +1,7 @@
 import 'package:we_courier_merchant_app/Models/edit_parcel_model.dart';
 import 'package:we_courier_merchant_app/Screen/MapScreen/pickup_map.dart';
 
-import '../../MapAddress/flutter_google_places_web.dart';
-import '../../services/api-list.dart';
-import '../Authentication/sign_up.dart';
+
 import '../MapScreen/customer_map.dart';
 import '/Screen/Widgets/button_global.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +116,8 @@ class _CreateParcelState extends State<CreateParcel> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+
+
 
                                     const SizedBox(height: 20.0),
                                     parcel.shopList.isEmpty
