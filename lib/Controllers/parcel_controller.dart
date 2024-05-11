@@ -213,10 +213,10 @@ class ParcelController extends GetxController {
         packagingList.addAll(data.data!.packagings!);
         deliveryChargesList = <DeliveryCharge>[];
         // deliveryChargesList.add(DeliveryCharge(id:0,category: 'select_category',weight: '0',));
-        deliveryChargesList.add(DeliveryCharge(id: 0,weight: '0',));
+        deliveryChargesList.add(DeliveryCharge(id:0,weight: '0',));
         deliveryChargesList.addAll(data.data!.deliveryCharges!);
         deliveryCategoryList = <DeliveryCategory>[];
-        deliveryCategoryList.add(DeliveryCategory(id: 0,title: "select_category".tr,));
+        deliveryCategoryList.add(DeliveryCategory(id: 0,title: "Select Vehicle Type".tr,));
         deliveryCategoryList.addAll(data.data!.deliveryCategories!);
 
         // List<DeliveryCategory>? category = data.data?.deliveryCategories;

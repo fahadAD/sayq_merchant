@@ -1025,12 +1025,8 @@ class _CreateParcelState extends State<CreateParcel> {
                                         ),
                                       ),
                                     ),
-
-
                                     const SizedBox(height: 20.0),
-
                                     Container(
-
                                       width: double.infinity,
                                       child: Card(
                                         color: Colors.white,
@@ -1121,20 +1117,19 @@ class _CreateParcelState extends State<CreateParcel> {
                                                 : Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                                   child: SizedBox(
-                                                                                                height: 60.0,
-                                                                                                child: FormField(
-                                                  builder: (FormFieldState<dynamic> field) {
+                                                    height: 60.0,
+                                                    child: FormField(
+                                                    builder: (FormFieldState<dynamic> field) {
                                                     return InputDecorator(
                                                       decoration: kInputDecoration.copyWith(
                                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                                         labelText: 'category'.tr + '*',
-                                                        hintText: 'select_category'.tr,
+                                                        hintText: 'Select Vehicle Type'.tr,
                                                         labelStyle: kTextStyle.copyWith(color: kTitleColor),
                                                         border: OutlineInputBorder(
                                                           borderRadius: BorderRadius.circular(5.0),
                                                         ),
                                                       ),
-
                                                       child: DropdownButtonHideUnderline(
                                                         child: DropdownButton<DeliveryCategory>(
                                                           value: parcel.deliveryCategoryIndex.toString() == 'null' ? null : parcel.deliveryCategoryList[parcel.deliveryCategoryIndex],

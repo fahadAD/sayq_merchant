@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:we_courier_merchant_app/Screen/Parcel/create_parcel.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/parcel_history.dart';
 import 'package:we_courier_merchant_app/Screen/Profile/profile.dart';
 import '../../Controllers/balance_controller.dart';
 import '../Parcel/parcel_all_staus.dart';
@@ -237,6 +238,16 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                         ),
                         onTap: (() =>  ParcelPage(height: 0.85,).launch(context)),
+                      ),
+                      ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.only(left:20.0),
+                          child: Text(
+                            'Order History'.tr,
+                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        onTap: (() =>  ParcelPageHistory().launch(context)),
                       ),
                       ListTile(
                         title: Padding(
