@@ -21,20 +21,10 @@ class Support extends StatefulWidget {
 }
 
 class _SupportState extends State<Support> {
-  SupportsController supportController = SupportsController();
+  // SupportsController supportController = SupportsController();
+  SupportsController supportController = Get.put(SupportsController());
 
-  List<String> countData = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +73,194 @@ class _SupportState extends State<Support> {
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Column(
                       children: [
+                        // Card(
+                        //   color: kBgColor,
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(10.0),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(10.0),
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         Row(
+                        //           mainAxisAlignment: MainAxisAlignment.start,
+                        //           children: [
+                        //             Container(
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius: BorderRadius.circular(1.0),
+                        //                   color: kMainColor,
+                        //                 ),
+                        //                 child: Padding(
+                        //                   padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                        //                   child: Text(
+                        //                     (i+1).toString(),
+                        //                     style: kTextStyle.copyWith(color: Colors.white),
+                        //                   ),
+                        //                 )),
+                        //             PopupMenuButton(
+                        //               icon: const Icon(
+                        //                 FeatherIcons.moreVertical,
+                        //                 size: 16.0,
+                        //                 color: kTitleColor,
+                        //               ),
+                        //               padding: EdgeInsets.zero,
+                        //               itemBuilder: (BuildContext bc) => [
+                        //                 PopupMenuItem(
+                        //                   value: "/Code",
+                        //                   child: Column(
+                        //                     crossAxisAlignment: CrossAxisAlignment.start,
+                        //                     children: [
+                        //                       Row(
+                        //                         children: [
+                        //                           const Icon(FontAwesomeIcons.solidEye, color: kTitleColor, size: 14.0),
+                        //                           const SizedBox(width: 5.0),
+                        //                           Text(
+                        //                             'view'.tr,
+                        //                             style: kTextStyle.copyWith(color: kTitleColor),
+                        //                           ),
+                        //                         ],
+                        //                       ).onTap(
+                        //                             () => Reply(supports: support.supportList[i],).launch(context),
+                        //                       ),
+                        //                       const SizedBox(height: 10.0),
+                        //                       Row(
+                        //                         children: [
+                        //                           const Icon(FontAwesomeIcons.solidPenToSquare, color: kTitleColor, size: 14.0),
+                        //                           SizedBox(width: 5.0),
+                        //                           Text(
+                        //                             'edit'.tr,
+                        //                             style: kTextStyle.copyWith(color: kTitleColor),
+                        //                           ),
+                        //                         ],
+                        //                       ).onTap(
+                        //                               () => SupportEdit(supports: support.supportList[i],).launch(context)),
+                        //                       const SizedBox(height: 10.0),
+                        //                       Row(
+                        //                         children: [
+                        //                            Icon(MdiIcons.delete, color: kTitleColor, size: 14.0),
+                        //                           const SizedBox(width: 5.0),
+                        //                           Text(
+                        //                             'delete'.tr,
+                        //                             style: kTextStyle.copyWith(color: kTitleColor),
+                        //                           ),
+                        //                         ],
+                        //                       ).onTap(() => supportController.supportDelete(support.supportList[i].id!)),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //               onSelected: (value) {
+                        //                 Navigator.pushNamed(context, '$value');
+                        //               },
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         Row(
+                        //           children: [
+                        //             Text(
+                        //               'name'.tr + ':*',
+                        //               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        //             ),
+                        //             const Spacer(),
+                        //             Text(
+                        //               support.supportList[i].userName ?? '',
+                        //               style: kTextStyle.copyWith(color: kGreyTextColor),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         const SizedBox(height: 5.0),
+                        //         Row(
+                        //           children: [
+                        //             Text(
+                        //               'email'.tr + ':',
+                        //               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        //             ),
+                        //             const Spacer(),
+                        //             Text(
+                        //               support.supportList[i].userName ?? 'Not Provided',
+                        //               style: kTextStyle.copyWith(color: kGreyTextColor),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         const SizedBox(height: 5.0),
+                        //         Row(
+                        //           children: [
+                        //             Text(
+                        //               'department'.tr + ':',
+                        //               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        //             ),
+                        //             const Spacer(),
+                        //             Text(
+                        //               '${support.supportList[i].department ?? ''}'.tr + ':',
+                        //               style: kTextStyle.copyWith(color: kGreyTextColor),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         const SizedBox(height: 5.0),
+                        //         Row(
+                        //           children: [
+                        //             Text(
+                        //               'service'.tr + ':',
+                        //               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        //             ),
+                        //             const Spacer(),
+                        //             Text(
+                        //               '${support.supportList[i].service ?? ''}'.tr,
+                        //               style: kTextStyle.copyWith(color: kGreyTextColor),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         const SizedBox(height: 20.0),
+                        //         Material(
+                        //           shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(5.0),
+                        //           ),
+                        //           elevation: 10,
+                        //           child: Container(
+                        //             width: MediaQuery.of(context).size.width,
+                        //             decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.circular(5.0),
+                        //               color: Colors.white,
+                        //             ),
+                        //             child: Column(
+                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                        //               children: [
+                        //                 Padding(
+                        //                   padding: const EdgeInsets.all(10.0),
+                        //                   child: Row(
+                        //                     children: [
+                        //                       Row(
+                        //                         children: [
+                        //                           Text(
+                        //                             'subject'.tr + ':',
+                        //                             style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        //                           ),
+                        //                           const SizedBox(width: 5.0),
+                        //                           Text(
+                        //                             '${support.supportList[i].subject ?? ''}'.tr,
+                        //                             style: kTextStyle.copyWith(color: kSecondaryColor),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                       const Spacer(),
+                        //                       Text(
+                        //                         support.supportList[i].date ?? '',
+                        //                         style: kTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.bold),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         Card(
-                          color: kBgColor,
+                          color: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
@@ -148,7 +324,7 @@ class _SupportState extends State<Support> {
                                               const SizedBox(height: 10.0),
                                               Row(
                                                 children: [
-                                                   Icon(MdiIcons.delete, color: kTitleColor, size: 14.0),
+                                                  Icon(MdiIcons.delete, color: kTitleColor, size: 14.0),
                                                   const SizedBox(width: 5.0),
                                                   Text(
                                                     'delete'.tr,
@@ -166,105 +342,58 @@ class _SupportState extends State<Support> {
                                     ),
                                   ],
                                 ),
+                              SizedBox(height: 5,),
                                 Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      'name'.tr + ':*',
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: '',
+                                        style: TextStyle(color: Colors.black),
+                                        children:   <TextSpan>[
+                                          TextSpan(text: support.supportList[i].userName ?? '', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
+                                          TextSpan(text: '   (#${i+1})',style: TextStyle(fontWeight: FontWeight.bold,)),
+                                        ],
+                                      ),
                                     ),
-                                    const Spacer(),
-                                    Text(
-                                      support.supportList[i].userName ?? '',
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                    ),
+                                    Text("${support.supportList[i].date ?? ''}",style: TextStyle(fontWeight: FontWeight.normal,color: Colors.red),)
                                   ],
                                 ),
-                                const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'email'.tr + ':',
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      support.supportList[i].userName ?? 'Not Provided',
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'department'.tr + ':',
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      '${support.supportList[i].department ?? ''}'.tr + ':',
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'service'.tr + ':',
-                                      style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      '${support.supportList[i].service ?? ''}'.tr,
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20.0),
-                                Material(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  elevation: 10,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Row(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'subject'.tr + ':',
-                                                    style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                                  ),
-                                                  const SizedBox(width: 5.0),
-                                                  Text(
-                                                    '${support.supportList[i].subject ?? ''}'.tr,
-                                                    style: kTextStyle.copyWith(color: kSecondaryColor),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                support.supportList[i].date ?? '',
-                                                style: kTextStyle.copyWith(color: kSecondaryColor, fontWeight: FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                SizedBox(height: 5,),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '',
+                                    style: TextStyle(color: Colors.black),
+                                    children:   <TextSpan>[
+                                      TextSpan(text: 'priority'.tr+" : ", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                      TextSpan(text: '${support.supportList[i].priority ?? ''}',style: TextStyle(fontWeight: FontWeight.normal,)),
+                                    ],
                                   ),
                                 ),
+                                SizedBox(height: 5,),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '',
+                                    style: TextStyle(color: Colors.black),
+                                    children:   <TextSpan>[
+                                      TextSpan(text: 'department'.tr+" : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                      TextSpan(text: '${support.supportList[i].department ?? ''}',style: TextStyle(fontWeight: FontWeight.normal,)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '',
+                                    style: TextStyle(color: Colors.black),
+                                    children:   <TextSpan>[
+                                      TextSpan(text: 'Service'.tr+" : ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                      TextSpan(text: '${support.supportList[i].service ?? ''}',style: TextStyle(fontWeight: FontWeight.normal,)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+
                               ],
                             ),
                           ),
@@ -276,6 +405,7 @@ class _SupportState extends State<Support> {
               ):Center(child: Text("No data found!"),),
             );
           }),
+
     );
   }
 }

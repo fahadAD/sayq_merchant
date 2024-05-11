@@ -19,19 +19,19 @@ class SupportEdit extends StatefulWidget {
 }
 
 class _SupportEditState extends State<SupportEdit> {
-  void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null && result.files.single.path != null) {
-      PlatformFile file = result.files.first;
-      print(file.name);
-      print(file.bytes);
-      print(file.size);
-      print(file.extension);
-      print(file.path);
-    }
-    ;
-  }
+  // void _pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null && result.files.single.path != null) {
+  //     PlatformFile file = result.files.first;
+  //     print(file.name);
+  //     print(file.bytes);
+  //     print(file.size);
+  //     print(file.extension);
+  //     print(file.path);
+  //   }
+  //   ;
+  // }
   SupportsController supportsController = SupportsController();
   List<String> selectStatus = [
     'pickup'.tr,
@@ -125,7 +125,22 @@ class _SupportEditState extends State<SupportEdit> {
   TextEditingController emailController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  String imageFile = '';
+  void _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
+    if (result != null && result.files.single.path != null) {
+      PlatformFile imageFiles = result.files.first;
+      imageFile = imageFiles.path!;
+      (context as Element).markNeedsBuild();
+      print(imageFiles.name);
+      print(imageFiles.bytes);
+      print(imageFiles.size);
+      print(imageFiles.extension);
+      print(imageFiles.path);
+    };
+
+  }
   @override
   void initState() {
     nameController.text = widget.supports.userName.toString();
@@ -174,24 +189,24 @@ class _SupportEditState extends State<SupportEdit> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 20.0),
-                  AppTextField(
-                    cursorColor: kTitleColor,
-                    controller: nameController,
-                    textFieldType: TextFieldType.NAME,
-                    decoration: kInputDecoration.copyWith(
-                      enabledBorder:  OutlineInputBorder(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(2.0)),
-                        borderSide: BorderSide(
-                            color: kBorderColorTextField, width: 2),
-                      ),
-                      labelText: 'name'.tr,
-                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                      hintText: 'B H',
-                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                    ),
-                  ),
+                  // const SizedBox(height: 20.0),
+                  // AppTextField(
+                  //   cursorColor: kTitleColor,
+                  //   controller: nameController,
+                  //   textFieldType: TextFieldType.NAME,
+                  //   decoration: kInputDecoration.copyWith(
+                  //     enabledBorder:  OutlineInputBorder(
+                  //       borderRadius:
+                  //       BorderRadius.all(Radius.circular(2.0)),
+                  //       borderSide: BorderSide(
+                  //           color: kBorderColorTextField, width: 2),
+                  //     ),
+                  //     labelText: 'name'.tr,
+                  //     labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                  //     hintText: 'B H',
+                  //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                  //   ),
+                  // ),
                   const SizedBox(height: 20.0),
                   SizedBox(
                     height: 60.0,
@@ -217,22 +232,22 @@ class _SupportEditState extends State<SupportEdit> {
                     ),
                   ),
                   const SizedBox(height: 20.0),
-                  AppTextField(
-                    cursorColor: kTitleColor,
-                    controller: emailController,
-                    textFieldType: TextFieldType.EMAIL,
-                    decoration: kInputDecoration.copyWith(
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(5.0)),
-                        borderSide: BorderSide(
-                            color: kBorderColorTextField, width: 2),
-                      ),
-                      hintText: 'enter_email'.tr,
-                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
+                  // AppTextField(
+                  //   cursorColor: kTitleColor,
+                  //   controller: emailController,
+                  //   textFieldType: TextFieldType.EMAIL,
+                  //   decoration: kInputDecoration.copyWith(
+                  //     enabledBorder: const OutlineInputBorder(
+                  //       borderRadius:
+                  //       BorderRadius.all(Radius.circular(5.0)),
+                  //       borderSide: BorderSide(
+                  //           color: kBorderColorTextField, width: 2),
+                  //     ),
+                  //     hintText: 'enter_email'.tr,
+                  //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20.0),
                   SizedBox(
                     height: 60.0,
                     child: FormField(
@@ -363,7 +378,7 @@ class _SupportEditState extends State<SupportEdit> {
                     }
                     DateTime date = DateTime.now();
                     String dates = '${date.year}-${date.month}-${date.day}';
-                    supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text);
+                    supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text ,imageFile);
                   })
                 ],
               ),

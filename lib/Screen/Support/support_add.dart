@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-
+import 'dart:io';
 import 'support.dart';
 import '../Widgets/constant.dart';
 
@@ -18,19 +18,35 @@ class SupportAdd extends StatefulWidget {
 }
 
 class _SupportAddState extends State<SupportAdd> {
+
+  String imageFile = '';
   void _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null && result.files.single.path != null) {
-      PlatformFile file = result.files.first;
-      print(file.name);
-      print(file.bytes);
-      print(file.size);
-      print(file.extension);
-      print(file.path);
-    }
-    ;
+      PlatformFile imageFiles = result.files.first;
+      imageFile = imageFiles.path!;
+      (context as Element).markNeedsBuild();
+      print(imageFiles.name);
+      print(imageFiles.bytes);
+      print(imageFiles.size);
+      print(imageFiles.extension);
+      print(imageFiles.path);
+    };
   }
+  // void _pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null && result.files.single.path != null) {
+  //     PlatformFile file = result.files.first;
+  //     print(file.name);
+  //     print(file.bytes);
+  //     print(file.size);
+  //     print(file.extension);
+  //     print(file.path);
+  //   }
+  //   ;
+  // }
   SupportsController supportsController = SupportsController();
   List<String> selectStatus = [
     'pickup'.tr,
@@ -125,6 +141,7 @@ class _SupportAddState extends State<SupportAdd> {
   TextEditingController subjectController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,24 +178,24 @@ class _SupportAddState extends State<SupportAdd> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 20.0),
-                    AppTextField(
-                      cursorColor: kTitleColor,
-                      controller: nameController,
-                      textFieldType: TextFieldType.NAME,
-                      decoration: kInputDecoration.copyWith(
-                        enabledBorder:  OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(2.0)),
-                          borderSide: BorderSide(
-                              color: kBorderColorTextField, width: 2),
-                        ),
-                        labelText: 'name'.tr,
-                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                        hintText: 'B H',
-                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                      ),
-                    ),
+                    // const SizedBox(height: 20.0),
+                    // AppTextField(
+                    //   cursorColor: kTitleColor,
+                    //   controller: nameController,
+                    //   textFieldType: TextFieldType.NAME,
+                    //   decoration: kInputDecoration.copyWith(
+                    //     enabledBorder:  OutlineInputBorder(
+                    //       borderRadius:
+                    //       BorderRadius.all(Radius.circular(2.0)),
+                    //       borderSide: BorderSide(
+                    //           color: kBorderColorTextField, width: 2),
+                    //     ),
+                    //     labelText: 'name'.tr,
+                    //     labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                    //     hintText: 'B H',
+                    //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                    //   ),
+                    // ),
                     const SizedBox(height: 20.0),
                     SizedBox(
                       height: 60.0,
@@ -204,22 +221,22 @@ class _SupportAddState extends State<SupportAdd> {
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    AppTextField(
-                      cursorColor: kTitleColor,
-                      controller: emailController,
-                      textFieldType: TextFieldType.EMAIL,
-                      decoration: kInputDecoration.copyWith(
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                              color: kBorderColorTextField, width: 2),
-                        ),
-                        hintText: 'enter_email'.tr,
-                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
+                    // AppTextField(
+                    //   cursorColor: kTitleColor,
+                    //   controller: emailController,
+                    //   textFieldType: TextFieldType.EMAIL,
+                    //   decoration: kInputDecoration.copyWith(
+                    //     enabledBorder: const OutlineInputBorder(
+                    //       borderRadius:
+                    //       BorderRadius.all(Radius.circular(5.0)),
+                    //       borderSide: BorderSide(
+                    //           color: kBorderColorTextField, width: 2),
+                    //     ),
+                    //     hintText: 'enter_email'.tr,
+                    //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 20.0),
                     SizedBox(
                       height: 60.0,
                       child: FormField(
@@ -250,8 +267,7 @@ class _SupportAddState extends State<SupportAdd> {
                         builder: (FormFieldState<dynamic> field) {
                           return InputDecorator(
                             decoration: kInputDecoration.copyWith(
-                              floatingLabelBehavior:
-                              FloatingLabelBehavior.always,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelText: 'department'.tr+'*',
                               hintText: 'select_department'.tr,
                               labelStyle:
@@ -267,6 +283,7 @@ class _SupportAddState extends State<SupportAdd> {
                         },
                       ),
                     ),
+
                     const SizedBox(height: 20.0),
                     AppTextField(
                       cursorColor: kTitleColor,
@@ -285,27 +302,29 @@ class _SupportAddState extends State<SupportAdd> {
                         hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
                       ),
                     ),
+                    // const SizedBox(height: 20.0),
+                    // AppTextField(
+                    //   readOnly: true,
+                    //   onTap: (() => supportsController.pickImage()),
+                    //   cursorColor: kTitleColor,
+                    //   textFieldType: TextFieldType.NAME,
+                    //   decoration: kInputDecoration.copyWith(
+                    //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    //     enabledBorder: const OutlineInputBorder(
+                    //       borderRadius:
+                    //       BorderRadius.all(Radius.circular(5.0)),
+                    //       borderSide: BorderSide(
+                    //           color: kBorderColorTextField, width: 2),
+                    //     ),
+                    //     labelText: 'attached'.tr,
+                    //     labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                    //     hintText: 'no_file_chosen'.tr,
+                    //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                    //
+                    //   ),
+                    // ),
                     const SizedBox(height: 20.0),
-                    AppTextField(
-                      readOnly: true,
-                      onTap: (() => _pickFile()),
-                      cursorColor: kTitleColor,
-                      textFieldType: TextFieldType.NAME,
-                      decoration: kInputDecoration.copyWith(
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(5.0)),
-                          borderSide: BorderSide(
-                              color: kBorderColorTextField, width: 2),
-                        ),
-                        labelText: 'attached'.tr,
-                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                        hintText: 'no_file_chosen'.tr,
-                        hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
+
                     AppTextField(
                       cursorColor: kTitleColor,
                       controller: descriptionController,
@@ -322,6 +341,25 @@ class _SupportAddState extends State<SupportAdd> {
                         labelStyle: kTextStyle.copyWith(color: kTitleColor),
                       ),
                     ),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                      children: [
+                        ElevatedButton(onPressed: () {
+                          _pickFile();
+                        }, child: Row(children: [
+                          Text("Upload Image"),
+                          SizedBox(width: 10,),
+                          Icon(Icons.upload_file_sharp)
+                        ],)),
+
+
+                      ],
+                    ),
+
+
+
                     const SizedBox(height: 20.0),
                     ButtonGlobal(buttontext: 'submit'.tr, buttonDecoration: kButtonDecoration, onPressed: (){
                       int id = 1;
@@ -348,10 +386,12 @@ class _SupportAddState extends State<SupportAdd> {
                           id = 7;
                           break;
                       }
+
                       DateTime date = DateTime.now();
                       String dates = '${date.year}-${date.month}-${date.day}';
-                      supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text);
-                    })
+                      supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text,imageFile);
+                    }),
+                    SizedBox(height: 40,)
                   ],
                 ),
               ),

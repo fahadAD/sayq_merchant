@@ -64,7 +64,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                               children: [
                                 Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
                                 SizedBox(width: 5,),
-                                Icon(Icons.supervised_user_circle,color: Colors.green,)
+                                Icon(Icons.check,color: Colors.green,)
                               ],
                             ),
                             SizedBox(height: 4,),
@@ -78,18 +78,124 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                               children: [
                                 Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
                                 SizedBox(width: 5,),
-                                Icon(Icons.content_cut,color: Colors.red,)
+                                Icon(Icons.clear_rounded,color: Colors.red,)
                               ],
                             ),
                             SizedBox(height: 4,),
                             Text("Cancel"),
 
                           ],),
+
                         ],
                       ),
 
                     ),
+                   ListView.builder(
+                     itemCount: 3,
+                     shrinkWrap: true,
+                     primary: false,
+                     itemBuilder: (BuildContext context, int index) {
+                     return Container(
 
+                       width: double.infinity,
+                       child: Card(
+                         color: Colors.white,
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+                                 top: 12.0,
+
+                               ),
+                               child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   Text("#78677777777",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
+                                   Container(
+                                     height: 40,
+                                     width: 100,
+                                     decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(50),
+                                       color: kMainColor,
+                                     ),
+                                     child: Center(child: Text("Successful",style: TextStyle(color: Colors.white))),
+                                   )
+                                 ],
+                               ),
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+                                 top: 8.0,
+
+                               ),
+                               child: Text("Ninja trading bahrain",style: TextStyle(fontWeight: FontWeight.bold,),),
+                             ),
+                             Divider(
+                               indent: 10,
+                               endIndent: 10,
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+
+
+                               ),
+                               child: Text("Ninja trading bahrain, Building,Main road",),
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+                                 top: 2,
+
+                               ),
+                               child: Text("07-02-2024  04:56 PM",style: TextStyle(fontSize: 12)),
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+                                 top: 8.0,
+
+                               ),
+                               child: Text("Ninja trading bahrain Customer",style: TextStyle(fontWeight: FontWeight.bold,),),
+                             ),
+                             Divider(
+                               indent: 10,
+                               endIndent: 10,
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                 right: 10.0,
+                                 left: 10.0,
+
+
+                               ),
+                               child: Text("Ninja trading bahrain, Building,Main road",),
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                                   top: 2,
+                                   bottom: 10
+                               ),
+                               child: Text("07-02-2024  04:56 PM",style: TextStyle(fontSize: 12)),
+                             ),
+                           ],
+                         ),
+                       ),
+                     );
+                   },
+
+                   )
 
                   ],
                 ),

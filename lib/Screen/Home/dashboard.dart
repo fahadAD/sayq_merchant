@@ -549,7 +549,7 @@ class _DashBoardState extends State<DashBoard> {
       ),
       body:  GetBuilder<DashboardController>(
           init: DashboardController(),
-          builder: (dashboard) =>
+              builder: (dashboard) =>
               SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

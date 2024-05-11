@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../Models/support_list.dart';
 import '/services/api-list.dart';
 import '/services/server.dart';
@@ -17,7 +19,8 @@ class SupportsController extends GetxController {
   @override
   void onInit() {
     getSupport();
-    super.onInit();
+    getSupportsList();
+     super.onInit();
   }
 
   getSupportsList() async {
@@ -80,8 +83,75 @@ class SupportsController extends GetxController {
     });
   }
 
+  // var selectedImage = ''.obs;
+  // var uploadImage = Rx<File?>(null);
+  //
+  // pickImage() async {
+  //   final pickImage = await ImagePicker()
+  //       .pickImage(source: ImageSource.gallery, imageQuality: 50);
+  //   selectedImage.value = pickImage!.path;
+  //   if (selectedImage.value != '') {
+  //     uploadImage.value = File(pickImage.path);
+  //   }
+  // }
 
-  supportPost(String departmentID,service,priority,subject,date,description) {
+  // supportPost(String departmentID,service,priority,subject,date,description, ) async {
+  //   loader = true;
+  //   Future.delayed(Duration(milliseconds: 10), () {
+  //     update();
+  //   });
+  //   Map body = {
+  //     'department_id': departmentID,
+  //     'service': service,
+  //     'priority': priority,
+  //     'subject': subject,
+  //     'date': date,
+  //     'description': description,
+  //     // 'attached_file': uploadImage,
+  //   };
+  //
+  //   String jsonBody = json.encode(body);
+  //   print(jsonBody);
+  //   server
+  //       .postRequestWithToken(endPoint: APIList.supportAdd, body: jsonBody)
+  //       .then((response) {
+  //     final jsonResponse = json.decode(response.body);
+  //     print(jsonResponse);
+  //     if (response != null && response.statusCode == 200) {
+  //       final jsonResponse = json.decode(response.body);
+  //       print(jsonResponse);
+  //       loader = false;
+  //       Future.delayed(Duration(milliseconds: 10), () {
+  //         update();
+  //       });
+  //       getSupportsList();
+  //       Get.back();
+  //       Get.rawSnackbar(
+  //           message: "${jsonResponse['message']}",
+  //           backgroundColor: Colors.green,
+  //           snackPosition: SnackPosition.TOP);
+  //     } else if (response != null && response.statusCode == 422) {
+  //       if (jsonResponse['data']['message']['name'] != null) {
+  //         Get.rawSnackbar(message: jsonResponse['data']['message']['name'].toString());
+  //       } else if (jsonResponse['data']['message']['phone'] != null) {
+  //         Get.rawSnackbar(message: jsonResponse['data']['message']['phone'].toString());
+  //       } else if (jsonResponse['data']['message']['details'] != null) {
+  //         Get.rawSnackbar(message: jsonResponse['data']['message']['details'].toString());
+  //       }
+  //       loader = false;
+  //       Future.delayed(Duration(milliseconds: 10), () {
+  //         update();
+  //       });
+  //     } else {
+  //       loader = false;
+  //       Future.delayed(Duration(milliseconds: 10), () {
+  //         update();
+  //       });
+  //       Get.rawSnackbar(message: 'Please enter valid input');
+  //     }
+  //   });
+  // }
+  supportPost(String departmentID,service,priority,subject,date,description, filepath) async {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -93,11 +163,18 @@ class SupportsController extends GetxController {
       'subject': subject,
       'date': date,
       'description': description,
+
     };
+
     String jsonBody = json.encode(body);
     print(jsonBody);
+    print(filepath);
     server
-        .postRequestWithToken(endPoint: APIList.supportAdd, body: jsonBody)
+        .multipartRequest(
+        filepath: filepath,
+        endPoint: APIList.supportAdd,
+        body: jsonBody,
+    )
         .then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);

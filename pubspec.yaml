@@ -69,6 +69,7 @@ dependencies:
   google_maps_place_picker_mb: ^3.0.0
   permission_handler: ^11.0.1
   dio: ^4.0.6
+  image_picker: ^1.0.4
 
 
 

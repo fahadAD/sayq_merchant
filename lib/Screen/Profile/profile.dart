@@ -12,6 +12,7 @@ import '../../Controllers/profile_controller.dart';
 import '../../utils/image.dart';
 import '../../utils/style.dart';
 import '../Payment/balance_details.dart';
+import '../Support/support.dart';
 import '../Widgets/button_global.dart';
 import '../Widgets/constant.dart';
 import 'package:get/get.dart';
@@ -392,9 +393,9 @@ class _ProfileState extends State<Profile> {
                                      ),
                                      Divider(),
                                      ListTile(
-                                       // onTap: () {
-                                       //   Get.to(()=>EditProfileView());
-                                       // },
+                                       onTap: () {
+                                         Get.to(()=>Support());
+                                       },
                                        leading: Icon(Icons.contact_support_sharp,color: Colors.black),
                                        title: Text("Support",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                                        subtitle: Text("View and post a new support ticket",style: TextStyle(fontSize: 13)),

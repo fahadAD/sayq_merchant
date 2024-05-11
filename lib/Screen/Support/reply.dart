@@ -264,32 +264,32 @@ class _ReplyState extends State<Reply> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              'name'.tr,
-                              style: kTextStyle.copyWith(color: kTitleColor),
-                            ),
-                            const SizedBox(width: 70.0),
-                            Text(
-                              ': ${widget.supports.userName}',
-                              style: kTextStyle.copyWith(color: kTitleColor),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'email'.tr,
-                              style: kTextStyle.copyWith(color: kTitleColor),
-                            ),
-                            const SizedBox(width: 70.0),
-                            Text(
-                              ': ${widget.supports.userEmail}',
-                              style: kTextStyle.copyWith(color: kTitleColor),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       'name'.tr,
+                        //       style: kTextStyle.copyWith(color: kTitleColor),
+                        //     ),
+                        //     const SizedBox(width: 70.0),
+                        //     Text(
+                        //       ': ${widget.supports.userName}',
+                        //       style: kTextStyle.copyWith(color: kTitleColor),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       'email'.tr,
+                        //       style: kTextStyle.copyWith(color: kTitleColor),
+                        //     ),
+                        //     const SizedBox(width: 70.0),
+                        //     Text(
+                        //       ': ${widget.supports.userEmail}',
+                        //       style: kTextStyle.copyWith(color: kTitleColor),
+                        //     ),
+                        //   ],
+                        // ),
                         Row(
                           children: [
                             Text(
