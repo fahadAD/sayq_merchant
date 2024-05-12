@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
 
   static  List<Widget> _widgetOptions = <Widget>[
     DashBoard(),
-    ParcelPage(height: 0.78),
+    ParcelPage(height: 0.90),
     DeliveryChargeList(),
     Profile(),
   ];

@@ -140,11 +140,12 @@ class _ReplyState extends State<Reply> {
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: AppBar(
+
         title: Text(
           'support_chat'.tr,
           style: kTextStyle.copyWith(color: kDarkWhite),
         ),
-        backgroundColor: kBgColor,
+        backgroundColor: kMainColor,
         elevation: 0.0,
         iconTheme: const IconThemeData(color: kDarkWhite),
       ),
@@ -168,10 +169,10 @@ class _ReplyState extends State<Reply> {
                   children: [
                     Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 20.0,
-                          backgroundImage: AssetImage('images/profile.png'),
-                        ),
+                        // const CircleAvatar(
+                        //   radius: 20.0,
+                        //   backgroundImage: AssetImage('images/profile.png'),
+                        // ),
                         const SizedBox(width: 10.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
+
 import '/Controllers/supports_controller.dart';
 import '/Screen/Widgets/button_global.dart';
 import 'package:file_picker/file_picker.dart';
@@ -341,22 +346,54 @@ class _SupportAddState extends State<SupportAdd> {
                         labelStyle: kTextStyle.copyWith(color: kTitleColor),
                       ),
                     ),
-                    const SizedBox(height: 20.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                      children: [
-                        ElevatedButton(onPressed: () {
-                          _pickFile();
-                        }, child: Row(children: [
-                          Text("Upload Image"),
-                          SizedBox(width: 10,),
-                          Icon(Icons.upload_file_sharp)
-                        ],)),
-
-
-                      ],
-                    ),
+                    // const SizedBox(height: 20.0),
+                    //
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //
+                    //   children: [
+                    //     ElevatedButton(
+                    //         onPressed: () {
+                    //       _pickFile();
+                    //     },
+                    //         child: Row(children: [
+                    //       Text("Upload Image"),
+                    //       SizedBox(width: 5,),
+                    //       Icon(Icons.upload_file_sharp)
+                    //     ],)),
+                    //     // SizedBox(
+                    //     //   width: 100.w,
+                    //     //   height: 100.h,
+                    //     //   child: Center(
+                    //     //       child:imageFile == '' ?
+                    //     //       CachedNetworkImage(
+                    //     //         imageUrl:profile.profileUser.image.toString(),
+                    //     //         imageBuilder: (context, imageProvider) =>
+                    //     //             CircleAvatar(
+                    //     //               radius: 50.0,
+                    //     //               backgroundColor: Colors.transparent,
+                    //     //               backgroundImage:imageProvider,
+                    //     //             ),
+                    //     //
+                    //     //         placeholder: (context, url) => Shimmer.fromColors(
+                    //     //           child: CircleAvatar(radius: 50.0),
+                    //     //           baseColor: Colors.grey[300]!,
+                    //     //           highlightColor: Colors.grey[400]!,
+                    //     //         ),
+                    //     //
+                    //     //         errorWidget: (context, url, error) =>
+                    //     //             Icon(CupertinoIcons.person,size: 50,),
+                    //     //       ):
+                    //     //       CircleAvatar(
+                    //     //         radius: 50.0,
+                    //     //         backgroundColor: Colors.transparent,
+                    //     //         backgroundImage:FileImage(File(imageFile.toString())),
+                    //     //       )
+                    //     //   ),
+                    //     // ),
+                    //
+                    //   ],
+                    // ),
 
 
 
@@ -389,7 +426,7 @@ class _SupportAddState extends State<SupportAdd> {
 
                       DateTime date = DateTime.now();
                       String dates = '${date.year}-${date.month}-${date.day}';
-                      supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text,imageFile);
+                      supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text);
                     }),
                     SizedBox(height: 40,)
                   ],

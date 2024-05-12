@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:we_courier_merchant_app/Screen/Support/support.dart';
 import '../Models/support_list.dart';
 import '/services/api-list.dart';
 import '/services/server.dart';
@@ -151,7 +152,8 @@ class SupportsController extends GetxController {
   //     }
   //   });
   // }
-  supportPost(String departmentID,service,priority,subject,date,description, filepath) async {
+
+  supportPost(String departmentID,service,priority,subject,date,description) async {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -163,15 +165,12 @@ class SupportsController extends GetxController {
       'subject': subject,
       'date': date,
       'description': description,
-
     };
 
     String jsonBody = json.encode(body);
     print(jsonBody);
-    print(filepath);
-    server
-        .multipartRequest(
-        filepath: filepath,
+    // print(filepath);
+    server.postRequestWithToken(
         endPoint: APIList.supportAdd,
         body: jsonBody,
     )
@@ -212,6 +211,7 @@ class SupportsController extends GetxController {
       }
     });
   }
+
 
 
 }

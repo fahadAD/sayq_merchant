@@ -313,26 +313,26 @@ class _SupportEditState extends State<SupportEdit> {
                       hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  AppTextField(
-                    readOnly: true,
-                    onTap: (() => _pickFile()),
-                    cursorColor: kTitleColor,
-                    textFieldType: TextFieldType.NAME,
-                    decoration: kInputDecoration.copyWith(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(5.0)),
-                        borderSide: BorderSide(
-                            color: kBorderColorTextField, width: 2),
-                      ),
-                      labelText: 'attached'.tr,
-                      labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                      hintText: 'no_file_chosen'.tr,
-                      hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                    ),
-                  ),
+                  // const SizedBox(height: 20.0),
+                  // AppTextField(
+                  //   readOnly: true,
+                  //   onTap: (() => _pickFile()),
+                  //   cursorColor: kTitleColor,
+                  //   textFieldType: TextFieldType.NAME,
+                  //   decoration: kInputDecoration.copyWith(
+                  //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //     enabledBorder: const OutlineInputBorder(
+                  //       borderRadius:
+                  //       BorderRadius.all(Radius.circular(5.0)),
+                  //       borderSide: BorderSide(
+                  //           color: kBorderColorTextField, width: 2),
+                  //     ),
+                  //     labelText: 'attached'.tr,
+                  //     labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                  //     hintText: 'no_file_chosen'.tr,
+                  //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                  //   ),
+                  // ),
                   const SizedBox(height: 20.0),
                   AppTextField(
                     cursorColor: kTitleColor,
@@ -378,7 +378,7 @@ class _SupportEditState extends State<SupportEdit> {
                     }
                     DateTime date = DateTime.now();
                     String dates = '${date.year}-${date.month}-${date.day}';
-                    supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text ,imageFile);
+                    supportsController.supportPost(id.toString(), status.toLowerCase(), froms.toLowerCase(), subjectController.text, dates, descriptionController.text );
                   })
                 ],
               ),

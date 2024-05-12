@@ -12,6 +12,7 @@ import '../../Controllers/profile_controller.dart';
 import '../../utils/image.dart';
 import '../../utils/style.dart';
 import '../Payment/balance_details.dart';
+import '../Shops/shops.dart';
 import '../Support/support.dart';
 import '../Widgets/button_global.dart';
 import '../Widgets/constant.dart';
@@ -374,7 +375,7 @@ class _ProfileState extends State<Profile> {
                                      Divider(),
                                      ListTile(
                                        onTap: () {
-                                         // Get.to(()=>EditProfileView());
+                                         Get.to(()=>ShopsPage());
                                        },
                                        leading: Icon(Icons.map,color: Colors.black),
                                        title: Text("Business Addresses",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),

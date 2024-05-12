@@ -23,7 +23,7 @@ class Support extends StatefulWidget {
 class _SupportState extends State<Support> {
   // SupportsController supportController = SupportsController();
   SupportsController supportController = Get.put(SupportsController());
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +35,22 @@ class _SupportState extends State<Support> {
           style: kTextStyle.copyWith(color: kDarkWhite),
         ),
         actions: [
+          
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.0), color: kBgColor),
-                child: const Icon(
-                  FeatherIcons.plus,
-                  size: 18.0,
-                  color: kTitleColor,
+                child: Row(
+                  children: [
+                    Text("New Ticket"),
+                    SizedBox(width: 5,),
+                    const Icon(
+                      FeatherIcons.plus,
+                      size: 18.0,
+                      color: kTitleColor,
+                    ),
+                  ],
                 )),
           ).onTap(
             () => const SupportAdd().launch(context),
@@ -351,12 +358,12 @@ class _SupportState extends State<Support> {
                                         text: '',
                                         style: TextStyle(color: Colors.black),
                                         children:   <TextSpan>[
-                                          TextSpan(text: support.supportList[i].userName ?? '', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
+                                          TextSpan(text: support.supportList[i].date ?? '', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17,color: Colors.red)),
                                           TextSpan(text: '   (#${i+1})',style: TextStyle(fontWeight: FontWeight.bold,)),
                                         ],
                                       ),
                                     ),
-                                    Text("${support.supportList[i].date ?? ''}",style: TextStyle(fontWeight: FontWeight.normal,color: Colors.red),)
+                                    Text("${support.supportList[i].userName ?? ''}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17,),)
                                   ],
                                 ),
                                 SizedBox(height: 5,),
@@ -403,6 +410,7 @@ class _SupportState extends State<Support> {
                   );
                 },
               ):Center(child: Text("No data found!"),),
+
             );
           }),
 

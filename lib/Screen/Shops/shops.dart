@@ -103,7 +103,7 @@ class _ShopsState extends State<ShopsPage> {
       appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'shops'.tr,
+          'Addresses'.tr,
           style: kTextStyle.copyWith(
               color: kBgColor, fontWeight: FontWeight.bold, fontSize: 18.0),
         ),
