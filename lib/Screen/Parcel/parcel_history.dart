@@ -48,50 +48,52 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: 70,
-                      width: double.infinity,
+                    // Container(
+                    //   height: 70,
+                    //   width: double.infinity,
+                    //
+                    //   child: Row(
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //     children: [
+                    //
+                    //
+                    //       Column(children: [
+                    //
+                    //         Row(
+                    //           children: [
+                    //             Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
+                    //             SizedBox(width: 5,),
+                    //             Icon(Icons.check,color: Colors.green,)
+                    //           ],
+                    //         ),
+                    //         SizedBox(height: 4,),
+                    //         Text("Successful"),
+                    //
+                    //       ],),
+                    //           Text("|"),
+                    //       Column(children: [
+                    //
+                    //         Row(
+                    //           children: [
+                    //             Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
+                    //             SizedBox(width: 5,),
+                    //             Icon(Icons.clear_rounded,color: Colors.red,)
+                    //           ],
+                    //         ),
+                    //         SizedBox(height: 4,),
+                    //         Text("Cancel"),
+                    //
+                    //       ],),
+                    //
+                    //     ],
+                    //   ),
+                    //
+                    // ),
+                    SizedBox(height: 10,),
 
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-
-                          Column(children: [
-
-                            Row(
-                              children: [
-                                Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
-                                SizedBox(width: 5,),
-                                Icon(Icons.check,color: Colors.green,)
-                              ],
-                            ),
-                            SizedBox(height: 4,),
-                            Text("Successful"),
-
-                          ],),
-                              Text("|"),
-                          Column(children: [
-
-                            Row(
-                              children: [
-                                Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
-                                SizedBox(width: 5,),
-                                Icon(Icons.clear_rounded,color: Colors.red,)
-                              ],
-                            ),
-                            SizedBox(height: 4,),
-                            Text("Cancel"),
-
-                          ],),
-
-                        ],
-                      ),
-
-                    ),
                    ListView.builder(
-                     itemCount: 3,
+                     itemCount: parcel.parcelHistory.length,
                      shrinkWrap: true,
                      primary: false,
                      itemBuilder: (BuildContext context, int index) {
@@ -114,7 +116,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                child: Row(
                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
-                                   Text("#78677777777",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
+                                   Text("#${parcel.parcelHistory[index].trackingId}",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
                                    Container(
                                      height: 40,
                                      width: 100,
@@ -122,7 +124,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                        borderRadius: BorderRadius.circular(50),
                                        color: kMainColor,
                                      ),
-                                     child: Center(child: Text("Successful",style: TextStyle(color: Colors.white))),
+                                     child: Center(child: Text("${parcel.parcelHistory[index].statusName}",style: TextStyle(color: Colors.white))),
                                    )
                                  ],
                                ),
@@ -134,7 +136,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                  top: 8.0,
 
                                ),
-                               child: Text("Ninja trading bahrain",style: TextStyle(fontWeight: FontWeight.bold,),),
+                               child: Text("${parcel.parcelHistory[index].merchantUserName}",style: TextStyle(fontWeight: FontWeight.bold,),),
                              ),
                              Divider(
                                indent: 10,
@@ -147,7 +149,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
 
 
                                ),
-                               child: Text("Ninja trading bahrain, Building,Main road",),
+                               child: Text("${parcel.parcelHistory[index].merchantAddress}",),
                              ),
                              Padding(
                                padding: const EdgeInsets.only(
@@ -156,7 +158,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                  top: 2,
 
                                ),
-                               child: Text("07-02-2024  04:56 PM",style: TextStyle(fontSize: 12)),
+                               child: Text("${parcel.parcelHistory[index].pickupDate}",style: TextStyle(fontSize: 12)),
                              ),
                              Padding(
                                padding: const EdgeInsets.only(
@@ -165,7 +167,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                  top: 8.0,
 
                                ),
-                               child: Text("Ninja trading bahrain Customer",style: TextStyle(fontWeight: FontWeight.bold,),),
+                               child: Text("${parcel.parcelHistory[index].customerName}",style: TextStyle(fontWeight: FontWeight.bold,),),
                              ),
                              Divider(
                                indent: 10,
@@ -178,7 +180,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
 
 
                                ),
-                               child: Text("Ninja trading bahrain, Building,Main road",),
+                               child: Text("${parcel.parcelHistory[index].customerAddress}",),
                              ),
                              Padding(
                                padding: const EdgeInsets.only(
@@ -187,7 +189,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                                    top: 2,
                                    bottom: 10
                                ),
-                               child: Text("07-02-2024  04:56 PM",style: TextStyle(fontSize: 12)),
+                               child: Text("${parcel.parcelHistory[index].deliveryDate}",style: TextStyle(fontSize: 12)),
                              ),
                            ],
                          ),

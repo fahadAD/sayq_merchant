@@ -9,6 +9,7 @@ import '../Payment/AccTransaction/acc_transaction.dart';
 import '../Payment/PaymentRequest/invoice_list.dart';
 import '../Payment/PaymentRequest/payment_request.dart';
 import '../Payment/Statement/date_to_date_statement.dart';
+import '../Payment/Statement/wallet_details.dart';
 import '../Payment/balance_details.dart';
 import '../Payment/payment_acc.dart';
 import '../Support/support.dart';
@@ -737,7 +738,7 @@ class _DashBoardState extends State<DashBoard> {
                                 InkWell(
                                   onTap: () {
                                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => BalanceDetails(),
+                                      builder: (context) => WalletDetails(),
                                     ));
                                   },
                                   child: Container(
@@ -760,14 +761,14 @@ class _DashBoardState extends State<DashBoard> {
                                             style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(height: 10.0),
-                                          balanceController.balanceDetails.availableBalance==0 ||
-                                              balanceController.balanceDetails.availableBalance==null?
+                                          dashboard.balanceDetails.wallet_balance==0 ||
+                                              dashboard.balanceDetails.wallet_balance==null?
                                           Text(
                                             "${Get.find<GlobalController>().currency} 0.00",
                                             style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
                                           ):
                                           Text(
-                                            "${Get.find<GlobalController>().currency}${balanceController.balanceDetails.availableBalance?.toStringAsFixed(2)}",
+                                            "${Get.find<GlobalController>().currency}${dashboard.balanceDetails.wallet_balance}",
                                             style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
                                           ),
 
@@ -779,6 +780,7 @@ class _DashBoardState extends State<DashBoard> {
                                 ),
                               ],
                             ),
+
                             const SizedBox(height: 5),
                             InkWell(
                               onTap: () {

@@ -136,92 +136,113 @@ class _BalanceDetailsState extends State<BalanceDetails> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                          Container(
-                            height: 100,
-                             width: double.infinity,
-                            child: Card(
-                              color: Colors.white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                       SizedBox(width: 20,),
-                                       Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                                       SizedBox(width: 5,),
-                                       Icon(Icons.more_rounded)
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 15.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                      Row(
-                                        children: [
-                                          Icon(Icons.add),
-                                          SizedBox(width: 10,),
-                                          Text("Top-up"),
-
-                                        ],
-                                      ),
-                                      SizedBox(height: 10,),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.account_balance),
-                                          SizedBox(width: 10,),
-                                          Text("Withdraw"),
-
-                                        ],
-                                      ),
-
-                                      ],
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ),
                           SizedBox(height: 10,),
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text("Overdraft Limit",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
                           Container(
                             height: 70,
                             width: double.infinity,
                             child: Card(
                               color: Colors.white,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Row(
                                     children: [
-                                      SizedBox(width: 20,),
-                                      Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-
+                                      Text("Wallet Balance :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
+                                      SizedBox(width: 5,),
+                                      Text("${Get.find<GlobalController>().currency}${balanceController.balanceDetails.wallet_balance}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 15.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.insert_comment),
-                                        SizedBox(width: 10,),
-                                        Text("Request Limit Increase"),
-
-                                      ],
-                                    ),
-                                  ),
-
                                 ],
                               ),
                             ),
                           ),
+                        // Align(
+                        //     alignment: Alignment.topLeft,
+                        //     child: Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
+                        //   Container(
+                        //     height: 100,
+                        //      width: double.infinity,
+                        //     child: Card(
+                        //       color: Colors.white,
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           Row(
+                        //             children: [
+                        //                SizedBox(width: 20,),
+                        //                Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                        //                SizedBox(width: 5,),
+                        //                Icon(Icons.more_rounded)
+                        //             ],
+                        //           ),
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(right: 15.0),
+                        //             child: Column(
+                        //               crossAxisAlignment: CrossAxisAlignment.center,
+                        //               mainAxisAlignment: MainAxisAlignment.center,
+                        //               children: [
+                        //               Row(
+                        //                 children: [
+                        //                   Icon(Icons.add),
+                        //                   SizedBox(width: 10,),
+                        //                   Text("Top-up"),
+                        //
+                        //                 ],
+                        //               ),
+                        //               SizedBox(height: 10,),
+                        //               Row(
+                        //                 children: [
+                        //                   Icon(Icons.account_balance),
+                        //                   SizedBox(width: 10,),
+                        //                   Text("Withdraw"),
+                        //
+                        //                 ],
+                        //               ),
+                        //
+                        //               ],
+                        //             ),
+                        //           ),
+                        //
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   SizedBox(height: 10,),
+                        //   Align(
+                        //       alignment: Alignment.topLeft,
+                        //       child: Text("Overdraft Limit",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
+                        //   Container(
+                        //     height: 70,
+                        //     width: double.infinity,
+                        //     child: Card(
+                        //       color: Colors.white,
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           Row(
+                        //             children: [
+                        //               SizedBox(width: 20,),
+                        //               Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                        //
+                        //             ],
+                        //           ),
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(right: 15.0),
+                        //             child: Row(
+                        //               children: [
+                        //                 Icon(Icons.insert_comment),
+                        //                 SizedBox(width: 10,),
+                        //                 Text("Request Limit Increase"),
+                        //
+                        //               ],
+                        //             ),
+                        //           ),
+                        //
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+
                           SizedBox(height: 20,),
                           Align(
                               alignment: Alignment.topLeft,

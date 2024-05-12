@@ -25,6 +25,7 @@ class ParcelController extends GetxController {
   bool loaderParcel = false;
   bool loaderLogs = true;
   List<Parcels> parcelList = <Parcels>[];
+  List<Parcels> parcelHistory = <Parcels>[];
   List<Shop> shopList = <Shop>[];
   List<Packaging> packagingList = <Packaging>[];
   List<DeliveryCharge> deliveryChargesList = <DeliveryCharge>[];
@@ -111,6 +112,7 @@ class ParcelController extends GetxController {
   void onInit() async{
     getParcel();
     distanceMatrixServiceLatLong();
+    getParcelHistory();
     ///////////////////////
 //     await Geolocator.checkPermission();
 //     await Geolocator.requestPermission();
@@ -155,6 +157,26 @@ class ParcelController extends GetxController {
         var parcelData = ParcelsModel.fromJson(jsonResponse);
         parcelList = <Parcels>[];
         parcelList.addAll(parcelData.data!.parcels!);
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      } else {
+        loader = false;
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      }
+    });
+  }
+  getParcelHistory() {
+    server.getRequest(endPoint: APIList.parcel_history).then((response) {
+      print(json.decode(response.body));
+      if (response != null && response.statusCode == 200) {
+        loader = false;
+        final jsonResponse = json.decode(response.body);
+        var parcelData = ParcelsModel.fromJson(jsonResponse);
+        parcelHistory = <Parcels>[];
+        parcelHistory.addAll(parcelData.data!.parcels!);
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });

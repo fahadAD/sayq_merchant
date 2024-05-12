@@ -49,7 +49,7 @@ class EditProfileView extends GetView {
             },
             child: Icon(Icons.arrow_back,color: Colors.white)),
         title:  Text(
-          'edit_profile'.tr,
+          'Update Information'.tr,
           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w800,color: Colors.white),
         ),
         centerTitle: true,
@@ -73,6 +73,7 @@ class EditProfileView extends GetView {
             children: [
 
               Stack(
+                clipBehavior: Clip.none,
                 children: [
                   SizedBox(
                     width: 100.w,

@@ -266,6 +266,7 @@ class _SupportState extends State<Support> {
                         //     ),
                         //   ),
                         // ),
+
                         Card(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -405,6 +406,7 @@ class _SupportState extends State<Support> {
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   );

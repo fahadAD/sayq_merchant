@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:we_courier_merchant_app/Screen/Profile/terms_&_condtion.dart';
 
 import '../../Controllers/global-controller.dart';
 import '../../Controllers/profile_controller.dart';
@@ -367,7 +368,7 @@ class _ProfileState extends State<Profile> {
                                          Get.to(()=>EditProfileView());
                                        },
                                        leading: Icon(Icons.add_business_sharp,color: Colors.black),
-                                       title: Text("Branch Information",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                       title: Text("Update Information",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                                        subtitle: Text("View and update your branch information",style: TextStyle(fontSize: 13)),
 
 
@@ -385,9 +386,9 @@ class _ProfileState extends State<Profile> {
                                      ),
                                      Divider(),
                                      ListTile(
-                                       // onTap: () {
-                                       //   // Get.to(()=>EditProfileView());
-                                       // },
+                                       onTap: () {
+                                         Get.to(()=>Terms_Condition());
+                                       },
                                        leading: Icon(Icons.sd_card_alert,color: Colors.black),
                                        title: Text("Terms & Condition",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                                        subtitle: Text("Review Terms & Condition",style: TextStyle(fontSize: 13)),

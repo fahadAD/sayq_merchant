@@ -5,6 +5,7 @@ class BalanceDetailsModel {
   double? vatAmount;
   double? codCharge;
   double? availableBalance;
+  double? wallet_balance;
   int? clearableParcels;
 
   BalanceDetailsModel(
@@ -14,7 +15,10 @@ class BalanceDetailsModel {
         this.vatAmount,
         this.codCharge,
         this.availableBalance,
-        this.clearableParcels});
+        this.wallet_balance,
+        this.clearableParcels
+
+      });
 
   BalanceDetailsModel.fromJson(Map<String, dynamic> json) {
 
@@ -24,6 +28,7 @@ class BalanceDetailsModel {
     vatAmount = json['vat_amount']!= null? double.parse(json['vat_amount'].toString())*1.0:0;
     codCharge = json['cod_charge']!= null? double.parse(json['cod_charge'].toString())*1.0:0;
     availableBalance = json['available_balance']!= null? double.parse(json['available_balance'].toString())*1.0:0;
+    wallet_balance = json['wallet_balance']!= null? double.parse(json['wallet_balance'].toString())*1.0:0;
     clearableParcels = json['clearable_parcels']!= null? int.parse(json['clearable_parcels'].toString()):0;
   }
 
@@ -35,6 +40,7 @@ class BalanceDetailsModel {
     data['vat_amount'] = this.vatAmount;
     data['cod_charge'] = this.codCharge;
     data['available_balance'] = this.availableBalance;
+    data['wallet_balance'] = this.wallet_balance;
     data['clearable_parcels'] = this.clearableParcels;
     return data;
   }

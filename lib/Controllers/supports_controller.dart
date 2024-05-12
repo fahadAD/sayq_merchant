@@ -185,6 +185,7 @@ class SupportsController extends GetxController {
           update();
         });
         getSupportsList();
+        supportList.clear();
         Get.back();
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",

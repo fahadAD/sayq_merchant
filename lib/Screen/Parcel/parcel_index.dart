@@ -583,59 +583,59 @@ class _ParcelPageState extends State<ParcelPage> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: 70,
-                      width: double.infinity,
-
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(children: [
-
-                           Row(
-                           children: [
-                             Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
-                             SizedBox(width: 5,),
-                             Icon(Icons.fire_truck,color: Colors.yellow,)
-                           ],
-                         ),
-                         SizedBox(height: 4,),
-                         Text("Ongoing"),
-
-                       ],),
-
-                          Column(children: [
-
-                            Row(
-                              children: [
-                                Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
-                                SizedBox(width: 5,),
-                                Icon(Icons.supervised_user_circle,color: Colors.green,)
-                              ],
-                            ),
-                            SizedBox(height: 4,),
-                            Text("Successful"),
-
-                          ],),
-
-                          Column(children: [
-
-                            Row(
-                              children: [
-                                Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
-                                SizedBox(width: 5,),
-                                Icon(Icons.content_cut,color: Colors.red,)
-                              ],
-                            ),
-                            SizedBox(height: 4,),
-                            Text("Cancel"),
-
-                          ],),
-                        ],
-                      ),
-
-                    ),
+                    // Container(
+                    //   height: 70,
+                    //   width: double.infinity,
+                    //
+                    //   child: Row(
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //     children: [
+                    //       Column(children: [
+                    //
+                    //        Row(
+                    //        children: [
+                    //          Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
+                    //          SizedBox(width: 5,),
+                    //          Icon(Icons.fire_truck,color: Colors.yellow,)
+                    //        ],
+                    //      ),
+                    //      SizedBox(height: 4,),
+                    //      Text("Ongoing"),
+                    //
+                    //    ],),
+                    //
+                    //       Column(children: [
+                    //
+                    //         Row(
+                    //           children: [
+                    //             Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
+                    //             SizedBox(width: 5,),
+                    //             Icon(Icons.supervised_user_circle,color: Colors.green,)
+                    //           ],
+                    //         ),
+                    //         SizedBox(height: 4,),
+                    //         Text("Successful"),
+                    //
+                    //       ],),
+                    //
+                    //       Column(children: [
+                    //
+                    //         Row(
+                    //           children: [
+                    //             Text("0",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 19)),
+                    //             SizedBox(width: 5,),
+                    //             Icon(Icons.content_cut,color: Colors.red,)
+                    //           ],
+                    //         ),
+                    //         SizedBox(height: 4,),
+                    //         Text("Cancel"),
+                    //
+                    //       ],),
+                    //     ],
+                    //   ),
+                    //
+                    // ),
                 SizedBox(
                 height: MediaQuery.of(context).size.height * heightValue,
                 child: SingleChildScrollView(

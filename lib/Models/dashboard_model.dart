@@ -35,8 +35,9 @@ class DashboardModel {
 
 class DataDashboard {
   DataDashboard({
-      int? tParcel, 
-      int? tDelivered, 
+      dynamic wallet_balance,
+      int? tParcel,
+      int? tDelivered,
       int? tReturn, 
       String? tSale, 
       String? tDeliveryFee,
@@ -62,6 +63,7 @@ class DataDashboard {
       List<int>? delivers, 
       List<int>? parDelivers, 
       List<int>? returns,}){
+    _wallet_balance = wallet_balance;
     _tParcel = tParcel;
     _tDelivered = tDelivered;
     _tReturn = tReturn;
@@ -92,6 +94,7 @@ class DataDashboard {
 }
 
   DataDashboard.fromJson(dynamic json) {
+    _wallet_balance = json['wallet_balance'];
     _tParcel = json['t_parcel'];
     _tDelivered = json['t_delivered'];
     _tReturn = json['t_return'];
@@ -120,6 +123,7 @@ class DataDashboard {
     _parDelivers = json['par_delivers'] != null ? json['par_delivers'].cast<int>() : [];
     _returns = json['returns'] != null ? json['returns'].cast<int>() : [];
   }
+  dynamic _wallet_balance;
   int? _tParcel;
   int? _tDelivered;
   int? _tReturn;
@@ -148,6 +152,7 @@ class DataDashboard {
   List<int>? _parDelivers;
   List<int>? _returns;
 
+  int? get wallet_balance => _wallet_balance;
   int? get tParcel => _tParcel;
   int? get tDelivered => _tDelivered;
   int? get tReturn => _tReturn;
@@ -178,6 +183,7 @@ class DataDashboard {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['wallet_balance'] = _wallet_balance;
     map['t_parcel'] = _tParcel;
     map['t_delivered'] = _tDelivered;
     map['t_return'] = _tReturn;

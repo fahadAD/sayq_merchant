@@ -22,6 +22,7 @@ class APIList {
   static String? profileUpdate = "${server!}profile/update";
   static String? passwordUpdate = "${server!}update-password";
   static String? dashboard = "${server!}dashboard";
+  static String? terms_and_condition = "${server!}terms_and_condition";
   static String? deliverycharges = "${server!}settings/delivery-charges";
   static String? codcharges = "${server!}settings/cod-charges";
   static String? fraudList = "${server!}fraud/index";
@@ -34,6 +35,8 @@ class APIList {
   static String? shopUpdate = "${server!}shops/update/";
   static String? shopDelete = "${server!}shops/delete/";
   static String? parcelList = "${server!}parcel/index";
+  static String? parcel_history = "${server!}parcel/history";
+  static String? parcel_completed_delivery = "${server!}parcel/completed/delivery";
   static String? parcelFilter = "${server!}parcel/filter";
   static String? parcelCreate = "${server!}parcel/create";
   static String? parcelDetails = "${server!}parcel/details/";
