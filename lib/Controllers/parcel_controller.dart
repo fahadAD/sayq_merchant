@@ -30,23 +30,28 @@ class ParcelController extends GetxController {
   List<Packaging> packagingList = <Packaging>[];
   List<DeliveryCharge> deliveryChargesList = <DeliveryCharge>[];
   List<DeliveryCategory> deliveryCategoryList = <DeliveryCategory>[];
+  List<GoogleMapsBlock> googleMapsBlockList = <GoogleMapsBlock>[];
 
   late double fragileLiquidAmount = 0;
   late int shopIndex = 0;
   late int packagingIndex = 0;
   late int deliveryChargesIndex = 0;
   late int deliveryCategoryIndex = 0;
+  late dynamic googleMapsBlockIndex = 0;
   Merchant merchantData = Merchant();
   DeliveryCharges deliveryChargesValue = DeliveryCharges();
   DeliveryCategory deliveryCategorysValue = DeliveryCategory();
+  GoogleMapsBlock googleMapsBlockValue = GoogleMapsBlock();
   String pickupPhone = '';
   String pickupAddress = '';
   String customerAddress = '';
   String shopID = '';
+  String pickup_plus_code = '';
   String packagingID = '';
   String packagingPrice = '0';
   String deliveryChargesID = '';
   String deliveryCategoryID = '';
+  String googleMapsBlockIndexID = '';
   String deliveryTypID = 'Same Day';
   String deliveryChargesPrice = '0';
   bool isLiquidChecked = false;
@@ -63,7 +68,8 @@ class ParcelController extends GetxController {
   double netPayable = 0;
   double myData = 0;
   double fragileLiquidAmounts = 0;
-
+  var totalDeliveryAmountLive;
+  var totalDistanceKmLive;
 
 
 
@@ -133,8 +139,6 @@ class ParcelController extends GetxController {
 
     // incrementStoreFollowers(end_Lat, end_Long, customer_Lat, customer_Long);
 
-
-    print("Fahad object${total_delivery_ammount}");
     super.onInit();
   }
 
@@ -240,6 +244,9 @@ class ParcelController extends GetxController {
         deliveryCategoryList = <DeliveryCategory>[];
         deliveryCategoryList.add(DeliveryCategory(id: 0,title: "Select Vehicle Type".tr,));
         deliveryCategoryList.addAll(data.data!.deliveryCategories!);
+        googleMapsBlockList = <GoogleMapsBlock>[];
+        googleMapsBlockList.add(GoogleMapsBlock(id: 0,blockName: "Select Block Number".tr,));
+        googleMapsBlockList.addAll(data.data!.googleMapsBlock!);
 
         // List<DeliveryCategory>? category = data.data?.deliveryCategories;
         //
@@ -250,6 +257,7 @@ class ParcelController extends GetxController {
         if(shopList.isNotEmpty){
           pickupPhone = shopList[shopIndex].contactNo.toString();
           pickupAddress = shopList[shopIndex].address.toString();
+          pickup_plus_code = shopList[shopIndex].google_maps_plus_code.toString();
           shopID = shopList[shopIndex].id.toString();
         }
 
@@ -294,18 +302,18 @@ class ParcelController extends GetxController {
       // 'selling_price': sellingPriceController.text.toString(),
       'selling_price': "",
       'customer_name': customerController.text.toString(),
-      'customer_address': customerAddressController.text.toString(),
+      'customer_address': customerAddress,
       'customer_phone': customerPhoneController.text.toString(),
       'note': noteController.text.toString(),
-      'pickup_lat': end_Lat.value,
-      'pickup_long': end_Long.value,
-      'customer_lat': customer_Lat.value,
-      'customer_long': customer_Long.value,
+      // 'pickup_lat': end_Lat.value,
+      // 'pickup_long': end_Long.value,
+      // 'customer_lat': customer_Lat.value,
+      // 'customer_long': customer_Long.value,
       'delivery_time': delivery_timeController.value.text,
+      'distance_km': totalDistanceKmLive,
       'parcel_bank': isParcelBankCheck ? 'on':'',
       'packaging_id': packagingID == '0'?'':packagingID,
       'fragileLiquid': isLiquidChecked ? 'on':'',
-
     };
 
     String jsonBody = json.encode(body);
@@ -413,67 +421,40 @@ class ParcelController extends GetxController {
   //   }
   // }
 
-  dynamic total_delivery_ammount;
-
   distanceMatrixServiceLatLong() async {
     loaderParcel = true;
-    Future.delayed(Duration(milliseconds: 10), () {
-      update();
-    });
-
     Map body = {
       'category_id': deliveryCategorysValue.id.toString(),
       'delivery_type_id': deliveryTypID == 'Next Day'? 1: deliveryTypID == 'Same Day'?2: deliveryTypID == 'Sub City'?3: deliveryTypID == 'Outside City'?4:'',
-      'pickup_lat': end_Lat.value,
-      'pickup_long': end_Long.value,
-      'customer_lat': customer_Lat.value,
-      'customer_long': customer_Long.value,
+      'pickup_plus_code': pickup_plus_code,
+      'customer_plus_code': customerAddress,
     };
     var jsonBody = json.encode(body);
     // print("jsonBody${jsonBody}");
     server.postRequestWithToken(endPoint: APIList.parcelCreate1, body: jsonBody)
         .then((response) {
-      // print("distanceMatrixServiceLatLong ${response}");
-      // print("distanceMatrixServiceLatLong ${response.statusCode}");
-      // print("distanceMatrixServiceLatLong${response.body}");
-
+      print("Sajib Response============== ${response.body}");
       if (response != null && response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        print("distanceMatrixServiceLatLong notb ${response}");
-        print("distanceMatrixServiceLatLong notb ${response.statusCode}");
-        print("distanceMatrixServiceLatLong notb ${response.body}");
-        print("Sajib ${total_delivery_ammount=(jsonResponse.body['data']['delivery_charge'])}");
+        print("Sajib============== ${response.body}");
+        // print("Delivery charge ${jsonResponse.body['data']['delivery_charge']}");
+        totalDeliveryAmountLive = jsonResponse['data']['delivery_charge'];
+        totalDistanceKmLive = jsonResponse['data']['distance_km'];
+        print("Delivery Charge ${totalDeliveryAmountLive}");
         loaderParcel = false;
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
-
-        // getParcelList();
-        // Get.rawSnackbar(
-        //     message: "${jsonResponse['message']}",
-        //     backgroundColor: Colors.green,
-        //     snackPosition: SnackPosition.TOP);
-
-        return total_delivery_ammount=(jsonResponse.body['data']['delivery_charge']);
-
-      } else if (response != null && response.statusCode == 422) {
-
-        print("distanceMatrixServiceLatLong notb ${response}");
-        print("distanceMatrixServiceLatLong notb ${response.statusCode}");
-        print("distanceMatrixServiceLatLong notb ${response.body}");
+        // return jsonResponse.body['data']['delivery_charge'];
+        return totalDeliveryAmountLive;
+      } else {
         loaderParcel = false;
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
-
-      }
-
-      else {
-        loaderParcel = false;
-        Future.delayed(Duration(milliseconds: 10), () {
-          update();
-        });
-
+        totalDeliveryAmountLive = 0;
+        totalDistanceKmLive = 0;
+        return totalDeliveryAmountLive;
       }
     });
   }
@@ -509,7 +490,11 @@ class ParcelController extends GetxController {
           deliveryChargeAmount = 0;
           merchantCodCharge = 0;
       }
-
+      print("Hello Sajib");
+      // deliveryChargeAmount += double.parse(total_delivery_ammount.toString());
+      // deliveryChargeAmount += double.tryParse(totalDeliveryAmountLive.toString())??0.0;
+      deliveryChargeAmount += totalDeliveryAmountLive;
+      // print("Hello Sajib${deliveryChargeAmount += total_delivery_ammount!}");
 
        packagingAmount = double.parse(packagingPrice.toString());
        totalCashCollection          =  double.parse(cashCollectionController.text.toString());
@@ -531,7 +516,7 @@ class ParcelController extends GetxController {
       // print("perKilometerRate==${perKilometerRate} ");
       // print("distance*perKilometerRate==${storeFollowerCount!*(perKilometerRate)}");
 
-       print('packagingAmount==> '+ '${total_delivery_ammount}');
+       print('totalDeliveryAmountLive==> '+ '${totalDeliveryAmountLive}');
        print('packagingAmount==> '+ '${packagingAmount}');
        print('deliveryChargeAmount==> '+ '${deliveryChargeAmount}');
        print('totalDeliveryChargeAmount==> '+ '${totalDeliveryChargeAmount}');

@@ -787,6 +787,9 @@ class _CreateParcelState extends State<CreateParcel> {
                                                            parcel.shopID = newValue.id.toString();
                                                            parcel.pickupAddress = newValue.address.toString();
                                                            parcel.pickupPhone = newValue.contactNo.toString();
+                                                           parcel.pickup_plus_code = newValue.google_maps_plus_code.toString();
+                                                           // parcel.end_Lat = newValue.merchantLat;
+                                                           // parcel.end_Long = newValue.merchantLong;
                                                          });
                                                        },
                                                      ),
@@ -888,11 +891,11 @@ class _CreateParcelState extends State<CreateParcel> {
                                                labelStyle: kTextStyle.copyWith(color: kTitleColor),
                                                hintText: 'enter_address'.tr,
                                                hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                               suffixIcon: InkWell(
-                                                   onTap: () {
-                                                     Get.to(PickupMapsScreen());
-                                                   },
-                                                   child: Icon(Icons.location_on))
+                                               // suffixIcon: InkWell(
+                                               //     onTap: () {
+                                               //       Get.to(PickupMapsScreen());
+                                               //     },
+                                               //     child: Icon(Icons.location_on))
                                            ),
                                          ),
                                        ),
@@ -983,44 +986,44 @@ class _CreateParcelState extends State<CreateParcel> {
                                             //     ),
                                             //   ],
                                             // ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                              child: AppTextField(
+                                            // Padding(
+                                            //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                            //   child: AppTextField(
+                                            //
+                                            //     onChanged: (value) {
+                                            //       setState(() {
+                                            //         parcel.customerAddress = parcel.customerAddressController.text;
+                                            //       });
+                                            //     },
+                                            //     // controller: parcel.pickupAddressController,
+                                            //     controller: parcel.customerAddressController..text = parcel.customerAddress.toString()..selection = TextSelection.collapsed(offset: parcel.customerAddressController.text.length),
+                                            //     validator: (value) {
+                                            //       if (parcel.customerAddressController.text.isEmpty) {
+                                            //         return "this_field_can_t_be_empty".tr;
+                                            //       }
+                                            //       return null;
+                                            //     },
+                                            //     cursorColor: kTitleColor,
+                                            //     textFieldType: TextFieldType.NAME,
+                                            //     decoration: kInputDecoration.copyWith(
+                                            //         enabledBorder: const OutlineInputBorder(
+                                            //           borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                                            //           borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                            //         ),
+                                            //         labelText: 'Customer Address'.tr,
+                                            //         labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                            //         hintText: 'enter_address'.tr,
+                                            //         hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                            //         suffixIcon: InkWell(
+                                            //             onTap: () {
+                                            //               Get.to(CustomerMapsScreen());
+                                            //             },
+                                            //             child: Icon(Icons.location_on))
+                                            //     ),
+                                            //   ),
+                                            // ),
 
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    parcel.customerAddress = parcel.customerAddressController.text;
-                                                  });
-                                                },
-                                                // controller: parcel.pickupAddressController,
-                                                controller: parcel.customerAddressController..text = parcel.customerAddress.toString()..selection = TextSelection.collapsed(offset: parcel.customerAddressController.text.length),
-                                                validator: (value) {
-                                                  if (parcel.customerAddressController.text.isEmpty) {
-                                                    return "this_field_can_t_be_empty".tr;
-                                                  }
-                                                  return null;
-                                                },
-                                                cursorColor: kTitleColor,
-                                                textFieldType: TextFieldType.NAME,
-                                                decoration: kInputDecoration.copyWith(
-                                                    enabledBorder: const OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                                                      borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-                                                    ),
-                                                    labelText: 'Customer Address'.tr,
-                                                    labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                    hintText: 'enter_address'.tr,
-                                                    hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                    suffixIcon: InkWell(
-                                                        onTap: () {
-                                                          Get.to(CustomerMapsScreen());
-                                                        },
-                                                        child: Icon(Icons.location_on))
-                                                ),
-                                              ),
-                                            ),
-
-                                            const SizedBox(height: 20.0),
+                                            // const SizedBox(height: 20.0),
                                           ],
                                         ),
                                       ),
@@ -1160,6 +1163,10 @@ class _CreateParcelState extends State<CreateParcel> {
                                                                                               ),
                                                 ),
 
+                                            const SizedBox(height: 20.0),
+
+
+
                                             // parcel.deliveryChargesList.isEmpty
                                             //     ? SizedBox()
                                             //     : SizedBox(
@@ -1207,7 +1214,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                             //   ),
                                             // ),
 
-                                            const SizedBox(height: 20.0),
+                                            // const SizedBox(height: 20.0),
 
                                             Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -1271,6 +1278,58 @@ class _CreateParcelState extends State<CreateParcel> {
                                               ),
                                             ),
                                             const SizedBox(height: 20.0),
+                                            parcel.googleMapsBlockList.isEmpty
+                                                ? SizedBox()
+                                                : Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                              child: SizedBox(
+                                                height: 60.0,
+                                                child: FormField(
+                                                  builder: (FormFieldState<dynamic> field) {
+                                                    return InputDecorator(
+                                                      
+                                                      decoration: kInputDecoration.copyWith(
+                                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                        labelText: 'Block'.tr + '*',
+                                                        hintText: 'Select Block Number'.tr,
+                                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                        ),
+                                                      ),
+                                                      child: DropdownButtonHideUnderline(
+                                                        
+                                                        child: DropdownButton<GoogleMapsBlock>(
+
+                                                          value: parcel.googleMapsBlockIndex.toString() == 'null' ? null : parcel.googleMapsBlockList[parcel.googleMapsBlockIndex],
+                                                          items: parcel.googleMapsBlockList.map((GoogleMapsBlock value) {
+                                                            return new DropdownMenuItem<GoogleMapsBlock>(
+                                                              value: value,
+                                                              child: value.id == 0
+                                                                  ? Text("${value.blockName.toString()}")
+                                                                  : value.blockName == ''
+                                                                  ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                                                                  : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (newValue) {
+                                                            setState(() {
+                                                              parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
+                                                              parcel.customerAddress = newValue.googleMapsPlusCode.toString();
+                                                              // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
+                                                              // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
+                                                              parcel.distanceMatrixServiceLatLong();
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20.0),
+
                                           ],
                                         ),
                                       ),
@@ -1366,13 +1425,13 @@ class _CreateParcelState extends State<CreateParcel> {
                                     //           },
                                     //         ),
                                     //       ),
+                                    const SizedBox(height: 20.0),
 
-
-                                    DropDownSearch(
-                                        title: "search fahad",
-                                        textController: parcelController.customerAddressController,
-                                        items: deliveryType,
-                                    ),
+                                    // DropDownSearch(
+                                    //     title: "search fahad",
+                                    //     textController: parcelController.customerAddressController,
+                                    //     items: deliveryType,
+                                    // ),
 
                                     const SizedBox(height: 20.0),
                                     ButtonGlobal(
@@ -1385,7 +1444,6 @@ class _CreateParcelState extends State<CreateParcel> {
                                             if (_formKey.currentState!.validate()) {
                                               if (parcel.deliveryCategoryID != '' || parcel.deliveryTypID != '') {
                                                 parcel.calculateTotal(context);
-                                                parcel.distanceMatrixServiceLatLong();
                                               }
 
                                               else if (parcel.deliveryCategoryID == '') {

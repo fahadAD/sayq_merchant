@@ -36,6 +36,7 @@ class Data {
   Merchant? merchant;
   List<Shop>? shops;
   List<DeliveryCategory>? deliveryCategories;
+  List<GoogleMapsBlock>? googleMapsBlock;
   List<DeliveryCharge>? deliveryCharges;
   List<CodCharge>? codCharges;
   List<Packaging>? packagings;
@@ -46,6 +47,7 @@ class Data {
     this.merchant,
     this.shops,
     this.deliveryCategories,
+    this.googleMapsBlock,
     this.deliveryCharges,
     this.codCharges,
     this.packagings,
@@ -57,6 +59,7 @@ class Data {
     merchant: Merchant.fromJson(json["merchant"]),
     shops: List<Shop>.from(json["shops"].map((x) => Shop.fromJson(x))),
     deliveryCategories: List<DeliveryCategory>.from(json["deliveryCategories"].map((x) => DeliveryCategory.fromJson(x))),
+    googleMapsBlock: List<GoogleMapsBlock>.from(json["googleMapsBlock"].map((x) => GoogleMapsBlock.fromJson(x))),
     deliveryCharges: List<DeliveryCharge>.from(json["deliveryCharges"].map((x) => DeliveryCharge.fromJson(x))),
     codCharges: List<CodCharge>.from(json["codCharges"].map((x) => CodCharge.fromJson(x))),
     packagings: List<Packaging>.from(json["packagings"].map((x) => Packaging.fromJson(x))),
@@ -68,6 +71,7 @@ class Data {
     "merchant": merchant!.toJson(),
     "shops": List<dynamic>.from(shops!.map((x) => x.toJson())),
     "deliveryCategories": List<dynamic>.from(deliveryCategories!.map((x) => x.toJson())),
+    "googleMapsBlock": List<dynamic>.from(googleMapsBlock!.map((x) => x.toJson())),
     "deliveryCharges": List<dynamic>.from(deliveryCharges!.map((x) => x.toJson())),
     "codCharges": List<dynamic>.from(codCharges!.map((x) => x.toJson())),
     "packagings": List<dynamic>.from(packagings!.map((x) => x.toJson())),
@@ -142,6 +146,55 @@ class DeliveryCategory {
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
   };
+}
+
+class GoogleMapsBlock {
+  int? id;
+  String? blockName;
+  int? blockNumber;
+  String? googleMapsPlusCode;
+  dynamic latitude;
+  dynamic longitude;
+  int? position;
+  String? createdAt;
+  String? updatedAt;
+
+  GoogleMapsBlock(
+      {this.id,
+        this.blockName,
+        this.blockNumber,
+        this.googleMapsPlusCode,
+        this.latitude,
+        this.longitude,
+        this.position,
+        this.createdAt,
+        this.updatedAt});
+
+  GoogleMapsBlock.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    blockName = json['block_name'];
+    blockNumber = json['block_number'];
+    googleMapsPlusCode = json['google_maps_plus_code'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    position = json['position'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['block_name'] = this.blockName;
+    data['block_number'] = this.blockNumber;
+    data['google_maps_plus_code'] = this.googleMapsPlusCode;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['position'] = this.position;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
 }
 
 class DeliveryCharge {
@@ -420,6 +473,7 @@ class Shop {
   String? address;
   dynamic merchantLat;
   dynamic merchantLong;
+  dynamic google_maps_plus_code;
   int? status;
   int? defaultShop;
   DateTime? createdAt;
@@ -433,6 +487,7 @@ class Shop {
     this.address,
     this.merchantLat,
     this.merchantLong,
+    this.google_maps_plus_code,
     this.status,
     this.defaultShop,
     this.createdAt,
@@ -447,6 +502,7 @@ class Shop {
     address: json["address"],
     merchantLat: json["merchant_lat"],
     merchantLong: json["merchant_long"],
+    google_maps_plus_code: json["google_maps_plus_code"],
     status: json["status"],
     defaultShop: json["default_shop"],
     createdAt: DateTime.parse(json["created_at"]),
@@ -461,6 +517,7 @@ class Shop {
     "address": address,
     "merchant_lat": merchantLat,
     "merchant_long": merchantLong,
+    "google_maps_plus_code": google_maps_plus_code,
     "status": status,
     "default_shop": defaultShop,
     "created_at": createdAt!.toIso8601String(),

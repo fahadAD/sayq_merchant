@@ -150,6 +150,7 @@ class Server {
     Map<String, String> headers = new Map<String, String>();
     headers['Authorization'] = bearerToken!;
     headers['apiKey'] = APIList.apiCheckKey!;
+    headers['Accept'] = 'application/json';
     headers['content-type'] = 'application/json';
     return headers;
   }
