@@ -1,3 +1,5 @@
+import '../../Models/parcel_crate_model.dart';
+import '../../Models/shop_model.dart';
 import '/Screen/Widgets/button_global.dart';
 import '/Screen/Widgets/constant.dart';
 import 'package:flutter/material.dart';
@@ -179,6 +181,57 @@ class _CreateShopsState extends State<CreateShops> {
                         },
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    // shop.googleMapsBlockList.isEmpty
+                    //     ? SizedBox()
+                    //     :
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    //   child: SizedBox(
+                    //     height: 60.0,
+                    //     child: FormField(
+                    //       builder: (FormFieldState<dynamic> field) {
+                    //         return InputDecorator(
+                    //
+                    //           decoration: kInputDecoration.copyWith(
+                    //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                    //             labelText: 'Block'.tr + '*',
+                    //             hintText: 'Select Block Number'.tr,
+                    //             labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                    //             border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(5.0),
+                    //             ),
+                    //           ),
+                    //           child: DropdownButtonHideUnderline(
+                    //
+                    //             child: DropdownButton<ShopsData>(
+                    //
+                    //               value: shop.googleMapsBlockIndex.toString() == 'null' ? null : shop.googleMapsBlockList[shop.googleMapsBlockIndex],
+                    //               items: shop.googleMapsBlockList.map((ShopsData value) {
+                    //                 return new DropdownMenuItem<ShopsData>(
+                    //                   value: value,
+                    //                   child: value.id == 0
+                    //                       ? Text("${value.blockName.toString()}")
+                    //                       : value.blockName == ''
+                    //                       ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                    //                       : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                    //                 );
+                    //               }).toList(),
+                    //               onChanged: (newValue) {
+                    //                 setState(() {
+                    //                   shop.googleMapsBlockIndex = shop.googleMapsBlockList.indexOf(newValue!);
+                    //                   shop.deliveryCategoryID = newValue.googleMapsPlusCode.toString();
+                    //                   shop.deliveryCategorysValue = newValue;
+                    //
+                    //                 });
+                    //               },
+                    //             ),
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(height: 30.0),
                    ButtonGlobal(buttontext: 'submit'.tr, buttonDecoration: kButtonDecoration, onPressed: () {
                      if (_formKey.currentState!.validate()) {

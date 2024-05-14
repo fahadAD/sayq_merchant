@@ -1140,11 +1140,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                                             return new DropdownMenuItem<DeliveryCategory>(
 
                                                               value: value,
-                                                              child: value.id == 0
-                                                                  ? Text(value.title.toString())
-                                                                  : value.title == '0'
-                                                                  ? Text(value.title.toString())
-                                                                  : Text(value.title.toString() ),
+                                                              child:  Text(value.title.toString() ),
                                                               // + ' (${value.weight.toString()})'
                                                             );
                                                           }).toList(),

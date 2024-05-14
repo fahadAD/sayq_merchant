@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../Models/parcel_crate_model.dart';
 import '../Models/shop_model.dart';
 import '/services/api-list.dart';
 import '/services/server.dart';
@@ -11,6 +12,16 @@ class ShopController extends GetxController {
   Server server = Server();
   bool loader = true;
   List<ShopsData> shopList = <ShopsData>[];
+  // List<GoogleMapsBlock> googleMapsBlockList = <GoogleMapsBlock>[];
+  // GoogleMapsBlock deliveryCategorysValue = GoogleMapsBlock();
+  // late dynamic googleMapsBlockIndex = 0;
+
+  List<ShopsData> googleMapsBlockList = <ShopsData>[];
+  ShopsData deliveryCategorysValue = ShopsData();
+  late dynamic googleMapsBlockIndex = 0;
+
+
+  String deliveryCategoryID = '';
   TextEditingController addressController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -36,6 +47,11 @@ class ShopController extends GetxController {
     getShop();
   }
 
+
+
+
+
+
   getShop() {
     server.getRequest(endPoint: APIList.shopList).then((response) {
       if (response != null && response.statusCode == 200) {
@@ -44,6 +60,10 @@ class ShopController extends GetxController {
         var shopData = ShopModel.fromJson(jsonResponse);
         shopList = <ShopsData>[];
         shopList.addAll(shopData.data!.shops!);
+        // googleMapsBlockList = <GoogleMapsBlock>[];
+        // googleMapsBlockList.add(GoogleMapsBlock());
+        // googleMapsBlockList.add(shopData.data);
+
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
@@ -56,6 +76,8 @@ class ShopController extends GetxController {
     });
   }
 
+
+
   shopPost(status) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
@@ -65,6 +87,7 @@ class ShopController extends GetxController {
       'name': nameController.text,
       'address': addressController.text,
       'contact_no': phoneController.text,
+      'google_maps_plus_code': deliveryCategoryID,
       'status': status == 'Active' ? '1':'0',
     };
     String jsonBody = json.encode(body);
@@ -76,6 +99,9 @@ class ShopController extends GetxController {
       print(jsonResponse);
       if (response != null && response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
+
+
+
         addressController.clear();
         nameController.clear();
         phoneController.clear();
@@ -83,8 +109,10 @@ class ShopController extends GetxController {
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
+
         getShopList();
         Get.back();
+
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",
             backgroundColor: Colors.green,

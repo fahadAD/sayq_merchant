@@ -219,6 +219,7 @@ class ParcelController extends GetxController {
     });
   }
 
+
   var catagoryList = <DeliveryCategory>[].obs;
   crateParcel() {
     server.getRequest(endPoint: APIList.parcelCreate).then((response) {
