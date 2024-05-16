@@ -130,207 +130,208 @@ class _BalanceDetailsState extends State<BalanceDetails> {
                             CreatePaymentRequest(balanceDetails: balanceController.balanceDetails,).launch(context);
                           }),
 
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10,),
-                          Container(
-                            height: 70,
-                            width: double.infinity,
-                            child: Card(
-                              color: Colors.white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text("Wallet Balance :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
-                                      SizedBox(width: 5,),
-                                      Text("${Get.find<GlobalController>().currency}${balanceController.balanceDetails.wallet_balance}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        // Align(
-                        //     alignment: Alignment.topLeft,
-                        //     child: Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                        //   Container(
-                        //     height: 100,
-                        //      width: double.infinity,
-                        //     child: Card(
-                        //       color: Colors.white,
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //         children: [
-                        //           Row(
-                        //             children: [
-                        //                SizedBox(width: 20,),
-                        //                Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                        //                SizedBox(width: 5,),
-                        //                Icon(Icons.more_rounded)
-                        //             ],
-                        //           ),
-                        //           Padding(
-                        //             padding: const EdgeInsets.only(right: 15.0),
-                        //             child: Column(
-                        //               crossAxisAlignment: CrossAxisAlignment.center,
-                        //               mainAxisAlignment: MainAxisAlignment.center,
-                        //               children: [
-                        //               Row(
-                        //                 children: [
-                        //                   Icon(Icons.add),
-                        //                   SizedBox(width: 10,),
-                        //                   Text("Top-up"),
-                        //
-                        //                 ],
-                        //               ),
-                        //               SizedBox(height: 10,),
-                        //               Row(
-                        //                 children: [
-                        //                   Icon(Icons.account_balance),
-                        //                   SizedBox(width: 10,),
-                        //                   Text("Withdraw"),
-                        //
-                        //                 ],
-                        //               ),
-                        //
-                        //               ],
-                        //             ),
-                        //           ),
-                        //
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        //   SizedBox(height: 10,),
-                        //   Align(
-                        //       alignment: Alignment.topLeft,
-                        //       child: Text("Overdraft Limit",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                        //   Container(
-                        //     height: 70,
-                        //     width: double.infinity,
-                        //     child: Card(
-                        //       color: Colors.white,
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //         children: [
-                        //           Row(
-                        //             children: [
-                        //               SizedBox(width: 20,),
-                        //               Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                        //
-                        //             ],
-                        //           ),
-                        //           Padding(
-                        //             padding: const EdgeInsets.only(right: 15.0),
-                        //             child: Row(
-                        //               children: [
-                        //                 Icon(Icons.insert_comment),
-                        //                 SizedBox(width: 10,),
-                        //                 Text("Request Limit Increase"),
-                        //
-                        //               ],
-                        //             ),
-                        //           ),
-                        //
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       SizedBox(height: 10,),
+                    //       Container(
+                    //         height: 70,
+                    //         width: double.infinity,
+                    //         child: Card(
+                    //           color: Colors.white,
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //             children: [
+                    //               Row(
+                    //                 children: [
+                    //                   Text("Wallet Balance :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
+                    //                   SizedBox(width: 5,),
+                    //                   Text("${Get.find<GlobalController>().currency}${balanceController.balanceDetails.wallet_balance}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     // Align(
+                    //     //     alignment: Alignment.topLeft,
+                    //     //     child: Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
+                    //     //   Container(
+                    //     //     height: 100,
+                    //     //      width: double.infinity,
+                    //     //     child: Card(
+                    //     //       color: Colors.white,
+                    //     //       child: Row(
+                    //     //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     //         children: [
+                    //     //           Row(
+                    //     //             children: [
+                    //     //                SizedBox(width: 20,),
+                    //     //                Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                    //     //                SizedBox(width: 5,),
+                    //     //                Icon(Icons.more_rounded)
+                    //     //             ],
+                    //     //           ),
+                    //     //           Padding(
+                    //     //             padding: const EdgeInsets.only(right: 15.0),
+                    //     //             child: Column(
+                    //     //               crossAxisAlignment: CrossAxisAlignment.center,
+                    //     //               mainAxisAlignment: MainAxisAlignment.center,
+                    //     //               children: [
+                    //     //               Row(
+                    //     //                 children: [
+                    //     //                   Icon(Icons.add),
+                    //     //                   SizedBox(width: 10,),
+                    //     //                   Text("Top-up"),
+                    //     //
+                    //     //                 ],
+                    //     //               ),
+                    //     //               SizedBox(height: 10,),
+                    //     //               Row(
+                    //     //                 children: [
+                    //     //                   Icon(Icons.account_balance),
+                    //     //                   SizedBox(width: 10,),
+                    //     //                   Text("Withdraw"),
+                    //     //
+                    //     //                 ],
+                    //     //               ),
+                    //     //
+                    //     //               ],
+                    //     //             ),
+                    //     //           ),
+                    //     //
+                    //     //         ],
+                    //     //       ),
+                    //     //     ),
+                    //     //   ),
+                    //     //   SizedBox(height: 10,),
+                    //     //   Align(
+                    //     //       alignment: Alignment.topLeft,
+                    //     //       child: Text("Overdraft Limit",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
+                    //     //   Container(
+                    //     //     height: 70,
+                    //     //     width: double.infinity,
+                    //     //     child: Card(
+                    //     //       color: Colors.white,
+                    //     //       child: Row(
+                    //     //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     //         children: [
+                    //     //           Row(
+                    //     //             children: [
+                    //     //               SizedBox(width: 20,),
+                    //     //               Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                    //     //
+                    //     //             ],
+                    //     //           ),
+                    //     //           Padding(
+                    //     //             padding: const EdgeInsets.only(right: 15.0),
+                    //     //             child: Row(
+                    //     //               children: [
+                    //     //                 Icon(Icons.insert_comment),
+                    //     //                 SizedBox(width: 10,),
+                    //     //                 Text("Request Limit Increase"),
+                    //     //
+                    //     //               ],
+                    //     //             ),
+                    //     //           ),
+                    //     //
+                    //     //         ],
+                    //     //       ),
+                    //     //     ),
+                    //     //   ),
+                    //
+                    //       SizedBox(height: 20,),
+                    //       Align(
+                    //           alignment: Alignment.topLeft,
+                    //           child: Text("Transaction",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
+                    //       SizedBox(height: 10,),
+                    //       Container(
+                    //
+                    //         width: double.infinity,
+                    //         child: Card(
+                    //           color: Colors.white,
+                    //           child:   ListView.builder(
+                    //             itemCount: 4,
+                    //             primary: false,
+                    //             shrinkWrap: true,
+                    //             itemBuilder: (BuildContext context, int index) {
+                    //             return Column(
+                    //
+                    //               children: [
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
+                    //                   child: Row(
+                    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //                     children: [
+                    //                       RichText(
+                    //                         text: TextSpan(
+                    //                           text: '',
+                    //                           style: TextStyle(color: Colors.black),
+                    //                           children: const <TextSpan>[
+                    //                             TextSpan(text: '#7868768787', style: TextStyle(fontWeight: FontWeight.w600,)),
+                    //                             TextSpan(text: '  Delivery Charge', style: TextStyle(fontWeight: FontWeight.w600)),
+                    //                           ],
+                    //                         ),
+                    //                       ),
+                    //
+                    //                       Text("Success",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.red),)
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
+                    //                   child: Row(
+                    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //                     children: [
+                    //                       RichText(
+                    //                         text: TextSpan(
+                    //                           text: '',
+                    //                           style: TextStyle(color: Colors.black),
+                    //                           children: const <TextSpan>[
+                    //                             TextSpan(text: '07-05-2024', style: TextStyle(fontWeight: FontWeight.normal,)),
+                    //                             TextSpan(text: ' | 07:06 PM', style: TextStyle(fontWeight: FontWeight.normal)),
+                    //                           ],
+                    //                         ),
+                    //                       ),
+                    //
+                    //                       Text("-90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.symmetric(horizontal: 12.0,),
+                    //                   child: Row(
+                    //                     mainAxisAlignment: MainAxisAlignment.start,
+                    //                     children: [
+                    //                       RichText(
+                    //                         text: TextSpan(
+                    //                           text: 'Task ',
+                    //                           style: TextStyle(color: Colors.black,fontSize: 14),
+                    //                           children: const <TextSpan>[
+                    //                             TextSpan(text: '5657657786 ', style: TextStyle(fontWeight: FontWeight.normal,)),
+                    //                             TextSpan(text: 'Charges', style: TextStyle(fontWeight: FontWeight.normal)),
+                    //                           ],
+                    //                         ),
+                    //                       ),
+                    //
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 Divider(),
+                    //                 SizedBox(height: 5,)
+                    //               ],);
+                    //           },
+                    //
+                    //           ),
+                    //         ),
+                    //       ),
+                    //
+                    //   ],),
+                    // )
 
-                          SizedBox(height: 20,),
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text("Transaction",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                          SizedBox(height: 10,),
-                          Container(
-
-                            width: double.infinity,
-                            child: Card(
-                              color: Colors.white,
-                              child:   ListView.builder(
-                                itemCount: 4,
-                                primary: false,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                return Column(
-
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: '',
-                                              style: TextStyle(color: Colors.black),
-                                              children: const <TextSpan>[
-                                                TextSpan(text: '#7868768787', style: TextStyle(fontWeight: FontWeight.w600,)),
-                                                TextSpan(text: '  Delivery Charge', style: TextStyle(fontWeight: FontWeight.w600)),
-                                              ],
-                                            ),
-                                          ),
-
-                                          Text("Success",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.red),)
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: '',
-                                              style: TextStyle(color: Colors.black),
-                                              children: const <TextSpan>[
-                                                TextSpan(text: '07-05-2024', style: TextStyle(fontWeight: FontWeight.normal,)),
-                                                TextSpan(text: ' | 07:06 PM', style: TextStyle(fontWeight: FontWeight.normal)),
-                                              ],
-                                            ),
-                                          ),
-
-                                          Text("-90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0,),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: 'Task ',
-                                              style: TextStyle(color: Colors.black,fontSize: 14),
-                                              children: const <TextSpan>[
-                                                TextSpan(text: '5657657786 ', style: TextStyle(fontWeight: FontWeight.normal,)),
-                                                TextSpan(text: 'Charges', style: TextStyle(fontWeight: FontWeight.normal)),
-                                              ],
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                    Divider(),
-                                    SizedBox(height: 5,)
-                                  ],);
-                              },
-
-                              ),
-                            ),
-                          ),
-
-                      ],),
-                    )
                     ],
                   ),
                 ),

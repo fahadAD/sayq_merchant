@@ -91,7 +91,10 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                     //
                     // ),
                     SizedBox(height: 10,),
-
+                    parcel.parcelHistory.isEmpty? Padding(
+                      padding: const EdgeInsets.only(top: 100.0),
+                      child: Center(child: Text("No History Data")),
+                    ) :
                    ListView.builder(
                      itemCount: parcel.parcelHistory.length,
                      shrinkWrap: true,

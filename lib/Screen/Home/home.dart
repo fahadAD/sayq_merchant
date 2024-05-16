@@ -1,4 +1,7 @@
 import 'package:bottom_bar/bottom_bar.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/create_parcel.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/parcel_history.dart';
+import 'package:we_courier_merchant_app/Screen/Payment/Statement/wallet_details.dart';
 import '/Screen/Home/dashboard.dart';
 import '/Screen/Parcel/parcel_index.dart';
 import '/Screen/Profile/profile.dart';
@@ -23,8 +26,10 @@ class _HomeState extends State<Home> {
 
   static  List<Widget> _widgetOptions = <Widget>[
     DashBoard(),
-    ParcelPage(height: 0.90),
-    DeliveryChargeList(),
+    ParcelPageHistory(),
+    // ParcelPage(height: 0.90),
+    CreateParcel(),
+     WalletDetails(),
     Profile(),
   ];
 
@@ -60,12 +65,20 @@ class _HomeState extends State<Home> {
               ),
 
               /// History
-
+BottomBarItem(
+                icon: const Icon(FontAwesomeIcons.clipboardList, size: 16.0),
+                title: Text(
+                  "Order History".tr,
+                  style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+                ),
+                activeColor: kTitleColor,
+                inactiveColor: kTitleColor,
+              ),
               /// Orders
               BottomBarItem(
                 backgroundColorOpacity: 0.1,
                 icon: const Icon(
-                  FontAwesomeIcons.cartShopping,
+                  FontAwesomeIcons.boxOpen,
                   size: 16.0,
                 ),
                 title: Text(
@@ -76,21 +89,21 @@ class _HomeState extends State<Home> {
                 inactiveColor: kTitleColor,
               ),
 
+
+
+
+              /// wallet
               BottomBarItem(
-                icon: const Icon(FontAwesomeIcons.clipboardList, size: 16.0),
-                title: Text(
-                  "delivery_charges".tr,
-                  style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+                icon: Icon(FontAwesomeIcons.wallet, size: 16.0),
+                title: Text("Wallet".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
                 ),
                 activeColor: kTitleColor,
                 inactiveColor: kTitleColor,
               ),
-
-
               /// Profile
               BottomBarItem(
-                icon: Icon(FontAwesomeIcons.user, size: 16.0),
-                title: Text("profile".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+                icon: Icon(Icons.settings_outlined, size: 16.0),
+                title: Text("Setting".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
                 ),
                 activeColor: kTitleColor,
                 inactiveColor: kTitleColor,

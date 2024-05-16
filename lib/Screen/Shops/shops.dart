@@ -63,7 +63,11 @@ class _ShopsState extends State<ShopsPage> {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                            ).onTap(() =>shopController.shopDelete(id))),
+                            ).onTap(() {
+                              setState(() {
+                                shopController.shopDelete(id);
+                              });
+                            })),
                         const SizedBox(width: 10.0),
                         Expanded(
                           flex: 1,
@@ -95,7 +99,11 @@ class _ShopsState extends State<ShopsPage> {
       },
     );
   }
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,21 +116,27 @@ class _ShopsState extends State<ShopsPage> {
               color: kBgColor, fontWeight: FontWeight.bold, fontSize: 18.0),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.0),
-                    color: kBgColor),
-                child: const Icon(
-                  FeatherIcons.plus,
-                  size: 18.0,
-                  color: Colors.black,
-                )),
-          ).onTap(
-                () => const CreateShops().launch(context),
-          ),
+          InkWell(
+            onTap: () {
+              Get.to(()=>CreateShops());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2.0),
+                      color: kBgColor),
+                  child: const Icon(
+                    FeatherIcons.plus,
+                    size: 18.0,
+                    color: Colors.black,
+                  )),
+            ),
+          )
+              // .onTap(
+              //   () => const CreateShops().launch(context),
+          // ),
         ],
         backgroundColor: kMainColor,
         elevation: 0.0,
@@ -241,14 +255,34 @@ class _ShopsState extends State<ShopsPage> {
                                   Row(
                                     children: [
                                       SizedBox(
-                                        width: 70,
+
                                         child:
                                       Text(
-                                        'address'.tr+':',
+                                        'Google maps plus code'.tr+':',
                                         style: kTextStyle.copyWith(
                                             color: kTitleColor,
                                             fontWeight: FontWeight.bold),
                                       )),
+                                      Spacer(),
+                                      Text(
+                                        shop.shopList[i].googleMapsPlusCode.toString(),
+                                        style: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5.0),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                          width: 70,
+                                          child:
+                                          Text(
+                                            'address'.tr+':',
+                                            style: kTextStyle.copyWith(
+                                                color: kTitleColor,
+                                                fontWeight: FontWeight.bold),
+                                          )),
                                       Flexible(child:
                                       Text(
                                         shop.shopList[i].address.toString(),

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:we_courier_merchant_app/Models/edit_parcel_model.dart';
 import 'package:we_courier_merchant_app/Screen/MapScreen/pickup_map.dart';
 
@@ -55,6 +56,7 @@ class _CreateParcelState extends State<CreateParcel> {
     );
   }
 
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -75,7 +77,7 @@ class _CreateParcelState extends State<CreateParcel> {
         appBar: AppBar(
           titleSpacing: 0,
           title: Text(
-            'create_parcel'.tr,
+            'Create Order'.tr,
             style: kTextStyle.copyWith(color: kBgColor),
           ),
           leading: IconButton(
@@ -1024,6 +1026,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                             // ),
 
                                             // const SizedBox(height: 20.0),
+
                                           ],
                                         ),
                                       ),
@@ -1274,29 +1277,86 @@ class _CreateParcelState extends State<CreateParcel> {
                                               ),
                                             ),
                                             const SizedBox(height: 20.0),
+                                            // parcel.googleMapsBlockList.isEmpty
+                                            //     ? SizedBox()
+                                            //     : Padding(
+                                            //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                            //   child: SizedBox(
+                                            //     height: 60.0,
+                                            //     child: FormField(
+                                            //       builder: (FormFieldState<dynamic> field) {
+                                            //         return InputDecorator(
+                                            //
+                                            //           decoration: kInputDecoration.copyWith(
+                                            //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                            //             labelText: 'Block'.tr + '*',
+                                            //             hintText: 'Select Block Number'.tr,
+                                            //             labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                            //             border: OutlineInputBorder(
+                                            //               borderRadius: BorderRadius.circular(5.0),
+                                            //             ),
+                                            //           ),
+                                            //           child: DropdownButtonHideUnderline(
+                                            //
+                                            //             child: DropdownButton<GoogleMapsBlock>(
+                                            //
+                                            //               value: parcel.googleMapsBlockIndex.toString() == 'null' ? null : parcel.googleMapsBlockList[parcel.googleMapsBlockIndex],
+                                            //               items: parcel.googleMapsBlockList.map((GoogleMapsBlock value) {
+                                            //                 return new DropdownMenuItem<GoogleMapsBlock>(
+                                            //                   value: value,
+                                            //                   child: value.id == 0
+                                            //                       ? Text("${value.blockName.toString()}")
+                                            //                       : value.blockName == ''
+                                            //                       ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                                            //                       : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                                            //                 );
+                                            //               }).toList(),
+                                            //               onChanged: (newValue) {
+                                            //                 setState(() {
+                                            //                   parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
+                                            //                   parcel.customerAddress = newValue.googleMapsPlusCode.toString();
+                                            //                   // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
+                                            //                   // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
+                                            //                   parcel.distanceMatrixServiceLatLong();
+                                            //                 });
+                                            //               },
+                                            //             ),
+                                            //           ),
+                                            //         );
+                                            //       },
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             parcel.googleMapsBlockList.isEmpty
                                                 ? SizedBox()
-                                                : Padding(
+                                                :
+                                            Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                               child: SizedBox(
                                                 height: 60.0,
                                                 child: FormField(
+
                                                   builder: (FormFieldState<dynamic> field) {
                                                     return InputDecorator(
-                                                      
                                                       decoration: kInputDecoration.copyWith(
                                                         floatingLabelBehavior: FloatingLabelBehavior.always,
                                                         labelText: 'Block'.tr + '*',
-                                                        hintText: 'Select Block Number'.tr,
                                                         labelStyle: kTextStyle.copyWith(color: kTitleColor),
                                                         border: OutlineInputBorder(
                                                           borderRadius: BorderRadius.circular(5.0),
                                                         ),
                                                       ),
                                                       child: DropdownButtonHideUnderline(
-                                                        
-                                                        child: DropdownButton<GoogleMapsBlock>(
 
+                                                        child: DropdownButton2<GoogleMapsBlock>(
+                                                          iconStyleData: IconStyleData(icon: Icon(Icons.search_outlined)),
+                                                          hint: Text(
+                                                            'Select Item',
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              color: Theme.of(context).hintColor,
+                                                            ),
+                                                          ),
                                                           value: parcel.googleMapsBlockIndex.toString() == 'null' ? null : parcel.googleMapsBlockList[parcel.googleMapsBlockIndex],
                                                           items: parcel.googleMapsBlockList.map((GoogleMapsBlock value) {
                                                             return new DropdownMenuItem<GoogleMapsBlock>(
@@ -1312,10 +1372,55 @@ class _CreateParcelState extends State<CreateParcel> {
                                                             setState(() {
                                                               parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
                                                               parcel.customerAddress = newValue.googleMapsPlusCode.toString();
-                                                              // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
-                                                              // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
+                                                                                // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
+                                                                                // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
                                                               parcel.distanceMatrixServiceLatLong();
                                                             });
+                                                          },
+                                                          buttonStyleData: const ButtonStyleData(
+                                                            // padding: EdgeInsets.symmetric(horizontal: 16),
+                                                            height: 40,
+                                                            width: 400,
+                                                          ),
+
+                                                          dropdownSearchData: DropdownSearchData(
+
+                                                            searchController: textEditingController,
+                                                            searchInnerWidgetHeight: 50,
+                                                            searchInnerWidget: Container(
+                                                              height: 50,
+                                                              padding: const EdgeInsets.only(
+                                                                top: 8,
+                                                                bottom: 4,
+                                                                right: 8,
+                                                                left: 8,
+                                                              ),
+                                                              child: TextFormField(
+
+                                                                controller: textEditingController,
+                                                                decoration: InputDecoration(
+                                                                  contentPadding: const EdgeInsets.symmetric(
+                                                                    horizontal: 10,
+                                                                    vertical: 8,
+                                                                  ),
+                                                                  hintText: 'Search for an item...',
+                                                                  hintStyle: const TextStyle(fontSize: 12),
+                                                                  border: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+
+                                                            searchMatchFn: (item, searchValue) {
+                                                              return item.value!.blockNumber.toString().contains(searchValue);
+                                                            },
+                                                          ),
+                                                          //This to clear the search value when you close the menu
+                                                          onMenuStateChange: (isOpen) {
+                                                            if (!isOpen) {
+                                                              textEditingController.clear();
+                                                            }
                                                           },
                                                         ),
                                                       ),
@@ -1423,11 +1528,6 @@ class _CreateParcelState extends State<CreateParcel> {
                                     //       ),
                                     const SizedBox(height: 20.0),
 
-                                    // DropDownSearch(
-                                    //     title: "search fahad",
-                                    //     textController: parcelController.customerAddressController,
-                                    //     items: deliveryType,
-                                    // ),
 
                                     const SizedBox(height: 20.0),
                                     ButtonGlobal(
@@ -1474,133 +1574,133 @@ class _CreateParcelState extends State<CreateParcel> {
 }
 
 
-class DropDownSearch extends StatefulWidget {
-  const DropDownSearch({
-    super.key,
-    required this.title,
-    required this.textController,
-    required this.items,
-  });
-  final String title;
-  final TextEditingController? textController;
-  final List<String>? items;
-
-  @override
-  State<DropDownSearch> createState() => _DropDownSearchState();
-}
-
-class _DropDownSearchState extends State<DropDownSearch> {
-  bool _isTapped = false;
-  List<String> _filteredList = [];
-  List<String> _subFilteredList = [];
-
-  @override
-  initState() {
-    _filteredList = widget.items!;
-    _subFilteredList = _filteredList;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.title,
-            style: const TextStyle(fontSize: 16, color: Color(0xFF858597)),
-          ),
-          const SizedBox(height: 5),
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: widget.textController,
-                    onChanged: (val) {
-                      setState(() {
-                        _filteredList = _subFilteredList
-                            .where((element) => element.toLowerCase().contains(
-                            widget.textController!.text.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    validator: (val) =>
-                    val!.isEmpty ? 'Field can\'t empty' : null,
-                    style:
-                    TextStyle(color: Colors.black, fontSize: 16.0),
-                    onTap: () => setState(() => _isTapped = true),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      errorStyle: const TextStyle(fontSize: 0.01),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Colors.black,
-                          style: BorderStyle.solid,
-                        ),
-                      ),
-                      contentPadding:
-                      const EdgeInsets.only(bottom: 10, left: 10),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                              color: Colors.black.withOpacity(0.7),
-                              width: 0.8)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                              color: Colors.black.withOpacity(0.7),
-                              width: 0.8)),
-                      labelStyle: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                            color: Colors.black.withOpacity(0.7), width: 0.8),
-                      ),
-                      suffixIcon: Icon(Icons.arrow_drop_down, size: 25),
-                      isDense: true,
-                    ),
-                  ),
-                  _isTapped && _filteredList.isNotEmpty
-                      ? Container(
-                    height: 150.0,
-                    color: Colors.grey.shade200,
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: ListView.builder(
-                      itemCount: _filteredList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            setState(() => _isTapped = !_isTapped);
-                            widget.textController!.text =
-                            _filteredList[index];
-                            setState(() {
-
-                            });
-                          },
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(_filteredList[index],
-                                style: TextStyle(
-                                    color: Colors.grey.shade800,
-                                    fontSize: 16.0)),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                      : const SizedBox.shrink(),
-                ],
-              ))
-        ]);
-  }
-}
+// class DropDownSearch extends StatefulWidget {
+//   const DropDownSearch({
+//     super.key,
+//     required this.title,
+//     required this.textController,
+//     required this.items,
+//   });
+//   final String title;
+//   final TextEditingController? textController;
+//   final List<String>? items;
+//
+//   @override
+//   State<DropDownSearch> createState() => _DropDownSearchState();
+// }
+//
+// class _DropDownSearchState extends State<DropDownSearch> {
+//   bool _isTapped = false;
+//   List<String> _filteredList = [];
+//   List<String> _subFilteredList = [];
+//
+//   @override
+//   initState() {
+//     _filteredList = widget.items!;
+//     _subFilteredList = _filteredList;
+//     super.initState();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             widget.title,
+//             style: const TextStyle(fontSize: 16, color: Color(0xFF858597)),
+//           ),
+//           const SizedBox(height: 5),
+//           Container(
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//               child: Column(
+//                 children: [
+//                   TextFormField(
+//                     controller: widget.textController,
+//                     onChanged: (val) {
+//                       setState(() {
+//                         _filteredList = _subFilteredList
+//                             .where((element) => element.toLowerCase().contains(
+//                             widget.textController!.text.toLowerCase()))
+//                             .toList();
+//                       });
+//                     },
+//                     validator: (val) =>
+//                     val!.isEmpty ? 'Field can\'t empty' : null,
+//                     style:
+//                     TextStyle(color: Colors.black, fontSize: 16.0),
+//                     onTap: () => setState(() => _isTapped = true),
+//                     decoration: InputDecoration(
+//                       filled: true,
+//                       fillColor: Colors.white,
+//                       errorStyle: const TextStyle(fontSize: 0.01),
+//                       errorBorder: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(12),
+//                         borderSide: const BorderSide(
+//                           color: Colors.black,
+//                           style: BorderStyle.solid,
+//                         ),
+//                       ),
+//                       contentPadding:
+//                       const EdgeInsets.only(bottom: 10, left: 10),
+//                       focusedBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(12),
+//                           borderSide: BorderSide(
+//                               color: Colors.black.withOpacity(0.7),
+//                               width: 0.8)),
+//                       border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(12),
+//                           borderSide: BorderSide(
+//                               color: Colors.black.withOpacity(0.7),
+//                               width: 0.8)),
+//                       labelStyle: const TextStyle(
+//                         color: Colors.black,
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                       enabledBorder: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(12),
+//                         borderSide: BorderSide(
+//                             color: Colors.black.withOpacity(0.7), width: 0.8),
+//                       ),
+//                       suffixIcon: Icon(Icons.arrow_drop_down, size: 25),
+//                       isDense: true,
+//                     ),
+//                   ),
+//                   _isTapped && _filteredList.isNotEmpty
+//                       ? Container(
+//                     height: 150.0,
+//                     color: Colors.grey.shade200,
+//                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+//                     child: ListView.builder(
+//                       itemCount: _filteredList.length,
+//                       itemBuilder: (context, index) {
+//                         return InkWell(
+//                           onTap: () {
+//                             setState(() => _isTapped = !_isTapped);
+//                             widget.textController!.text =
+//                             _filteredList[index];
+//                             setState(() {
+//
+//                             });
+//                           },
+//                           child: Padding(
+//                             padding:
+//                             const EdgeInsets.symmetric(vertical: 8.0),
+//                             child: Text(_filteredList[index],
+//                                 style: TextStyle(
+//                                     color: Colors.grey.shade800,
+//                                     fontSize: 16.0)),
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   )
+//                       : const SizedBox.shrink(),
+//                 ],
+//               ))
+//         ]);
+//   }
+// }

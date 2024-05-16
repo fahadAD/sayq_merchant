@@ -194,7 +194,29 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                   onTap: (() => const ShopsPage().launch(context)),
                   title: Text(
-                    'shop'.tr,
+                    ' shop'.tr,
+                    style: kTextStyle.copyWith(
+                        color: kTitleColor, fontWeight: FontWeight.bold),
+                  ),
+                  trailing: Container(
+                    padding: const EdgeInsets.all(2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,),
+                    child: const Icon(FeatherIcons.chevronRight,
+                        color: kTitleColor, size: 18),
+                  ),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  horizontalTitleGap: 0,
+                  leading: const Icon(
+                    FontAwesomeIcons.scaleBalanced,
+                    color: kTitleColor,
+                    size: 18.0,
+                  ),
+                  onTap: (() => const BalanceDetails().launch(context)),
+                  title: Text(
+                    ' Check Balance'.tr,
                     style: kTextStyle.copyWith(
                         color: kTitleColor, fontWeight: FontWeight.bold),
                   ),
@@ -211,14 +233,15 @@ class _DashBoardState extends State<DashBoard> {
                   iconColor: kTitleColor,
                   contentPadding: const EdgeInsets.all(0),
                   dense: true,
-                  horizontalTitleGap: 30,
+                  horizontalTitleGap: 8,
                   minLeadingWidth: 0,
                   child: ExpansionTile(
-                    leading: const Icon(FontAwesomeIcons.solidFileLines,
-                        size: 14.0, color: kTitleColor),
+                    leading: const Icon(FontAwesomeIcons.boxOpen,
+                        size: 20.0, color: kTitleColor),
                     title: Text(
                       'parcels'.tr,
                       style: kTextStyle.copyWith(
+                        fontSize: 16,
                           color: kTitleColor, fontWeight: FontWeight.bold),
                     ),
                     trailing: Container(
@@ -312,14 +335,15 @@ class _DashBoardState extends State<DashBoard> {
                     iconColor: kTitleColor,
                     contentPadding: const EdgeInsets.all(0),
                     dense: true,
-                    horizontalTitleGap: 30,
+                    horizontalTitleGap: 8,
                     minLeadingWidth: 0,
                     child: ExpansionTile(
                       leading: const Icon(FontAwesomeIcons.users,
-                          size: 14.0, color: kTitleColor),
+                          size: 20.0, color: kTitleColor),
                       title: Text(
-                        'Payments'.tr,
+                        ' Payments'.tr,
                         style: kTextStyle.copyWith(
+                          fontSize: 16,
                             color: kTitleColor, fontWeight: FontWeight.bold),
                       ),
                       trailing: Container(
@@ -368,14 +392,15 @@ class _DashBoardState extends State<DashBoard> {
                   iconColor: kTitleColor,
                   contentPadding: const EdgeInsets.all(0),
                   dense: true,
-                  horizontalTitleGap: 30,
+                  horizontalTitleGap: 5,
                   minLeadingWidth: 0,
                   child: ExpansionTile(
                     leading: const Icon(FontAwesomeIcons.solidFileLines,
-                        size: 14.0, color: kTitleColor),
+                        size: 18.0, color: kTitleColor),
                     title: Text(
                       'reports'.tr,
                       style: kTextStyle.copyWith(
+                        fontSize: 16,
                           color: kTitleColor, fontWeight: FontWeight.bold),
                     ),
                     trailing: Container(
@@ -414,14 +439,15 @@ class _DashBoardState extends State<DashBoard> {
                     iconColor: kTitleColor,
                     contentPadding: const EdgeInsets.all(0),
                     dense: true,
-                    horizontalTitleGap: 30,
+                    horizontalTitleGap: 7,
                     minLeadingWidth: 0,
                     child: ExpansionTile(
                       leading: const Icon(FontAwesomeIcons.gears,
-                          size: 14.0, color: kTitleColor),
+                          size: 18.0, color: kTitleColor),
                       title: Text(
                         'setting'.tr,
                         style: kTextStyle.copyWith(
+                          fontSize: 16,
                             color: kTitleColor, fontWeight: FontWeight.bold),
                       ),
                       trailing: Container(
@@ -551,7 +577,8 @@ class _DashBoardState extends State<DashBoard> {
       body:  GetBuilder<DashboardController>(
           init: DashboardController(),
               builder: (dashboard) =>
-              SingleChildScrollView(
+              dashboard.dashboardData==null? Center(child: CircularProgressIndicator())
+                  :     SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -572,829 +599,113 @@ class _DashBoardState extends State<DashBoard> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CarouselSlider.builder(
-                              options: CarouselOptions(
-                                height: 200,
-                                aspectRatio: 16 / 9,
-                                viewportFraction: 0.8,
-                                initialPage: 0,
-                                enableInfiniteScroll: true,
-                                reverse: false,
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 3),
-                                autoPlayAnimationDuration:
-                                const Duration(milliseconds: 800),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                enlargeCenterPage: true,
-                                onPageChanged: null,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                              // itemCount: imageList.length,
-                              itemCount:  dashboard.offersList.isNotEmpty?dashboard.offersList.length:imageList.length,
-                              itemBuilder:
-                                  (BuildContext context, int index, int realIndex) {
-                                return dashboard.offersList.isNotEmpty?
-                                  CachedNetworkImage(
-                                        imageUrl:dashboard.offersList[index].image.toString(),
-                                        imageBuilder: (context, imageProvider) =>
-                                            Container(
-                                              height: 150,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image:imageProvider
-                                                  ),
-                                              )),
-                                                      placeholder: (context, url) => Shimmer.fromColors(
-                                          child: CircleAvatar(radius: 50.0),
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[400]!,
+
+                            ListView.builder(
+                              itemCount: 5,
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+
+                                  width: double.infinity,
+                                  child: Card(
+                                    color: Colors.white,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+                                            top: 12.0,
+
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("#777777777",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
+                                              Container(
+                                                height: 40,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  color: kMainColor,
+                                                ),
+                                                child: Center(child: Text("Success",style: TextStyle(color: Colors.white))),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(CupertinoIcons.person,size: 50,),
-                                      )
-                                    :Container(
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        imageList[index],
-                                      ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+                                            top: 8.0,
+
+                                          ),
+                                          child: Text("Shahariae",style: TextStyle(fontWeight: FontWeight.bold,),),
+                                        ),
+                                        Divider(
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+
+
+                                          ),
+                                          child: Text("Dhaks",),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+                                            top: 2,
+
+                                          ),
+                                          child: Text("5-34-6",style: TextStyle(fontSize: 12)),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+                                            top: 8.0,
+
+                                          ),
+                                          child: Text("Riaz Ahams",style: TextStyle(fontWeight: FontWeight.bold,),),
+                                        ),
+                                        Divider(
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 10.0,
+                                            left: 10.0,
+
+
+                                          ),
+                                          child: Text("Feni",),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10.0,
+                                              left: 10.0,
+                                              top: 2,
+                                              bottom: 10
+                                          ),
+                                          child: Text("9-87-24",style: TextStyle(fontSize: 12)),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 );
                               },
-                            ),
 
-                            const SizedBox(height: 20),
-                            ButtonGlobal(
-                                buttontext: 'Check Balance ➤'.tr,
-                                buttonDecoration: kButtonDecoration.copyWith(color: Colors.deepOrangeAccent.shade200,boxShadow:  [BoxShadow(color: Colors.black.withOpacity(.2),blurRadius: 3,offset: Offset(0,1))]),
-                                onPressed: () {
-                                  setState(() {
-                                    const BalanceDetails().launch(context);
-                                  });
-                                }),
-                            const SizedBox(height: 20),
-                            Text(
-                              'merchant_dashboard'.tr,
-                              style: kTextStyle.copyWith(
-                                  color: kTitleColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0),
-                            ),
-
-                            // const SizedBox(height: 10),
-                            // GridView.count(
-                            //   crossAxisCount: 2,
-                            //   crossAxisSpacing: 10.0,
-                            //   childAspectRatio: 1,
-                            //   mainAxisSpacing: 10.0,
-                            //   shrinkWrap: true,
-                            //   physics: const NeverScrollableScrollPhysics(),
-                            //   children: List.generate(
-                            //     4,
-                            //         (i) {
-                            //       return
-                            //         Card(
-                            //           color: colorList[i],
-                            //           elevation: 10,
-                            //           shadowColor: kMainColor,
-                            //           shape: RoundedRectangleBorder(
-                            //             borderRadius: BorderRadius.circular(10.0),
-                            //           ),
-                            //           child: Padding(
-                            //             padding: const EdgeInsets.all(10.0),
-                            //             child: Column(
-                            //               crossAxisAlignment: CrossAxisAlignment.center,
-                            //               children: [
-                            //                 const SizedBox(height: 20),
-                            //                 Icon(
-                            //                   iconList[i],
-                            //                   size: 40,
-                            //                   color: kTitleColor,
-                            //                 ),
-                            //                 const SizedBox(height: 10.0),
-                            //                 Text(
-                            //                   reportList[i],
-                            //                   style: kTextStyle.copyWith(
-                            //                       color: kTitleColor,
-                            //                       fontWeight: FontWeight.bold),
-                            //                 ),
-                            //                 const SizedBox(height: 10.0),
-                            //                 Text(
-                            //                   i == 0? dashboard.dashboardData.tParcel.toString(): i==1?dashboard.dashboardData.tDelivered.toString():i==2?dashboard.dashboardData.tReturn.toString():i==3? "${dashboard.dashboardData.tParcel! - (dashboard.dashboardData.tDelivered! + dashboard.dashboardData.tReturn!)}" :'0',
-                            //                   style: kTextStyle.copyWith(
-                            //                       color: kTitleColor,
-                            //                       fontSize: 20.0,
-                            //                       fontWeight: FontWeight.bold),
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         );
-                            //     },
-                            //   ),
-                            // ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => CreateParcel(),
-                                    ));
-                                  },
-                                  child: Container(
-                                    height: 175,
-                                    width: MediaQuery.of(context).size.width/2.2,
-                                    child: Card(
-                                      color: const Color(0xFFEFFBF8),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(height: 20),
-                                          Icon(
-                                            FontAwesomeIcons.boxOpen,
-                                            size: 40,
-                                            color: kTitleColor,
-                                          ),
-                                          const SizedBox(height: 10.0),
-                                          Text(
-                                            'Request Delivery'.tr,
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(height: 10.0),
-                                          dashboard.dashboardData.tParcel==0?Text("0"):  Text(
-                                            "${dashboard.dashboardData.tParcel.toString()}",
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => WalletDetails(),
-                                    ));
-                                  },
-                                  child: Container(
-                                    height: 175,
-                                    width: MediaQuery.of(context).size.width/2.2,
-                                    child: Card(
-                                      color: const Color(0xFFFDF9EE),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(height: 20),
-                                          Icon(
-                                            FontAwesomeIcons.wallet,
-                                            size: 40,
-                                            color: kTitleColor,
-                                          ),
-                                          const SizedBox(height: 10.0),
-                                          Text(
-                                            'View Wallet'.tr,
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(height: 10.0),
-                                          dashboard.balanceDetails.wallet_balance==0 ||
-                                              dashboard.balanceDetails.wallet_balance==null?
-                                          Text(
-                                            "${Get.find<GlobalController>().currency} 0.00",
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
-                                          ):
-                                          Text(
-                                            "${Get.find<GlobalController>().currency}${dashboard.balanceDetails.wallet_balance}",
-                                            style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(height: 5),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Profile(),
-                                ));
-                              },
-                              child: Container(
-                                height: 175,
-                                width: MediaQuery.of(context).size.width/2.2,
-                                child: Card(
-                                  color: const Color(0xFFEFF5FA),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(height: 40),
-                                      Icon(
-                                        Icons.settings_outlined,
-                                        size: 50,
-                                        color: kTitleColor,
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      Text(
-                                        'Settings'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                                      ),
-                                      // const SizedBox(height: 10.0),
-                                      // Text(
-                                      //   "No",
-                                      //   style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
-                                      // ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                            ),
-                            const SizedBox(height: 20),
-                            Card(
-                              elevation: 10,
-                              child: Container(
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    color: Colors.white),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: kGreyTextColor.withOpacity(0.2),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_cash_collection'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tCashCollection.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_selling_price'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tSellingPrice.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'net_profit_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                "${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tCashCollection! - dashboard.dashboardData.tSellingPrice!}",
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: kGreyTextColor.withOpacity(0.2),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_liquid_fragile_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                "${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tLiquidFragile.toString()}",
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_packing_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                               "${Get.find<GlobalController>()
-                                                   .currency} ${dashboard.dashboardData.tPackaging.toString()}",
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_vat_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tVatAmount.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_delivery_charge'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tDeliveryCharge.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_cod_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tCodAmount.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: kGreyTextColor.withOpacity(0.2),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_delivery_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tDeliveryAmount.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'total_current_payable_amount'.tr,
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                '${Get.find<GlobalController>()
-                                                    .currency} ${dashboard.dashboardData.tCurrentPayable.toString()}',
-                                                style: kTextStyle.copyWith(
-                                                    color: kTitleColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              'all_reports'.tr,
-                              style: kTextStyle.copyWith(
-                                  color: kGreyTextColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.handHoldingDollar,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_sales_amount'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.tSale.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.handshakeAngle,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_delivery_fees_paid'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.tDeliveryFee.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.coins,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'net_profit_amount'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        "${Get.find<GlobalController>()
-                                            .currency} ${double.parse(dashboard.dashboardData.tSale.toString()) - double.parse(dashboard.dashboardData.tDeliveryFee.toString())}",
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.creditCard,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'current_balance'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.merchant!.currentBalance.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.circleDollarToSlot,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'opening_balance'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.merchant!.openingBalance.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.dna,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'vat'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.merchant!.vat.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.hourglass,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'payment_processing'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.tBalanceProc.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.database,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'paid_amount'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${Get.find<GlobalController>()
-                                            .currency} ${dashboard.dashboardData.tBalancePaid.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.houseChimney,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_shop'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        '${dashboard.dashboardData.tShop.toString()}',
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.boxesStacked,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_parcel_bank_item'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        dashboard.dashboardData.tParcelBank.toString(),
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.clockRotateLeft,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_payment_request'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        dashboard.dashboardData.tRequest.toString(),
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: const Icon(
-                                    FontAwesomeIcons.users,
-                                    color: kTitleColor,
-                                  ),
-                                  trailing: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'total_fraud_customer'.tr,
-                                        style: kTextStyle.copyWith(color: kTitleColor),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        dashboard.dashboardData.tFraud.toString(),
-                                        style: kTextStyle.copyWith(
-                                            color: kTitleColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -1402,6 +713,863 @@ class _DashBoardState extends State<DashBoard> {
                   ],
                 ),
               )),
+      // body:  GetBuilder<DashboardController>(
+      //     init: DashboardController(),
+      //         builder: (dashboard) =>
+      //         dashboard.dashboardData==null? Center(child: CircularProgressIndicator())
+      //             :     SingleChildScrollView(
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               const SizedBox(height: 10.0),
+      //               dashboard.dashboardLoader
+      //                   ? DashboardShimmer()
+      //                   : Container(
+      //                 padding: const EdgeInsets.all(10.0),
+      //                 decoration: const BoxDecoration(
+      //                   color: Color(0xFFf9f9fe),
+      //                   borderRadius: BorderRadius.only(
+      //                     topRight: Radius.circular(30.0),
+      //                     topLeft: Radius.circular(30.0),
+      //                   ),
+      //                 ),
+      //                 child: SingleChildScrollView(
+      //                   controller: ScrollController(),
+      //                   child: Column(
+      //                     crossAxisAlignment: CrossAxisAlignment.start,
+      //                     children: [
+      //                       CarouselSlider.builder(
+      //                         options: CarouselOptions(
+      //                           height: 200,
+      //                           aspectRatio: 16 / 9,
+      //                           viewportFraction: 0.8,
+      //                           initialPage: 0,
+      //                           enableInfiniteScroll: true,
+      //                           reverse: false,
+      //                           autoPlay: true,
+      //                           autoPlayInterval: const Duration(seconds: 3),
+      //                           autoPlayAnimationDuration:
+      //                           const Duration(milliseconds: 800),
+      //                           autoPlayCurve: Curves.fastOutSlowIn,
+      //                           enlargeCenterPage: true,
+      //                           onPageChanged: null,
+      //                           scrollDirection: Axis.horizontal,
+      //                         ),
+      //                         // itemCount: imageList.length,
+      //                         itemCount:  dashboard.offersList.isNotEmpty?dashboard.offersList.length:imageList.length,
+      //                         itemBuilder:
+      //                             (BuildContext context, int index, int realIndex) {
+      //                           return dashboard.offersList.isNotEmpty?
+      //                             CachedNetworkImage(
+      //                                   imageUrl:dashboard.offersList[index].image.toString(),
+      //                                   imageBuilder: (context, imageProvider) =>
+      //                                       Container(
+      //                                         height: 150,
+      //                                         decoration: BoxDecoration(
+      //                                             image: DecorationImage(
+      //                                                 image:imageProvider
+      //                                             ),
+      //                                         )),
+      //                                                 placeholder: (context, url) => Shimmer.fromColors(
+      //                                     child: CircleAvatar(radius: 50.0),
+      //                                     baseColor: Colors.grey[300]!,
+      //                                     highlightColor: Colors.grey[400]!,
+      //                                   ),
+      //                                   errorWidget: (context, url, error) =>
+      //                                       Icon(CupertinoIcons.person,size: 50,),
+      //                                 )
+      //                               :Container(
+      //                             height: 150,
+      //                             decoration: BoxDecoration(
+      //                               image: DecorationImage(
+      //                                 image: AssetImage(
+      //                                   imageList[index],
+      //                                 ),
+      //                               ),
+      //                             ),
+      //                           );
+      //                         },
+      //                       ),
+      //
+      //                       const SizedBox(height: 20),
+      //                       ButtonGlobal(
+      //                           buttontext: 'Check Balance ➤'.tr,
+      //                           buttonDecoration: kButtonDecoration.copyWith(color: Colors.deepOrangeAccent.shade200,boxShadow:  [BoxShadow(color: Colors.black.withOpacity(.2),blurRadius: 3,offset: Offset(0,1))]),
+      //                           onPressed: () {
+      //                             setState(() {
+      //                               const BalanceDetails().launch(context);
+      //                             });
+      //                           }),
+      //
+      //                       const SizedBox(height: 20),
+      //                       Text(
+      //                         'merchant_dashboard'.tr,
+      //                         style: kTextStyle.copyWith(
+      //                             color: kTitleColor,
+      //                             fontWeight: FontWeight.bold,
+      //                             fontSize: 18.0),
+      //                       ),
+      //
+      //                       // const SizedBox(height: 10),
+      //                       // GridView.count(
+      //                       //   crossAxisCount: 2,
+      //                       //   crossAxisSpacing: 10.0,
+      //                       //   childAspectRatio: 1,
+      //                       //   mainAxisSpacing: 10.0,
+      //                       //   shrinkWrap: true,
+      //                       //   physics: const NeverScrollableScrollPhysics(),
+      //                       //   children: List.generate(
+      //                       //     4,
+      //                       //         (i) {
+      //                       //       return
+      //                       //         Card(
+      //                       //           color: colorList[i],
+      //                       //           elevation: 10,
+      //                       //           shadowColor: kMainColor,
+      //                       //           shape: RoundedRectangleBorder(
+      //                       //             borderRadius: BorderRadius.circular(10.0),
+      //                       //           ),
+      //                       //           child: Padding(
+      //                       //             padding: const EdgeInsets.all(10.0),
+      //                       //             child: Column(
+      //                       //               crossAxisAlignment: CrossAxisAlignment.center,
+      //                       //               children: [
+      //                       //                 const SizedBox(height: 20),
+      //                       //                 Icon(
+      //                       //                   iconList[i],
+      //                       //                   size: 40,
+      //                       //                   color: kTitleColor,
+      //                       //                 ),
+      //                       //                 const SizedBox(height: 10.0),
+      //                       //                 Text(
+      //                       //                   reportList[i],
+      //                       //                   style: kTextStyle.copyWith(
+      //                       //                       color: kTitleColor,
+      //                       //                       fontWeight: FontWeight.bold),
+      //                       //                 ),
+      //                       //                 const SizedBox(height: 10.0),
+      //                       //                 Text(
+      //                       //                   i == 0? dashboard.dashboardData.tParcel.toString(): i==1?dashboard.dashboardData.tDelivered.toString():i==2?dashboard.dashboardData.tReturn.toString():i==3? "${dashboard.dashboardData.tParcel! - (dashboard.dashboardData.tDelivered! + dashboard.dashboardData.tReturn!)}" :'0',
+      //                       //                   style: kTextStyle.copyWith(
+      //                       //                       color: kTitleColor,
+      //                       //                       fontSize: 20.0,
+      //                       //                       fontWeight: FontWeight.bold),
+      //                       //                 ),
+      //                       //               ],
+      //                       //             ),
+      //                       //           ),
+      //                       //         );
+      //                       //     },
+      //                       //   ),
+      //                       // ),
+      //                       const SizedBox(height: 20),
+      //
+      //                      Row(
+      //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //                         children: [
+      //                           InkWell(
+      //                             onTap: () {
+      //                               Navigator.of(context).push(MaterialPageRoute(
+      //                                 builder: (context) => CreateParcel(),
+      //                               ));
+      //                             },
+      //                             child: Container(
+      //                               height: 175,
+      //                               width: MediaQuery.of(context).size.width/2.2,
+      //                               child: Card(
+      //                                 color: const Color(0xFFEFFBF8),
+      //                                 child: Column(
+      //                                   crossAxisAlignment: CrossAxisAlignment.center,
+      //                                   children: [
+      //                                     const SizedBox(height: 20),
+      //                                     Icon(
+      //                                       FontAwesomeIcons.boxOpen,
+      //                                       size: 40,
+      //                                       color: kTitleColor,
+      //                                     ),
+      //                                     const SizedBox(height: 10.0),
+      //                                     Text(
+      //                                       'Request Delivery'.tr,
+      //                                       style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+      //                                     ),
+      //                                     const SizedBox(height: 10.0),
+      //                                     dashboard.dashboardData.tParcel==0?Text("0"):  Text(
+      //                                       "${dashboard.dashboardData.tParcel.toString()}",
+      //                                       style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+      //                                     ),
+      //                                   ],
+      //                                 ),
+      //                               ),
+      //                             ),
+      //
+      //                           ),
+      //                           InkWell(
+      //                             onTap: () {
+      //                               Navigator.of(context).push(MaterialPageRoute(
+      //                                 builder: (context) => WalletDetails(),
+      //                               ));
+      //                             },
+      //                             child: Container(
+      //                               height: 175,
+      //                               width: MediaQuery.of(context).size.width/2.2,
+      //                               child: Card(
+      //                                 color: const Color(0xFFFDF9EE),
+      //                                 child: Column(
+      //                                   crossAxisAlignment: CrossAxisAlignment.center,
+      //                                   children: [
+      //                                     const SizedBox(height: 20),
+      //                                     Icon(
+      //                                       FontAwesomeIcons.wallet,
+      //                                       size: 40,
+      //                                       color: kTitleColor,
+      //                                     ),
+      //                                     const SizedBox(height: 10.0),
+      //                                     Text(
+      //                                       'View Wallet'.tr,
+      //                                       style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+      //                                     ),
+      //                                     const SizedBox(height: 10.0),
+      //                                     dashboard.balanceDetails.wallet_balance==0 ||
+      //                                         dashboard.balanceDetails.wallet_balance==null?
+      //                                     Text(
+      //                                       "${Get.find<GlobalController>().currency} 0.00",
+      //                                       style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+      //                                     ):
+      //                                     Text(
+      //                                       "${Get.find<GlobalController>().currency}${dashboard.balanceDetails.wallet_balance}",
+      //                                       style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+      //                                     ),
+      //
+      //                                   ],
+      //                                 ),
+      //                               ),
+      //                             ),
+      //
+      //                           ),
+      //                         ],
+      //                       ),
+      //
+      //                       const SizedBox(height: 5),
+      //                       InkWell(
+      //                         onTap: () {
+      //                           Navigator.of(context).push(MaterialPageRoute(
+      //                             builder: (context) => Profile(),
+      //                           ));
+      //                         },
+      //                         child: Container(
+      //                           height: 175,
+      //                           width: MediaQuery.of(context).size.width/2.2,
+      //                           child: Card(
+      //                             color: const Color(0xFFEFF5FA),
+      //                             child: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.center,
+      //                               children: [
+      //                                 const SizedBox(height: 40),
+      //                                 Icon(
+      //                                   Icons.settings_outlined,
+      //                                   size: 50,
+      //                                   color: kTitleColor,
+      //                                 ),
+      //                                 const SizedBox(height: 10.0),
+      //                                 Text(
+      //                                   'Settings'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+      //                                 ),
+      //                                 // const SizedBox(height: 10.0),
+      //                                 // Text(
+      //                                 //   "No",
+      //                                 //   style: kTextStyle.copyWith(color: kTitleColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+      //                                 // ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //
+      //                       ),
+      //                       const SizedBox(height: 20),
+      //                       Card(
+      //                         elevation: 10,
+      //                         child: Container(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           decoration: BoxDecoration(
+      //                               borderRadius: BorderRadius.circular(5.0),
+      //                               color: Colors.white),
+      //                           child: Column(
+      //                             children: [
+      //                               Container(
+      //                                 padding: const EdgeInsets.all(10.0),
+      //                                 decoration: BoxDecoration(
+      //                                   color: Colors.white,
+      //                                   border: Border.all(
+      //                                     color: kGreyTextColor.withOpacity(0.2),
+      //                                   ),
+      //                                 ),
+      //                                 child: Column(
+      //                                   children: [
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_cash_collection'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tCashCollection.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_selling_price'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tSellingPrice.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'net_profit_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           "${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tCashCollection! - dashboard.dashboardData.tSellingPrice!}",
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                   ],
+      //                                 ),
+      //                               ),
+      //                               Container(
+      //                                 padding: const EdgeInsets.all(10.0),
+      //                                 decoration: BoxDecoration(
+      //                                   color: Colors.white,
+      //                                   border: Border.all(
+      //                                     color: kGreyTextColor.withOpacity(0.2),
+      //                                   ),
+      //                                 ),
+      //                                 child: Column(
+      //                                   children: [
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_liquid_fragile_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           "${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tLiquidFragile.toString()}",
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_packing_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                          "${Get.find<GlobalController>()
+      //                                              .currency} ${dashboard.dashboardData.tPackaging.toString()}",
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_vat_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tVatAmount.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_delivery_charge'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tDeliveryCharge.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_cod_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tCodAmount.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                   ],
+      //                                 ),
+      //                               ),
+      //                               Container(
+      //                                 padding: const EdgeInsets.all(10.0),
+      //                                 decoration: BoxDecoration(
+      //                                   color: Colors.white,
+      //                                   border: Border.all(
+      //                                     color: kGreyTextColor.withOpacity(0.2),
+      //                                   ),
+      //                                 ),
+      //                                 child: Column(
+      //                                   children: [
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_delivery_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tDeliveryAmount.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                     Row(
+      //                                       children: [
+      //                                         Text(
+      //                                           'total_current_payable_amount'.tr,
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                         const Spacer(),
+      //                                         Text(
+      //                                           '${Get.find<GlobalController>()
+      //                                               .currency} ${dashboard.dashboardData.tCurrentPayable.toString()}',
+      //                                           style: kTextStyle.copyWith(
+      //                                               color: kTitleColor),
+      //                                         ),
+      //                                       ],
+      //                                     ),
+      //                                   ],
+      //                                 ),
+      //                               ),
+      //                             ],
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       const SizedBox(height: 20),
+      //                       Text(
+      //                         'all_reports'.tr,
+      //                         style: kTextStyle.copyWith(
+      //                             color: kGreyTextColor,
+      //                             fontWeight: FontWeight.bold,
+      //                             fontSize: 18.0),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.handHoldingDollar,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_sales_amount'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.tSale.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.handshakeAngle,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_delivery_fees_paid'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.tDeliveryFee.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.coins,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'net_profit_amount'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   "${Get.find<GlobalController>()
+      //                                       .currency} ${double.parse(dashboard.dashboardData.tSale.toString()) - double.parse(dashboard.dashboardData.tDeliveryFee.toString())}",
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.creditCard,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'current_balance'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.merchant!.currentBalance.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.circleDollarToSlot,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'opening_balance'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.merchant!.openingBalance.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.dna,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'vat'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.merchant!.vat.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.hourglass,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'payment_processing'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.tBalanceProc.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.database,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'paid_amount'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${Get.find<GlobalController>()
+      //                                       .currency} ${dashboard.dashboardData.tBalancePaid.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.houseChimney,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_shop'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   '${dashboard.dashboardData.tShop.toString()}',
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.boxesStacked,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_parcel_bank_item'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   dashboard.dashboardData.tParcelBank.toString(),
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.clockRotateLeft,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_payment_request'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   dashboard.dashboardData.tRequest.toString(),
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                       Card(
+      //                         child: Padding(
+      //                           padding: const EdgeInsets.all(10.0),
+      //                           child: ListTile(
+      //                             contentPadding: EdgeInsets.zero,
+      //                             leading: const Icon(
+      //                               FontAwesomeIcons.users,
+      //                               color: kTitleColor,
+      //                             ),
+      //                             trailing: Column(
+      //                               crossAxisAlignment: CrossAxisAlignment.end,
+      //                               mainAxisSize: MainAxisSize.min,
+      //                               children: [
+      //                                 Text(
+      //                                   'total_fraud_customer'.tr,
+      //                                   style: kTextStyle.copyWith(color: kTitleColor),
+      //                                 ),
+      //                                 const SizedBox(height: 5.0),
+      //                                 Text(
+      //                                   dashboard.dashboardData.tFraud.toString(),
+      //                                   style: kTextStyle.copyWith(
+      //                                       color: kTitleColor,
+      //                                       fontWeight: FontWeight.bold),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         )),
 
     );
   }

@@ -3,11 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:we_courier_merchant_app/Screen/Home/home.dart';
 import '../Models/edit_parcel_model.dart';
 import '../Models/parcel_crate_model.dart';
 import '../Models/parcel_logs_model.dart';
 import '../Models/parcels_model.dart';
 import '../Models/shop_model.dart';
+import '../Screen/Parcel/parcel_index.dart';
 import '../Screen/Widgets/button_global.dart';
 import '../Screen/Widgets/constant.dart';
 import '/services/api-list.dart';
@@ -225,6 +227,7 @@ class ParcelController extends GetxController {
     server.getRequest(endPoint: APIList.parcelCreate).then((response) {
       print("object=Fahad=${response.body}");
       if (response != null && response.statusCode == 200) {
+         print("object= =${response.statusCode}");
         loader = false;
         final jsonResponse = json.decode(response.body);
         var data = ParcelCrateModel.fromJson(jsonResponse);
@@ -238,6 +241,7 @@ class ParcelController extends GetxController {
         packagingList = <Packaging>[];
         packagingList.add(Packaging(id:0,name: 'select_packaging'.tr,price: '0',));
         packagingList.addAll(data.data!.packagings!);
+
         deliveryChargesList = <DeliveryCharge>[];
         // deliveryChargesList.add(DeliveryCharge(id:0,category: 'select_category',weight: '0',));
         deliveryChargesList.add(DeliveryCharge(id:0,weight: '0',));
@@ -248,7 +252,7 @@ class ParcelController extends GetxController {
         googleMapsBlockList = <GoogleMapsBlock>[];
         googleMapsBlockList.add(GoogleMapsBlock(id: 0,blockName: "Select Block Number".tr,));
         googleMapsBlockList.addAll(data.data!.googleMapsBlock!);
-
+print("object${googleMapsBlockList.length}");
         // List<DeliveryCategory>? category = data.data?.deliveryCategories;
         //
         // for (var i in category) {
@@ -337,7 +341,9 @@ class ParcelController extends GetxController {
           update();
         });
         getParcelList();
-        Get.back();
+        // Get.back();
+        //     Get.to(()=>Home());
+            Get.to(()=>ParcelPage(height: 0.90));
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",
             backgroundColor: Colors.green,
@@ -379,6 +385,7 @@ class ParcelController extends GetxController {
       isLiquidChecked = false;
       isParcelBankCheck = false;
       pickupPhoneController.text = '';
+      delivery_timeController.value.text = '';
       pickupAddressController.text = '';
       cashCollectionController.text = '';
       sellingPriceController.text = '';
@@ -421,6 +428,7 @@ class ParcelController extends GetxController {
   //     return 0.00;
   //   }
   // }
+
 
   distanceMatrixServiceLatLong() async {
     loaderParcel = true;
@@ -535,10 +543,6 @@ class ParcelController extends GetxController {
   percentage(totalAmount,percentageAmount) {
     return totalAmount * (percentageAmount / 100);
   }
-
-
-
-
 
   void showPopUp(context, totalCashCollectionParcel,deliveryChargeAmountParcel,codChargeAmountParcel,fragileLiquidAmountsParcel,packagingAmountParcel,totalDeliveryChargeAmountParcel,vatAmountParcel,netPayableParcel,currentPayableParcel) {
     showDialog(

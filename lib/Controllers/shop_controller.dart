@@ -12,16 +12,18 @@ class ShopController extends GetxController {
   Server server = Server();
   bool loader = true;
   List<ShopsData> shopList = <ShopsData>[];
-  // List<GoogleMapsBlock> googleMapsBlockList = <GoogleMapsBlock>[];
-  // GoogleMapsBlock deliveryCategorysValue = GoogleMapsBlock();
-  // late dynamic googleMapsBlockIndex = 0;
 
-  List<ShopsData> googleMapsBlockList = <ShopsData>[];
-  ShopsData deliveryCategorysValue = ShopsData();
+  List<GoogleMapsBlock> googleMapsBlockList = <GoogleMapsBlock>[];
+  GoogleMapsBlock deliveryCategorysValue = GoogleMapsBlock();
   late dynamic googleMapsBlockIndex = 0;
+
+  // List<ShopsData> googleMapsBlockList = <ShopsData>[];
+  // ShopsData deliveryCategorysValue = ShopsData();
+  // late dynamic googleMapsBlockIndex = 0;
 
 
   String deliveryCategoryID = '';
+  String update_deliveryCategoryID = '';
   TextEditingController addressController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -36,6 +38,7 @@ class ShopController extends GetxController {
   @override
   void onInit() {
     getShop();
+    crateParcel();
     super.onInit();
   }
 
@@ -60,9 +63,6 @@ class ShopController extends GetxController {
         var shopData = ShopModel.fromJson(jsonResponse);
         shopList = <ShopsData>[];
         shopList.addAll(shopData.data!.shops!);
-        // googleMapsBlockList = <GoogleMapsBlock>[];
-        // googleMapsBlockList.add(GoogleMapsBlock());
-        // googleMapsBlockList.add(shopData.data);
 
         Future.delayed(Duration(milliseconds: 10), () {
           update();
@@ -77,7 +77,22 @@ class ShopController extends GetxController {
   }
 
 
-
+  crateParcel() {
+    server.getRequest(endPoint: APIList.parcelCreate).then((response) {
+      print("object=Fahad=${response.body}");
+      if (response != null && response.statusCode == 200) {
+        loader = false;
+        final jsonResponse = json.decode(response.body);
+        var data = ParcelCrateModel.fromJson(jsonResponse);
+        googleMapsBlockList = <GoogleMapsBlock>[];
+        googleMapsBlockList.add(GoogleMapsBlock(id: 0,blockName: "Select Block Number".tr,));
+        googleMapsBlockList.addAll(data.data!.googleMapsBlock!);
+        print("object=Fahad=${googleMapsBlockList}");
+      } else {
+        loader = false;
+      }
+    });
+  }
   shopPost(status) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
@@ -97,7 +112,9 @@ class ShopController extends GetxController {
         .then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);
+
       if (response != null && response.statusCode == 200) {
+        print("object${response.body}");
         final jsonResponse = json.decode(response.body);
 
 
@@ -150,6 +167,7 @@ class ShopController extends GetxController {
       'name': nameUpdateController.text,
       'address': addressUpdateController.text,
       'contact_no': phoneUpdateController.text,
+      'google_maps_plus_code': update_deliveryCategoryID,
       'status': status == 'Active' ? '1':'0',
     };
     String jsonBody = json.encode(body);
@@ -213,6 +231,7 @@ class ShopController extends GetxController {
           update();
         });
          getShopList();
+        getShop();
         Get.back();
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",

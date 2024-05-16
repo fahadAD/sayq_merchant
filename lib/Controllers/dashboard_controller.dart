@@ -17,7 +17,8 @@ class DashboardController extends GetxController {
   bool dashboardLoader = true;
   bool commonLoader = false;
   bool loader = false;
-  late DataDashboard dashboardData;
+  // late DataDashboard dashboardData;
+  var dashboardData = DataDashboard();
     TermsAndCondition? terms_condition;
   List<NewsOffers> offersList = <NewsOffers>[];
 

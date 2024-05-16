@@ -528,40 +528,46 @@ class _ParcelPageState extends State<ParcelPage> {
       backgroundColor: kMainColor,
       appBar: AppBar(
         title: Text(
-          'parcel_list'.tr,
+          'Orders'.tr,
           style: kTextStyle.copyWith(color: kBgColor),
         ),
-        actions: [
-          Card(
-            elevation: 0,
-            color: kMainColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(11),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    FontAwesomeIcons.plus,
-                    color: kBgColor,
-                    size: 16.0,
-                  ),
-                  const SizedBox(width: 4.0),
-                  Text(
-                    'add'.tr,
-                    style: kTextStyle.copyWith(color: kBgColor, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ).onTap(
-                  () => Get.to(() => CreateParcel()),
-            ),
-          ),
-        ],
+        // actions: [
+        //
+        //   Card(
+        //
+        //     elevation: 0,
+        //     color: kMainColor,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //     ),
+        //     child: Container(
+        //
+        //       padding: const EdgeInsets.all(11),
+        //       decoration: BoxDecoration(
+        //         borderRadius: BorderRadius.circular(2.0),
+        //         color: Colors.white
+        //       ),
+        //       child: Row(
+        //         children: [
+        //
+        //
+        //           Text(
+        //             'Create new order'.tr,
+        //             style: kTextStyle.copyWith(color: kMainColor, fontWeight: FontWeight.bold),
+        //           ),
+        //           const SizedBox(width: 4.0),
+        //           const Icon(
+        //             FontAwesomeIcons.plus,
+        //             color: kMainColor,
+        //             size: 16.0,
+        //           ),
+        //         ],
+        //       ),
+        //     ).onTap(
+        //           () => Get.to(() => CreateParcel()),
+        //     ),
+        //   ),
+        // ],
         backgroundColor: kMainColor,
         elevation: 0.0,
         iconTheme: const IconThemeData(color: kBgColor),

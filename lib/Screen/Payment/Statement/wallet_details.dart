@@ -168,8 +168,11 @@ class _WalletDetailsState extends State<WalletDetails> {
                                   alignment: Alignment.topLeft,
                                   child: Text("Transaction",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
                               SizedBox(height: 10,),
-                              Container(
 
+                              balanceController.parcelList.isEmpty? Padding(
+                                padding: const EdgeInsets.only(top: 100.0),
+                                child: Center(child: Text("No Transaction Data")),
+                              ) : Container(
                                 width: double.infinity,
                                 child: Card(
                                   color: Colors.white,

@@ -317,9 +317,7 @@ class _EditParcelState extends State<EditParcel> {
                               }).toList(),
                               onChanged: (newValue) {
                                 setState(() {
-                                  parcel.deliveryChargesIndex =
-                                      parcel.deliveryChargesList
-                                          .indexOf(newValue!);
+                                  parcel.deliveryChargesIndex = parcel.deliveryChargesList.indexOf(newValue!);
                                   parcel.deliveryChargesID = newValue.id.toString();
                                   parcel.deliveryChargesValue = newValue;
                                 });

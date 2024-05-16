@@ -1,3 +1,6 @@
+ import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/create_parcel.dart';
+
 import '../../Models/parcel_crate_model.dart';
 import '../../Models/shop_model.dart';
 import '/Screen/Widgets/button_global.dart';
@@ -47,6 +50,8 @@ class _CreateShopsState extends State<CreateShops> {
     );
   }
 
+  final TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     SizeConfigCustom sizeConfig = SizeConfigCustom();
@@ -56,7 +61,7 @@ class _CreateShopsState extends State<CreateShops> {
       appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'create_shop'.tr,
+          'Create Address'.tr,
           style: kTextStyle.copyWith(color: kBgColor),
         ),
         actions: [
@@ -181,62 +186,164 @@ class _CreateShopsState extends State<CreateShops> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 20),
+                    //
                     // shop.googleMapsBlockList.isEmpty
                     //     ? SizedBox()
                     //     :
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    //   child: SizedBox(
-                    //     height: 60.0,
-                    //     child: FormField(
-                    //       builder: (FormFieldState<dynamic> field) {
-                    //         return InputDecorator(
-                    //
-                    //           decoration: kInputDecoration.copyWith(
-                    //             floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //             labelText: 'Block'.tr + '*',
-                    //             hintText: 'Select Block Number'.tr,
-                    //             labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                    //             border: OutlineInputBorder(
-                    //               borderRadius: BorderRadius.circular(5.0),
-                    //             ),
+                    // SizedBox(
+                    //   height: 60.0,
+                    //   child: FormField(
+                    //     builder: (FormFieldState<dynamic> field) {
+                    //       return InputDecorator(
+                    //         decoration: kInputDecoration.copyWith(
+                    //           floatingLabelBehavior: FloatingLabelBehavior.always,
+                    //           labelText: 'Block'.tr + '*',
+                    //           hintText: 'Select Block Number'.tr,
+                    //           labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(5.0),
                     //           ),
-                    //           child: DropdownButtonHideUnderline(
+                    //         ),
+                    //         child: DropdownButtonHideUnderline(
                     //
-                    //             child: DropdownButton<ShopsData>(
+                    //           child: DropdownButton<GoogleMapsBlock>(
                     //
-                    //               value: shop.googleMapsBlockIndex.toString() == 'null' ? null : shop.googleMapsBlockList[shop.googleMapsBlockIndex],
-                    //               items: shop.googleMapsBlockList.map((ShopsData value) {
-                    //                 return new DropdownMenuItem<ShopsData>(
-                    //                   value: value,
-                    //                   child: value.id == 0
-                    //                       ? Text("${value.blockName.toString()}")
-                    //                       : value.blockName == ''
-                    //                       ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
-                    //                       : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
-                    //                 );
-                    //               }).toList(),
-                    //               onChanged: (newValue) {
-                    //                 setState(() {
-                    //                   shop.googleMapsBlockIndex = shop.googleMapsBlockList.indexOf(newValue!);
-                    //                   shop.deliveryCategoryID = newValue.googleMapsPlusCode.toString();
-                    //                   shop.deliveryCategorysValue = newValue;
+                    //             value: shop.googleMapsBlockIndex.toString() == 'null' ? null : shop.googleMapsBlockList[shop.googleMapsBlockIndex],
+                    //             items: shop.googleMapsBlockList.map((GoogleMapsBlock value) {
+                    //               return new DropdownMenuItem<GoogleMapsBlock>(
+                    //                 value: value,
+                    //                 child: value.id == 0
+                    //                     ? Text("${value.blockName.toString()}")
+                    //                     : value.blockName == ''
+                    //                     ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                    //                     : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                    //               );
+                    //             }).toList(),
+                    //             onChanged: (newValue) {
+                    //               setState(() {
+                    //                 shop.googleMapsBlockIndex = shop.googleMapsBlockList.indexOf(newValue!);
+                    //                 shop.deliveryCategoryID = newValue.googleMapsPlusCode.toString();
+                    //                 shop.deliveryCategorysValue = newValue;
                     //
-                    //                 });
-                    //               },
-                    //             ),
+                    //               });
+                    //             },
                     //           ),
-                    //         );
-                    //       },
-                    //     ),
+                    //         ),
+                    //       );
+                    //     },
                     //   ),
                     // ),
+
+                    const SizedBox(height: 20),
+                    shop.googleMapsBlockList.isEmpty
+                        ? SizedBox()
+                        :
+                    SizedBox(
+                      height: 60.0,
+                      child: FormField(
+
+                        builder: (FormFieldState<dynamic> field) {
+
+                          return InputDecorator(
+                            decoration: kInputDecoration.copyWith(
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              labelText: 'Block'.tr + '*',
+                              labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                            ),
+                            child: DropdownButtonHideUnderline(
+
+                              child: DropdownButton2<GoogleMapsBlock>(
+                                 iconStyleData: IconStyleData(icon: Icon(Icons.search_outlined)),
+                                hint: Text(
+                                  'Select Item',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).hintColor,
+                                  ),
+                                ),
+                                value: shop.googleMapsBlockIndex.toString() == 'null' ? null : shop.googleMapsBlockList[shop.googleMapsBlockIndex],
+                                items: shop.googleMapsBlockList.map((GoogleMapsBlock value) {
+                                  return new DropdownMenuItem<GoogleMapsBlock>(
+                                    value: value,
+                                    child: value.id == 0
+                                        ? Text("${value.blockName.toString()}")
+                                        : value.blockName == ''
+                                        ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                                        : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    shop.googleMapsBlockIndex = shop.googleMapsBlockList.indexOf(newValue!);
+                                    shop.deliveryCategoryID = newValue.googleMapsPlusCode.toString();
+                                    shop.deliveryCategorysValue = newValue;
+
+                                  });
+                                },
+                                buttonStyleData: const ButtonStyleData(
+                                  // padding: EdgeInsets.symmetric(horizontal: 16),
+                                  height: 40,
+                                  width: 400,
+                                ),
+
+                                dropdownSearchData: DropdownSearchData(
+                                  searchController: textEditingController,
+                                  searchInnerWidgetHeight: 50,
+                                  searchInnerWidget: Container(
+                                    height: 50,
+                                    padding: const EdgeInsets.only(
+                                      top: 8,
+                                      bottom: 4,
+                                      right: 8,
+                                      left: 8,
+                                    ),
+                                    child: TextFormField(
+                                      controller: textEditingController,
+                                      decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 8,
+                                        ),
+                                        hintText: 'Search for an item...',
+                                        hintStyle: const TextStyle(fontSize: 12),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  searchMatchFn: ( item, searchValue) {
+
+                                    return item.value!.blockNumber.toString().contains(searchValue);
+
+
+
+                                  },
+                                ),
+                                //This to clear the search value when you close the menu
+                                onMenuStateChange: (isOpen) {
+                                  if (!isOpen) {
+                                    textEditingController.clear();
+                                  }
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+
                     const SizedBox(height: 30.0),
                    ButtonGlobal(buttontext: 'submit'.tr, buttonDecoration: kButtonDecoration, onPressed: () {
                      if (_formKey.currentState!.validate()) {
                        shop.shopPost(status);
                      }
+
                    })
                   ],
                 )),

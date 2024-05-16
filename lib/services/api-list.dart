@@ -1,7 +1,7 @@
 class APIList {
   // static String? server = "https://sayq.app/api/v10/";
-  static String? server = "http://192.168.1.108/uae-courier/api/v10/";
-  static String? apiUrl = "192.168.1.108/uae-courier";
+  static String? server = "https://sayq.app/api/v10/";
+  static String? apiUrl = "sayq.app";
   static String? apiCheckKey = "123456rx-ecourier123456";
   // static String? mapGoogleApiKey = "AIzaSyCGRSk7rUwHzf8vhRIzPp3bmiJDaRt8Ev4";
   static String? mapGoogleApiKey = "AIzaSyCQ5kB7liNAGGqG_mb9zp5KOdFXkwRaxas";
