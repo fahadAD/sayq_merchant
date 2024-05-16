@@ -200,7 +200,7 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                      );
                    },
 
-                   )
+                   ),
 
                   ],
                 ),

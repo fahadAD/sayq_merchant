@@ -1,7 +1,9 @@
 class APIList {
-  // static String? server = "https://sayq.app/api/v10/";
-  static String? server = "https://sayq.app/api/v10/";
+   static String? server = "https://sayq.app/api/v10/";
   static String? apiUrl = "sayq.app";
+  // static String? server = "http://192.168.1.108/uae-courier/api/v10/";
+  // static String? apiUrl = "192.168.1.108/uae-courier";
+
   static String? apiCheckKey = "123456rx-ecourier123456";
   // static String? mapGoogleApiKey = "AIzaSyCGRSk7rUwHzf8vhRIzPp3bmiJDaRt8Ev4";
   static String? mapGoogleApiKey = "AIzaSyCQ5kB7liNAGGqG_mb9zp5KOdFXkwRaxas";
@@ -35,6 +37,7 @@ class APIList {
   static String? shopUpdate = "${server!}shops/update/";
   static String? shopDelete = "${server!}shops/delete/";
   static String? parcelList = "${server!}parcel/index";
+  static String? today_parcel = "${server!}parcel/today";
   static String? parcel_history = "${server!}parcel/history";
   static String? parcel_completed_delivery = "${server!}parcel/completed/delivery";
   static String? parcelFilter = "${server!}parcel/filter";

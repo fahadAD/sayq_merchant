@@ -111,7 +111,7 @@ BottomBarItem(
             ],
             onTap: (int index) {
               setState(() => _currentPage = index);
-            },
+              },
             selectedIndex: _currentPage,
           )
       ),

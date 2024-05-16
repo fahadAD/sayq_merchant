@@ -80,31 +80,32 @@ class _DashBoardState extends State<DashBoard> {
   DashboardController dashboard = DashboardController();
   BalanceController balanceController = BalanceController();
   GlobalController globalController = GlobalController();
-@override
+  @override
   void initState() {
-  FirebaseMessaging.instance
-      .getInitialMessage()
-      .then((RemoteMessage? message) {});
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {});
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    Get.rawSnackbar(
-      snackPosition: SnackPosition.TOP,
-      title: message.notification?.title,
-      message: message.notification?.body,
-      backgroundColor: kMainColor.withOpacity(.9),
-      maxWidth: ScreenSize(context).mainWidth / 1.007,
-      margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-    );
-  });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      Get.rawSnackbar(
+        snackPosition: SnackPosition.TOP,
+        title: message.notification?.title,
+        message: message.notification?.body,
+        backgroundColor: kMainColor.withOpacity(.9),
+        maxWidth: ScreenSize(context).mainWidth / 1.007,
+        margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+      );
+    });
 
-  // TODO: implement initState
+    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    selectedLang =
-    languageController.languageList[languageController.languageList.indexWhere((i) => i.locale == Get.locale)];
+    selectedLang = languageController.languageList[languageController
+        .languageList
+        .indexWhere((i) => i.locale == Get.locale)];
 
     return Scaffold(
       backgroundColor: kMainColor,
@@ -127,36 +128,43 @@ class _DashBoardState extends State<DashBoard> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CachedNetworkImage(
-                        imageUrl:Get.find<GlobalController>().userImage ==null?'assets/images/profile.png':Get.find<GlobalController>().userImage.toString(),
-                        imageBuilder: (context, imageProvider) =>
-                            CircleAvatar(
-                              radius: 25.0,
-                              backgroundImage: imageProvider,
-                              backgroundColor: Colors.transparent,
-                            ),
+                        imageUrl: Get.find<GlobalController>().userImage == null
+                            ? 'assets/images/profile.png'
+                            : Get.find<GlobalController>().userImage.toString(),
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 25.0,
+                          backgroundImage: imageProvider,
+                          backgroundColor: Colors.transparent,
+                        ),
                         placeholder: (context, url) => Shimmer.fromColors(
                           child: CircleAvatar(radius: 25.0),
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[400]!,
                         ),
-                        errorWidget: (context, url, error) =>
-                            Icon(CupertinoIcons.person,size: 30,),
+                        errorWidget: (context, url, error) => Icon(
+                          CupertinoIcons.person,
+                          size: 30,
+                        ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if(Get.find<GlobalController>().userName != null) Text(
-                            Get.find<GlobalController>().userName.toString(),
-                            style: kTextStyle.copyWith(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          if(Get.find<GlobalController>().userEmail != null)Text(
-                            Get.find<GlobalController>().userEmail.toString(),
-                            style: kTextStyle.copyWith(color: Colors.white),
-                          ),
+                          if (Get.find<GlobalController>().userName != null)
+                            Text(
+                              Get.find<GlobalController>().userName.toString(),
+                              style: kTextStyle.copyWith(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          if (Get.find<GlobalController>().userEmail != null)
+                            Text(
+                              Get.find<GlobalController>().userEmail.toString(),
+                              style: kTextStyle.copyWith(color: Colors.white),
+                            ),
                         ],
                       ),
                     ],
@@ -179,7 +187,8 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
@@ -201,7 +210,8 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
@@ -223,12 +233,12 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
                 ),
-
                 ListTileTheme(
                   iconColor: kTitleColor,
                   contentPadding: const EdgeInsets.all(0),
@@ -241,8 +251,9 @@ class _DashBoardState extends State<DashBoard> {
                     title: Text(
                       'parcels'.tr,
                       style: kTextStyle.copyWith(
-                        fontSize: 16,
-                          color: kTitleColor, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          color: kTitleColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.all(2.0),
@@ -255,30 +266,38 @@ class _DashBoardState extends State<DashBoard> {
                     children: [
                       ListTile(
                         title: Padding(
-                          padding: const EdgeInsets.only(left:20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'parcels'.tr,
-                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
-                        onTap: (() =>  ParcelPage(height: 0.85,).launch(context)),
+                        onTap: (() => ParcelPage(
+                              height: 0.85,
+                            ).launch(context)),
                       ),
                       ListTile(
                         title: Padding(
-                          padding: const EdgeInsets.only(left:20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'Order History'.tr,
-                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
-                        onTap: (() =>  ParcelPageHistory().launch(context)),
+                        onTap: (() => ParcelPageHistory().launch(context)),
                       ),
                       ListTile(
                         title: Padding(
-                          padding: const EdgeInsets.only(left:20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'Parcel Categories'.tr,
-                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                         onTap: (() => const ParcelAllStatus().launch(context)),
@@ -286,7 +305,6 @@ class _DashBoardState extends State<DashBoard> {
                     ],
                   ),
                 ),
-
                 ListTile(
                   onTap: (() => const Frauds().launch(context)),
                   contentPadding: EdgeInsets.zero,
@@ -304,7 +322,8 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
@@ -326,7 +345,8 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
@@ -343,8 +363,9 @@ class _DashBoardState extends State<DashBoard> {
                       title: Text(
                         ' Payments'.tr,
                         style: kTextStyle.copyWith(
-                          fontSize: 16,
-                            color: kTitleColor, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            color: kTitleColor,
+                            fontWeight: FontWeight.bold),
                       ),
                       trailing: Container(
                         padding: const EdgeInsets.all(2.0),
@@ -357,37 +378,42 @@ class _DashBoardState extends State<DashBoard> {
                       children: [
                         ListTile(
                           title: Padding(
-                            padding: const EdgeInsets.only(left:20.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               'payment_account'.tr,
-                              style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                              style: kTextStyle.copyWith(
+                                  color: kGreyTextColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           onTap: (() => const PaymentAcc().launch(context)),
                         ),
                         ListTile(
                           title: Padding(
-                            padding: const EdgeInsets.only(left:20.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               'payment_request'.tr,
-                              style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                              style: kTextStyle.copyWith(
+                                  color: kGreyTextColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           onTap: (() => const PaymentReq().launch(context)),
                         ),
                         ListTile(
                           title: Padding(
-                            padding: const EdgeInsets.only(left:20.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               'Payments/Invoices'.tr,
-                              style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                              style: kTextStyle.copyWith(
+                                  color: kGreyTextColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           onTap: (() => const InvoiceList().launch(context)),
                         ),
                       ],
                     )),
-
                 ListTileTheme(
                   iconColor: kTitleColor,
                   contentPadding: const EdgeInsets.all(0),
@@ -400,8 +426,9 @@ class _DashBoardState extends State<DashBoard> {
                     title: Text(
                       'reports'.tr,
                       style: kTextStyle.copyWith(
-                        fontSize: 16,
-                          color: kTitleColor, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          color: kTitleColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.all(2.0),
@@ -414,23 +441,28 @@ class _DashBoardState extends State<DashBoard> {
                     children: [
                       ListTile(
                         title: Padding(
-                          padding: const EdgeInsets.only(left:20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'account_transaction'.tr,
-                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                         onTap: (() => const AccTransaction().launch(context)),
                       ),
                       ListTile(
                         title: Padding(
-                          padding: const EdgeInsets.only(left:20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'statements'.tr,
-                            style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.w600),
+                            style: kTextStyle.copyWith(
+                                color: kGreyTextColor,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
-                        onTap: (() => const DateToDateStatement().launch(context)),
+                        onTap: (() =>
+                            const DateToDateStatement().launch(context)),
                       ),
                     ],
                   ),
@@ -447,8 +479,9 @@ class _DashBoardState extends State<DashBoard> {
                       title: Text(
                         'setting'.tr,
                         style: kTextStyle.copyWith(
-                          fontSize: 16,
-                            color: kTitleColor, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            color: kTitleColor,
+                            fontWeight: FontWeight.bold),
                       ),
                       trailing: Container(
                         padding: const EdgeInsets.all(2.0),
@@ -467,16 +500,15 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                         ),
                         ListTile(
-                          onTap: (() => const DeliveryChargeList().launch(context)),
+                          onTap: (() =>
+                              const DeliveryChargeList().launch(context)),
                           title: Text(
                             'delivery_charges'.tr,
                             style: kTextStyle.copyWith(color: kGreyTextColor),
                           ),
                         ),
-
                       ],
                     )),
-
                 ListTile(
                   onTap: () => {
                     Get.find<GlobalController>().userLogout(),
@@ -497,12 +529,12 @@ class _DashBoardState extends State<DashBoard> {
                   trailing: Container(
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,),
+                      shape: BoxShape.circle,
+                    ),
                     child: const Icon(FeatherIcons.chevronRight,
                         color: kTitleColor, size: 18),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -517,15 +549,14 @@ class _DashBoardState extends State<DashBoard> {
           horizontalTitleGap: 0,
           contentPadding: const EdgeInsets.all(10.0),
           title: Text(
-            '${Get.find<GlobalController>()
-                .siteName} Merchant',
+            '${Get.find<GlobalController>().siteName} Merchant',
             style: kTextStyle.copyWith(
                 color: Colors.white,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold),
           ),
           trailing: Container(
-            padding: EdgeInsets.only(left: 8,right: 0),
+            padding: EdgeInsets.only(left: 8, right: 0),
             decoration: BoxDecoration(
               color: Colors.white, //<-- SEE HERE
             ),
@@ -540,7 +571,7 @@ class _DashBoardState extends State<DashBoard> {
                 color: Colors.transparent,
               ),
               onChanged: (newValue) async {
-                setState(()  {
+                setState(() {
                   selectedLang = newValue!;
                   if (newValue.langName == 'English') {
                     languageController.changeLanguage("en");
@@ -554,7 +585,6 @@ class _DashBoardState extends State<DashBoard> {
                     languageController.changeLanguage("es");
                   }
                 });
-
               },
               items: languageController.languageList
                   .map<DropdownMenuItem<Language>>((Language value) {
@@ -574,145 +604,187 @@ class _DashBoardState extends State<DashBoard> {
           ),
         ),
       ),
-      body:  GetBuilder<DashboardController>(
+      body: GetBuilder<DashboardController>(
           init: DashboardController(),
-              builder: (dashboard) =>
-              dashboard.dashboardData==null? Center(child: CircularProgressIndicator())
-                  :     SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10.0),
-                    dashboard.dashboardLoader
-                        ? DashboardShimmer()
-                        : Container(
-                      padding: const EdgeInsets.all(10.0),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFf9f9fe),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30.0),
-                          topLeft: Radius.circular(30.0),
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                        controller: ScrollController(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                            ListView.builder(
-                              itemCount: 5,
-                              shrinkWrap: true,
-                              primary: false,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Container(
-
-                                  width: double.infinity,
-                                  child: Card(
-                                    color: Colors.white,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                            top: 12.0,
-
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("#777777777",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
-                                              Container(
-                                                height: 40,
-                                                width: 100,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(50),
-                                                  color: kMainColor,
+          builder: (dashboard) => dashboard.dashboardData == null
+              ? Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10.0),
+                      dashboard.dashboardLoader
+                          ? DashboardShimmer()
+                          : Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFf9f9fe),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(30.0),
+                                  topLeft: Radius.circular(30.0),
+                                ),
+                              ),
+                              child: SingleChildScrollView(
+                                controller: ScrollController(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 20,),
+                                    dashboard.today_parcelList.isEmpty? Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 100.0,
+                                        bottom: 500
+                                      ),
+                                      child: Center(child: Text("No Order Today")),
+                                    ) :
+                                    ListView.builder(
+                                      itemCount: dashboard.today_parcelList.length,
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Container(
+                                          width: double.infinity,
+                                          child: Card(
+                                            color: Colors.white,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                    top: 12.0,
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "#${dashboard.today_parcelList[index].trackingId}",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 17),
+                                                      ),
+                                                      Container(
+                                                        height: 40,
+                                                        width: 100,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
+                                                          color: kMainColor,
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                                "${dashboard.today_parcelList[index].statusName}",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                                child: Center(child: Text("Success",style: TextStyle(color: Colors.white))),
-                                              )
-                                            ],
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                    top: 8.0,
+                                                  ),
+                                                  child: Text(
+                                                    "${dashboard.today_parcelList[index].merchantName}",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  indent: 10,
+                                                  endIndent: 10,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                  ),
+                                                  child: Text(
+                                                    "${dashboard.today_parcelList[index].merchantAddress}",
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                    top: 2,
+                                                  ),
+                                                  child: Text("${dashboard.today_parcelList[index].pickupDate}",
+                                                      style: TextStyle(
+                                                          fontSize: 12)),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                    top: 8.0,
+                                                  ),
+                                                  child: Text(
+                                                    "${dashboard.today_parcelList[index].customerName}",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  indent: 10,
+                                                  endIndent: 10,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 10.0,
+                                                    left: 10.0,
+                                                  ),
+                                                  child: Text(
+                                                    "${dashboard.today_parcelList[index].customerAddress}",
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0,
+                                                          left: 10.0,
+                                                          top: 2,
+                                                          bottom: 10),
+                                                  child: Text("${dashboard.today_parcelList[index].deliveryDate}",
+                                                      style: TextStyle(
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                            top: 8.0,
-
-                                          ),
-                                          child: Text("Shahariae",style: TextStyle(fontWeight: FontWeight.bold,),),
-                                        ),
-                                        Divider(
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-
-
-                                          ),
-                                          child: Text("Dhaks",),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                            top: 2,
-
-                                          ),
-                                          child: Text("5-34-6",style: TextStyle(fontSize: 12)),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                            top: 8.0,
-
-                                          ),
-                                          child: Text("Riaz Ahams",style: TextStyle(fontWeight: FontWeight.bold,),),
-                                        ),
-                                        Divider(
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-
-
-                                          ),
-                                          child: Text("Feni",),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 10.0,
-                                              left: 10.0,
-                                              top: 2,
-                                              bottom: 10
-                                          ),
-                                          child: Text("9-87-24",style: TextStyle(fontSize: 12)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                                        );
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
+                )),
       // body:  GetBuilder<DashboardController>(
       //     init: DashboardController(),
       //         builder: (dashboard) =>
@@ -1570,7 +1642,6 @@ class _DashBoardState extends State<DashBoard> {
       //             ],
       //           ),
       //         )),
-
     );
   }
 }

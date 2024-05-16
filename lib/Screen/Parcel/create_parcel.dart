@@ -80,15 +80,15 @@ class _CreateParcelState extends State<CreateParcel> {
             'Create Order'.tr,
             style: kTextStyle.copyWith(color: kBgColor),
           ),
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-                Get.find<ParcelController>().clearAll();
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: kBgColor,
-              )),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Get.back();
+          //       Get.find<ParcelController>().clearAll();
+          //     },
+          //     icon: Icon(
+          //       Icons.arrow_back,
+          //       color: kBgColor,
+          //     )),
           backgroundColor: kMainColor,
           elevation: 0.0,
           iconTheme: const IconThemeData(color: kBgColor),
