@@ -33,8 +33,7 @@ class Data {
       String? favicon,
       String? parTrackPrefix, 
       String? invoicePrefix,
-    dynamic per_kilometer_rate,
-  }){
+   }){
     _id = id;
     _name = name;
     _phone = phone;
@@ -45,8 +44,7 @@ class Data {
     _favicon = favicon;
     _parTrackPrefix = parTrackPrefix;
     _invoicePrefix = invoicePrefix;
-    _per_kilometer_rate = per_kilometer_rate;
-}
+ }
 
   Data.fromJson(dynamic json) {
     _id = json['id'];
@@ -59,8 +57,7 @@ class Data {
     _favicon = json['favicon'].toString();
     _parTrackPrefix = json['par_track_prefix'];
     _invoicePrefix = json['invoice_prefix'];
-    _per_kilometer_rate = json['per_kilometer_rate'];
-  }
+   }
   int? _id;
   String? _name;
   String? _phone;
@@ -71,7 +68,6 @@ class Data {
   String? _favicon;
   String? _parTrackPrefix;
   String? _invoicePrefix;
-  dynamic _per_kilometer_rate;
 
   int? get id => _id;
   String? get name => _name;
@@ -83,7 +79,6 @@ class Data {
   String? get favicon => _favicon;
   String? get parTrackPrefix => _parTrackPrefix;
   String? get invoicePrefix => _invoicePrefix;
-  dynamic get per_kilometer_rate => _per_kilometer_rate;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -97,8 +92,7 @@ class Data {
     map['favicon'] = _favicon;
     map['par_track_prefix'] = _parTrackPrefix;
     map['invoice_prefix'] = _invoicePrefix;
-    map['per_kilometer_rate'] = _per_kilometer_rate;
-    return map;
+     return map;
   }
 
 }

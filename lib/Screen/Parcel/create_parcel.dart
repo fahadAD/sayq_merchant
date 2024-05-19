@@ -1,14 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:we_courier_merchant_app/Models/edit_parcel_model.dart';
-import 'package:we_courier_merchant_app/Screen/MapScreen/pickup_map.dart';
-
-
-import '../MapScreen/customer_map.dart';
 import '/Screen/Widgets/button_global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../Controllers/parcel_controller.dart';
 import '../../Models/parcel_crate_model.dart';
 import '../../utils/size_config.dart';
@@ -868,6 +862,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                        //     hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
                                        //   ),
                                        // ),
+
                                        Padding(
                                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                          child: AppTextField(
@@ -1356,7 +1351,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                               ),
                                             ),
                                             const SizedBox(height: 20.0),
-                                            is_check==true? Padding(
+                                            is_check==false? Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                               child: TextFormField(
                                                 readOnly: true,

@@ -634,11 +634,33 @@ class _DashBoardState extends State<DashBoard> {
                                     SizedBox(height: 10,),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text("Current Orders : ",style: TextStyle(
-                                        fontWeight: FontWeight.bold,fontSize: 20,
-                                        color: kMainColor
-                                      )),
+                                      child: Row(
+                                        children: [
+                                          Text("Current Orders  ",style: TextStyle(
+                                            fontWeight: FontWeight.bold,fontSize: 20,
+                                            color: kMainColor
+                                          )),
+                                          Spacer(),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(()=>CreateParcel());
+                                            },
+                                            child: Container(
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20),
+                                                    color: kMainColor,
+                                              ),
+                                              child: Center(child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                                                child: Text("Make Order Now",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)),
+                                              )),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
+
                                     SizedBox(height: 10,),
                                     dashboard.today_parcelList.isEmpty? Padding(
                                       padding: const EdgeInsets.only(

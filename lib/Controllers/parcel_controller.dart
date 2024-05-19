@@ -304,7 +304,7 @@ print("object${googleMapsBlockList.length}");
       'invoice_no': invoiceController.text.toString(),
       'cash_collection': cashCollectionController.text.toString(),
       'category_id': deliveryCategorysValue.id.toString(),
-      'delivery_type_id': deliveryTypID == 'Next Day'? 1: deliveryTypID == 'Same Day'?2: deliveryTypID == 'Sub City'?3: deliveryTypID == 'Outside City'?4:'',
+      'delivery_type_id': deliveryTypID == 'Parcel'? 1: deliveryTypID == 'Food'?2: deliveryTypID == 'Van'?3: deliveryTypID == 'Next Day'?4:'',
       // 'selling_price': sellingPriceController.text.toString(),
       'selling_price': "",
       'customer_name': customerController.text.toString(),

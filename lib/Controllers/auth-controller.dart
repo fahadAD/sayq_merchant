@@ -168,7 +168,8 @@ class AuthController extends GetxController {
 
   getBlockList() {
     server.getRequestNotToken(endPoint: APIList.google_maps_plus_code_list).then((response) {
-      print(json.decode(response.body));
+    print("Fahad object${response.body}");
+   print("Fahad object${response.statusCode}");
 
       if (response != null && response.statusCode == 200) {
          loader = false;
@@ -206,8 +207,10 @@ class AuthController extends GetxController {
         'mobile': phoneController.text,
         'password': passwordController.text,
         'hub_id': hubID.toString(),
-        'latitude': position?.latitude,
-        'longitude': position?.longitude,
+        // 'latitude': position?.latitude,
+        // 'longitude': position?.longitude,
+        'latitude': pickupLat.value,
+        'longitude': pickupLong.value,
         'google_maps_plus_code':blockCategoryID,
       };
 

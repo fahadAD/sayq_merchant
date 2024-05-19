@@ -90,8 +90,7 @@ class GlobalController extends GetxController {
           currencyName = settingData.data!.currency;
           siteName = settingData.data!.name;
           siteEmail = settingData.data!.email;
-          per_kilometer_rate = settingData.data?.per_kilometer_rate;
-          Future.delayed(Duration(milliseconds: 10), () {
+           Future.delayed(Duration(milliseconds: 10), () {
             update();
           });
         } else {
