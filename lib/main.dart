@@ -9,7 +9,7 @@ import 'Controllers/global-controller.dart';
 import 'Locale/language.dart';
 import 'Screen/SplashScreen/splash_screen.dart';
 import 'Screen/Widgets/constant.dart';
-
+import 'dart:io';
 
 Future<void> main() async {
   final box = GetStorage();

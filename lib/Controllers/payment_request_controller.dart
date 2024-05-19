@@ -156,8 +156,7 @@ class PaymentRequestController extends GetxController {
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
-        Get.showSnackbar(GetSnackBar(message:'Payment Request Succeeded',duration: Duration(seconds: 2),));
-        Get.back();
+         Get.back();
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",
             backgroundColor: Colors.green,

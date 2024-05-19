@@ -1,6 +1,7 @@
 class APIList {
    static String? server = "https://sayq.app/api/v10/";
   static String? apiUrl = "sayq.app";
+
   // static String? server = "http://192.168.1.108/uae-courier/api/v10/";
   // static String? apiUrl = "192.168.1.108/uae-courier";
 
@@ -39,6 +40,7 @@ class APIList {
   static String? parcelList = "${server!}parcel/index";
   static String? today_parcel = "${server!}parcel/today";
   static String? parcel_history = "${server!}parcel/history";
+  static String? google_maps_plus_code_list = "${server!}google_maps_plus_code_list";
   static String? parcel_completed_delivery = "${server!}parcel/completed/delivery";
   static String? parcelFilter = "${server!}parcel/filter";
   static String? parcelCreate = "${server!}parcel/create";

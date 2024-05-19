@@ -174,6 +174,7 @@ class ParcelController extends GetxController {
       }
     });
   }
+
   getParcelHistory() {
     server.getRequest(endPoint: APIList.parcel_history).then((response) {
       print(json.decode(response.body));
@@ -483,16 +484,16 @@ print("object${googleMapsBlockList.length}");
       double? deliveryChargeAmount =  0;
       double merchantCodCharge    = 0;
 
-      if(deliveryTypID == 'Same Day'){
+      if(deliveryTypID == 'Parcel'){
         // deliveryChargeAmount = deliveryChargesValue.sameDay.toDouble();
         merchantCodCharge = merchantData.codCharges!.insideCity.toDouble();
         }else if (deliveryTypID == 'Next Day') {
         // deliveryChargeAmount = deliveryChargesValue.nextDay.toDouble();
         merchantCodCharge = merchantData.codCharges!.insideCity.toDouble();
-      } else if (deliveryTypID == 'Sub City') {
+      } else if (deliveryTypID == 'Food') {
         // deliveryChargeAmount = deliveryChargesValue.subCity.toDouble();
         merchantCodCharge = merchantData.codCharges!.subCity.toDouble();
-      }else if (deliveryTypID == 'Outside City') {
+      }else if (deliveryTypID == 'Van') {
         // deliveryChargeAmount = deliveryChargesValue.outsideCity.toDouble();
         merchantCodCharge = merchantData.codCharges!.outsideCity.toDouble();
       }else {

@@ -58,8 +58,8 @@ class _ProfileState extends State<Profile> {
             decoration: BoxDecoration(
               border: Border.all(color: kGreyTextColor.withOpacity(0.2)),
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
+                topLeft: Radius.circular(0.0),
+                topRight: Radius.circular(0.0),
               ),
               color: Colors.white,
             ),

@@ -17,6 +17,11 @@ class PaymentAcc extends StatefulWidget {
 
 class _PaymentAccState extends State<PaymentAcc> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainColor,

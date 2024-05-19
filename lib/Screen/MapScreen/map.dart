@@ -62,6 +62,7 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
             autocompleteRadius: 1000,
             hintText: 'SEARCH_LOCATION',
             usePlaceDetailSearch: true,
+
             onCameraMove: (position) {
 
               authController.pickupLat.value = position.target.latitude;
@@ -74,6 +75,7 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
               // print('============ longitude not data=============${orderController.pickupLong.value = position.target.longitude}===========');
               print('============ longitude not data=============${authController.pickupLat.value=position.target.latitude}===========');
               print('============ longitude not data=============${authController.pickupLong.value = position.target.longitude}===========');
+
             },
 
             selectInitialPosition: true,
@@ -113,7 +115,7 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
                             style: ElevatedButton.styleFrom(backgroundColor: kMainColor, minimumSize: const Size(double.infinity, 40)),
                             onPressed: () {
                               setState(() {
-                                authController.pickupAddress = result.formattedAddress!.toString();
+                                authController.pickupAddress.value = result.formattedAddress!.toString();
                               });
                               // orderController.pickupLocation.value = result.formattedAddress!.toString();
                               Get.back();

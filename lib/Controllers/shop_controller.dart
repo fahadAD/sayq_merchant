@@ -93,6 +93,7 @@ class ShopController extends GetxController {
       }
     });
   }
+
   shopPost(status) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {

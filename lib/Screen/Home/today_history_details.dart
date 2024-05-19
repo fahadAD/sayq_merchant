@@ -1,22 +1,27 @@
- import '../../../Controllers/global-controller.dart';
-import '../../../Models/completed_delivery_model.dart';
-import '../../Widgets/constant.dart';
-import '/Controllers/balance_controller.dart';
-import '/Screen/Widgets/shimmer/deliveryCharge_shimmer.dart';
+import '../../Models/tody_parcel_model.dart';
+import '/Models/parcels_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Controllers/global-controller.dart';
+import '../../Controllers/parcel_controller.dart';
+import '../Widgets/constant.dart';
+  class TodayParcelHistoryDetails extends StatefulWidget {
+  final TodaysParcels parcel;
 
-class WalletDetails extends StatefulWidget {
-  const WalletDetails({Key? key}) : super(key: key);
+
+  TodayParcelHistoryDetails({Key? key, required this.parcel, }) : super(key: key);
 
   @override
-  State<WalletDetails> createState() => _WalletDetailsState();
+  State<TodayParcelHistoryDetails> createState() => _TodayParcelHistoryDetailsState();
 }
 
-class _WalletDetailsState extends State<WalletDetails> {
+class _TodayParcelHistoryDetailsState extends State<TodayParcelHistoryDetails> {
+
+  int statusActive = 1;
+  ParcelController parcelController = Get.put(ParcelController());
   @override
   void initState() {
-    // TODO: implement initState
+    // parcelController.getParcelLogs(widget.id!);
     super.initState();
   }
   @override
@@ -24,270 +29,9 @@ class _WalletDetailsState extends State<WalletDetails> {
     return Scaffold(
       backgroundColor: kMainColor,
       appBar: AppBar(
-        title: Text(
-          'Wallet Details'.tr,
-          style: kTextStyle.copyWith(color: kBgColor,fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: kMainColor,
-        elevation: 0.0,
-        iconTheme: const IconThemeData(color: kBgColor),
-      ),
-      body: GetBuilder<BalanceController>(
-          init: BalanceController(),
-          builder: (balanceController) {
-
-            return Container(
-                padding: const EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width,
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(0.0),
-                    topRight: Radius.circular(0.0),
-                  ),
-                  color: Colors.white,
-                ),
-                child: SingleChildScrollView(
-                  child: Container(
-                    child: balanceController.loader? DeliveryChargeShimmer() : Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 10,),
-                              Container(
-                                height: 70,
-                                width: double.infinity,
-                                child: Card(
-                                  color: Colors.white,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text("Wallet Balance :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
-                                          SizedBox(width: 5,),
-                                          Text("${Get.find<GlobalController>().currency}${balanceController.balanceDetails.wallet_balance}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              // Align(
-                              //     alignment: Alignment.topLeft,
-                              //     child: Text("Balance",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                              //   Container(
-                              //     height: 100,
-                              //      width: double.infinity,
-                              //     child: Card(
-                              //       color: Colors.white,
-                              //       child: Row(
-                              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Row(
-                              //             children: [
-                              //                SizedBox(width: 20,),
-                              //                Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                              //                SizedBox(width: 5,),
-                              //                Icon(Icons.more_rounded)
-                              //             ],
-                              //           ),
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 15.0),
-                              //             child: Column(
-                              //               crossAxisAlignment: CrossAxisAlignment.center,
-                              //               mainAxisAlignment: MainAxisAlignment.center,
-                              //               children: [
-                              //               Row(
-                              //                 children: [
-                              //                   Icon(Icons.add),
-                              //                   SizedBox(width: 10,),
-                              //                   Text("Top-up"),
-                              //
-                              //                 ],
-                              //               ),
-                              //               SizedBox(height: 10,),
-                              //               Row(
-                              //                 children: [
-                              //                   Icon(Icons.account_balance),
-                              //                   SizedBox(width: 10,),
-                              //                   Text("Withdraw"),
-                              //
-                              //                 ],
-                              //               ),
-                              //
-                              //               ],
-                              //             ),
-                              //           ),
-                              //
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   SizedBox(height: 10,),
-                              //   Align(
-                              //       alignment: Alignment.topLeft,
-                              //       child: Text("Overdraft Limit",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                              //   Container(
-                              //     height: 70,
-                              //     width: double.infinity,
-                              //     child: Card(
-                              //       color: Colors.white,
-                              //       child: Row(
-                              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Row(
-                              //             children: [
-                              //               SizedBox(width: 20,),
-                              //               Text("90.0 ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
-                              //
-                              //             ],
-                              //           ),
-                              //           Padding(
-                              //             padding: const EdgeInsets.only(right: 15.0),
-                              //             child: Row(
-                              //               children: [
-                              //                 Icon(Icons.insert_comment),
-                              //                 SizedBox(width: 10,),
-                              //                 Text("Request Limit Increase"),
-                              //
-                              //               ],
-                              //             ),
-                              //           ),
-                              //
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-
-                              SizedBox(height: 20,),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text("Transaction",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color:kMainColor ))),
-                              SizedBox(height: 10,),
-
-                              balanceController.parcelList.isEmpty? Padding(
-                                padding: const EdgeInsets.only(top: 100.0),
-                                child: Center(child: Text("No Transaction Data")),
-                              ) : Container(
-                                width: double.infinity,
-                                child: Card(
-                                  color: Colors.white,
-                                  child:   ListView.builder(
-                                    itemCount: balanceController.parcelList.length,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return InkWell(
-
-                                        onTap: () {
-                                          Get.to(()=>WalletDetailsScreen(data: balanceController.parcelList[index]));
-                                        },
-                                        child: Column(
-
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: '',
-                                                      style: TextStyle(color: Colors.black),
-                                                      children:   <TextSpan>[
-                                                        TextSpan(text: '#${balanceController.parcelList[index].trackingId}', style: TextStyle(fontWeight: FontWeight.w600,)),
-                                                        TextSpan(text: '  ', style: TextStyle(fontWeight: FontWeight.w600)),
-                                                      ],
-                                                    ),
-                                                  ),
-
-                                                  Text("Success",style: TextStyle(fontWeight: FontWeight.w600,color: kMainColor),)
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: '',
-                                                      style: TextStyle(color: Colors.black),
-                                                      children:   <TextSpan>[
-                                                        TextSpan(text: '${balanceController.parcelList[index].updatedAt}', style: TextStyle(fontWeight: FontWeight.normal,)),
-                                                       ],
-                                                    ),
-                                                  ),
-
-                                                  Text("${balanceController.parcelList[index].totalDeliveryAmount} ${Get.find<GlobalController>().currency}",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 12.0,),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: 'COD Amount ',
-                                                      style: TextStyle(color: Colors.black,fontSize: 14),
-                                                      children:   <TextSpan>[
-                                                        TextSpan(text: '${balanceController.parcelList[index].cashCollection} ${Get.find<GlobalController>().currency}', style: TextStyle(fontWeight: FontWeight.normal,)),
-
-                                                      ],
-                                                    ),
-                                                  ),
-
-                                                ],
-                                              ),
-                                            ),
-                                            Divider(),
-                                            SizedBox(height: 5,)
-                                          ],),
-                                      );
-                                    },
-
-                                  ),
-                                ),
-                              ),
-
-                            ],),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-            );
-          }
-      ),
-    );
-  }
-}
-
-class WalletDetailsScreen extends StatefulWidget {
-    WalletDetailsScreen({super.key, required this.data});
-   final CompletedDelivery data;
-
-  @override
-  State<WalletDetailsScreen> createState() => _WalletDetailsScreenState();
-}
-
-class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return   Scaffold(
-      backgroundColor: kMainColor,
-      appBar: AppBar(
         titleSpacing: 0,
         title: Text(
-          'Wallet Details'.tr,
+          'Today Order Details'.tr,
           style: kTextStyle.copyWith(color: Colors.white),
         ),
         leading: IconButton(
@@ -303,9 +47,9 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
         elevation: 0.0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: GetBuilder<BalanceController>(
-          init: BalanceController(),
-          builder: (balanceController) =>
+      body: GetBuilder<ParcelController>(
+          init: ParcelController(),
+          builder: (parcelLogs) =>
               Container(
                 padding: const EdgeInsets.all(10.0),
                 margin: EdgeInsets.only(top: 20),
@@ -343,7 +87,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Text(
-                                            'invoice'.tr+': #${widget.data.invoiceNO}',
+                                            'invoice'.tr+': #${widget.parcel.invoiceNo}',
                                             style: kTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -357,7 +101,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Text(
-                                            widget.data.statusName.toString(),
+                                            widget.parcel.statusName.toString(),
                                             style: kTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -383,7 +127,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${(double.parse(widget.data.totalDeliveryAmount.toString()) - double.parse(widget.data.codAmount.toString())).toStringAsFixed(2)}',
+                                            .currency!}${(double.parse(widget.parcel.totalDeliveryAmount.toString()) - double.parse(widget.parcel.codAmount.toString())).toStringAsFixed(2)}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -398,7 +142,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.codAmount}',
+                                            .currency!}${widget.parcel.codAmount}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -413,7 +157,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.totalDeliveryAmount}',
+                                            .currency!}${widget.parcel.totalDeliveryAmount}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -436,7 +180,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.deliveryType.toString(),
+                                        widget.parcel.deliveryType.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -450,7 +194,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.weight.toString(),
+                                        widget.parcel.weight.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -465,7 +209,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.cashCollection}',
+                                            .currency!}${widget.parcel.cashCollection}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -490,7 +234,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.merchantName.toString(),
+                                        widget.parcel.merchantName.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
 
@@ -505,7 +249,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.merchantMobile.toString(),
+                                        widget.parcel.merchantMobile.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -519,7 +263,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.merchantUserEmail.toString(),
+                                        widget.parcel.merchantUserEmail.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -542,7 +286,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.customerName.toString(),
+                                        widget.parcel.customerName.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -556,7 +300,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.customerPhone.toString(),
+                                        widget.parcel.customerPhone.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -572,7 +316,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                         ),
                                       ),
                                       Flexible(child: Text(
-                                        widget.data.customerAddress.toString(),
+                                        widget.parcel.customerAddress.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor,fontWeight: FontWeight.bold),
                                       )),
                                     ],
@@ -595,7 +339,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.trackingId.toString(),
+                                        widget.parcel.trackingId.toString(),
                                         style: kTextStyle.copyWith(color: Colors.blue),
                                       ),
                                     ],
@@ -609,7 +353,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.deliveryType.toString(),
+                                        widget.parcel.deliveryType.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -623,7 +367,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.pickupDate.toString(),
+                                        widget.parcel.pickupDate.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -637,7 +381,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        widget.data.deliveryDate.toString(),
+                                        widget.parcel.deliveryDate.toString(),
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -652,7 +396,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.totalDeliveryAmount}',
+                                            .currency!}${widget.parcel.totalDeliveryAmount}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -667,7 +411,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.vatAmount}',
+                                            .currency!}${widget.parcel.vatAmount}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -682,7 +426,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.currentPayable}',
+                                            .currency!}${widget.parcel.currentPayable}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -697,7 +441,7 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                                       const Spacer(),
                                       Text(
                                         '${Get.find<GlobalController>()
-                                            .currency!}${widget.data.cashCollection}',
+                                            .currency!}${widget.parcel.cashCollection}',
                                         style: kTextStyle.copyWith(color: kGreyTextColor),
                                       ),
                                     ],
@@ -712,7 +456,6 @@ class _WalletDetailsScreenState extends State<WalletDetailsScreen> {
                       ]),
                 ),
               )),
-    );;
+    );
   }
 }
-

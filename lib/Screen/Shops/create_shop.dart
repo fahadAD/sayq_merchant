@@ -1,8 +1,6 @@
  import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:we_courier_merchant_app/Screen/Parcel/create_parcel.dart';
 
 import '../../Models/parcel_crate_model.dart';
-import '../../Models/shop_model.dart';
 import '/Screen/Widgets/button_global.dart';
 import '/Screen/Widgets/constant.dart';
 import 'package:flutter/material.dart';

@@ -38,82 +38,108 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: kBgColor,
       body: _widgetOptions.elementAt(_currentPage),
-      bottomNavigationBar: Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-              ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(color: Colors.black12,blurRadius: 10,offset: Offset(0, -1))
-              ]
-          ),
-          child: BottomBar(
-            backgroundColor: Color(0xFFFFFFFF),
-            items: [
-              /// Home
-              BottomBarItem(
-                icon: const Icon(FontAwesomeIcons.house, size: 16.0),
-                title: Text(
-                  "home".tr,
-                  style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
-                ),
-                activeColor: kTitleColor,
-                inactiveColor: kTitleColor,
-              ),
+//       bottomNavigationBar: Container(
+//           clipBehavior: Clip.antiAlias,
+//           decoration: const BoxDecoration(
+//               borderRadius: BorderRadius.only(
+//                 topLeft: Radius.circular(10.0),
+//                 topRight: Radius.circular(10.0),
+//               ),
+//               color: Colors.white,
+//               boxShadow: [
+//                 BoxShadow(color: Colors.black12,blurRadius: 10,offset: Offset(0, -1))
+//               ]
+//           ),
+//           child: BottomBar(
+//
+//             backgroundColor: Color(0xFFFFFFFF),
+//             items: [
+//               /// Home
+//               BottomBarItem(
+//                 icon: const Icon(FontAwesomeIcons.house, size: 16.0),
+//                 // title: Text(
+//                 //   "home".tr,
+//                 //   style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+//                 // ),
+//                 activeColor: kTitleColor,
+//                 inactiveColor: kTitleColor,
+//               ),
+//
+//               /// History
+// BottomBarItem(
+//                 icon: const Icon(FontAwesomeIcons.clipboardList, size: 16.0),
+//                 // title: Text(
+//                 //   "Order History".tr,
+//                 //   style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+//                 // ),
+//                 activeColor: kTitleColor,
+//                 inactiveColor: kTitleColor,
+//               ),
+//               /// Orders
+//               BottomBarItem(
+//                 backgroundColorOpacity: 0.1,
+//                 icon: const Icon(
+//                   FontAwesomeIcons.boxOpen,
+//                   size: 16.0,
+//                 ),
+//                 // title: Text(
+//                 //   "parcel".tr,
+//                 //   style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+//                 // ),
+//                 activeColor: kTitleColor,
+//                 inactiveColor: kTitleColor,
+//               ),
+//
+//
+//
+//
+//               /// wallet
+//               BottomBarItem(
+//
+//                 icon: Icon(FontAwesomeIcons.wallet, size: 16.0),
+//                 // title: Text("Wallet".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+//                 // ),
+//
+//                 activeColor: kTitleColor,
+//                 inactiveColor: kTitleColor,
+//
+//               ),
+//               /// Profile
+//               BottomBarItem(
+//                 icon: Icon(Icons.settings_outlined, size: 16.0),
+//                 // title: Text("Setting".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
+//                 // ),
+//                 activeColor: kTitleColor,
+//                 inactiveColor: kTitleColor,
+//               ),
+//             ],
+//             onTap: (int index) {
+//               setState(() => _currentPage = index);
+//               },
+//             selectedIndex: _currentPage,
+//           )
+//       ),
 
-              /// History
-BottomBarItem(
-                icon: const Icon(FontAwesomeIcons.clipboardList, size: 16.0),
-                title: Text(
-                  "Order History".tr,
-                  style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
-                ),
-                activeColor: kTitleColor,
-                inactiveColor: kTitleColor,
-              ),
-              /// Orders
-              BottomBarItem(
-                backgroundColorOpacity: 0.1,
-                icon: const Icon(
-                  FontAwesomeIcons.boxOpen,
-                  size: 16.0,
-                ),
-                title: Text(
-                  "parcel".tr,
-                  style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
-                ),
-                activeColor: kTitleColor,
-                inactiveColor: kTitleColor,
-              ),
+      bottomNavigationBar: BottomNavigationBar(
+         selectedFontSize: 18,
+         unselectedFontSize: 12,
+         selectedItemColor: kMainColor,
+        unselectedItemColor: Colors.black,
+        onTap: (value){
+          setState(() {
+            _currentPage=value;
+          });
+        },
+        currentIndex: _currentPage,
 
+        items: [
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.house,),label: ''),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.clipboardList,),label: ''),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.boxOpen,),label: ''),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.wallet,),label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined,),label: ''),
+        ],
 
-
-
-              /// wallet
-              BottomBarItem(
-                icon: Icon(FontAwesomeIcons.wallet, size: 16.0),
-                title: Text("Wallet".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
-                ),
-                activeColor: kTitleColor,
-                inactiveColor: kTitleColor,
-              ),
-              /// Profile
-              BottomBarItem(
-                icon: Icon(Icons.settings_outlined, size: 16.0),
-                title: Text("Setting".tr,style: kTextStyle.copyWith(color: kTitleColor,fontSize: 13,fontWeight: FontWeight.w700),
-                ),
-                activeColor: kTitleColor,
-                inactiveColor: kTitleColor,
-              ),
-            ],
-            onTap: (int index) {
-              setState(() => _currentPage = index);
-              },
-            selectedIndex: _currentPage,
-          )
       ),
     );
   }

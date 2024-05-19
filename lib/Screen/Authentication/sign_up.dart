@@ -1,20 +1,17 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
-
-import '../../Controllers/auth-controller.dart';
+ import '../../Controllers/auth-controller.dart';
+import '../../Models/googleMapsPlusCode.dart';
 import '../MapScreen/map.dart';
 import '/Controllers/global-controller.dart';
 import '/Screen/Authentication/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-
 import '../../utils/image.dart';
 import '../../utils/size_config.dart';
 import '../Widgets/button_global.dart';
 import '../Widgets/constant.dart';
 import 'package:get/get.dart';
-
 import '../Widgets/loader.dart';
 
 
@@ -26,20 +23,27 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
   bool isChecked = true;
   final _formKey = GlobalKey<FormState>();
   int hub = 1;
 
   GlobalController globalController = Get.put(GlobalController());
   AuthController authController = Get.put(AuthController());
- 
+  final TextEditingController textEditingController = TextEditingController();
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+  authController.getBlockList();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfigCustom sizeConfig = SizeConfigCustom();
     sizeConfig.init(context);
 
+print('object${authController.blockHistory.length}');
     return Scaffold(
       backgroundColor: kMainColor,
       body: GetBuilder<AuthController>(
@@ -155,20 +159,121 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           const SizedBox(height: 20),
+                          auth.blockHistory.isEmpty
+                              ? SizedBox()
+                              :
+                          SizedBox(
+                            height: 60.0,
+                            child: FormField(
+                              builder: (FormFieldState<dynamic> field) {
+
+                                return InputDecorator(
+
+                                  decoration: kInputDecoration.copyWith(
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    labelText: 'Block'.tr + '*',
+                                    labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<GoogleMapsPlusCodeList>(
+                                      iconStyleData: IconStyleData(icon: Icon(Icons.search_outlined)),
+                                      hint: Text(
+                                        'Select Item',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Theme.of(context).hintColor,
+                                        ),
+                                      ),
+
+                                      value: auth.googleMapsBlockIndex.toString() == 'null' ? null : auth.blockHistory[auth.googleMapsBlockIndex],
+                                      items: auth.blockHistory.map((GoogleMapsPlusCodeList value) {
+                                        return new DropdownMenuItem<GoogleMapsPlusCodeList>(
+                                          value: value,
+                                          child: value.id == 0
+                                              ? Text("${value.blockName.toString()}")
+                                              : value.blockName == ''
+                                              ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                                              : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          auth.googleMapsBlockIndex = auth.blockHistory.indexOf(newValue!);
+                                          auth.blockCategoryID = newValue.googleMapsPlusCode.toString();
+                                          auth.blockCategorysValue = newValue;
+
+                                        });
+                                      },
+                                      buttonStyleData: const ButtonStyleData(
+                                        // padding: EdgeInsets.symmetric(horizontal: 16),
+                                        height: 40,
+                                        width: 400,
+                                      ),
+
+                                      dropdownSearchData: DropdownSearchData(
+                                        searchController: textEditingController,
+                                        searchInnerWidgetHeight: 50,
+                                        searchInnerWidget: Container(
+                                          height: 50,
+                                          padding: const EdgeInsets.only(
+                                            top: 8,
+                                            bottom: 4,
+                                            right: 8,
+                                            left: 8,
+                                          ),
+                                          child: TextFormField(
+                                            controller: textEditingController,
+                                            decoration: InputDecoration(
+                                              contentPadding: const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 8,
+                                              ),
+                                              hintText: 'Search for an item...',
+                                              hintStyle: const TextStyle(fontSize: 12),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        searchMatchFn: ( item, searchValue) {
+
+                                          return item.value!.blockNumber.toString().contains(searchValue);
+                                        },
+                                      ),
+
+                                      //This to clear the search value when you close the menu
+                                      onMenuStateChange: (isOpen) {
+                                        if (!isOpen) {
+                                          textEditingController.clear();
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+
+
+                          const SizedBox(height: 20),
                           AppTextField(
                             onChanged: (value) {
                               setState(() {
-                                auth.pickupAddress =auth.addressController.text;
+                                auth.pickupAddress.value =auth.addressController.text;
                               });
                             },
                             // controller: parcel.pickupAddressController,
-                            controller: auth.addressController..text = auth.pickupAddress.toString()..selection = TextSelection.collapsed(offset: auth.addressController.text.length),                            validator: (value) {
+                            controller: auth.addressController..text = auth.pickupAddress.value.toString()..selection = TextSelection.collapsed(offset: auth.addressController.text.length),
+                            validator: (value) {
                               if (auth.addressController.text.isEmpty) {
                                 return "this_field_can_t_be_empty".tr;
                               }
                               return null;
                             },
-
                             cursorColor: kTitleColor,
                             textFieldType: TextFieldType.NAME,
                             decoration: kInputDecoration.copyWith(
@@ -320,7 +425,13 @@ class _SignUpState extends State<SignUp> {
                                   color: kMainColor),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                 await auth.signupOnTap(hub);
+                                  if(auth.blockCategoryID != ''){
+                                    await auth.signupOnTap(hub);
+                                  }else{
+                                    Get.rawSnackbar(message: "Select Block Number",backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+
+                                  }
+
                                 }
 
                               })),
@@ -360,6 +471,9 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
+
+
 
 
 

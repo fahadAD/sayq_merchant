@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/parcel_history_details.dart';
 
 import '../../Controllers/parcel_controller.dart';
 import '../../Models/invoice_detials_model.dart';
@@ -35,17 +36,16 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
           init: ParcelController(),
           builder: (parcel) => Container(
               padding: const EdgeInsets.all(10.0),
-              margin: EdgeInsets.only(top: 20),
+
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+                  topLeft: Radius.circular(0.0),
+                  topRight: Radius.circular(0.0),
                 ),
                 color: Colors.white,
               ),
-              child:
-              SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     // Container(
@@ -90,7 +90,6 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                     //   ),
                     //
                     // ),
-                    SizedBox(height: 10,),
                     parcel.parcelHistory.isEmpty? Padding(
                       padding: const EdgeInsets.only(top: 100.0),
                       child: Center(child: Text("No History Data")),
@@ -100,101 +99,106 @@ class _ParcelPageHistoryState extends State<ParcelPageHistory> {
                      shrinkWrap: true,
                      primary: false,
                      itemBuilder: (BuildContext context, int index) {
-                     return Container(
-
-                       width: double.infinity,
-                       child: Card(
-                         color: Colors.white,
-                         child: Column(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-                                 top: 12.0,
-
+                     return InkWell(
+                       onTap: () {
+                         Get.to(()=>ParcelHistoryDetails(parcel: parcel.parcelHistory[index]));
+                       },
+                       child: Container(
+                       
+                         width: double.infinity,
+                         child: Card(
+                           color: Colors.white,
+                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                                   top: 12.0,
+                       
+                                 ),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Text("#${parcel.parcelHistory[index].trackingId}",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
+                                     Container(
+                                       height: 40,
+                                       width: 100,
+                                       decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(50),
+                                         color: kMainColor,
+                                       ),
+                                       child: Center(child: Text("${parcel.parcelHistory[index].statusName}",style: TextStyle(color: Colors.white))),
+                                     )
+                                   ],
+                                 ),
                                ),
-                               child: Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                 children: [
-                                   Text("#${parcel.parcelHistory[index].trackingId}",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 17),),
-                                   Container(
-                                     height: 40,
-                                     width: 100,
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(50),
-                                       color: kMainColor,
-                                     ),
-                                     child: Center(child: Text("${parcel.parcelHistory[index].statusName}",style: TextStyle(color: Colors.white))),
-                                   )
-                                 ],
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                                   top: 8.0,
+                       
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].merchantUserName}",style: TextStyle(fontWeight: FontWeight.bold,),),
                                ),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-                                 top: 8.0,
-
+                               Divider(
+                                 indent: 10,
+                                 endIndent: 10,
                                ),
-                               child: Text("${parcel.parcelHistory[index].merchantUserName}",style: TextStyle(fontWeight: FontWeight.bold,),),
-                             ),
-                             Divider(
-                               indent: 10,
-                               endIndent: 10,
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-
-
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                       
+                       
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].merchantAddress}",),
                                ),
-                               child: Text("${parcel.parcelHistory[index].merchantAddress}",),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-                                 top: 2,
-
-                               ),
-                               child: Text("${parcel.parcelHistory[index].pickupDate}",style: TextStyle(fontSize: 12)),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-                                 top: 8.0,
-
-                               ),
-                               child: Text("${parcel.parcelHistory[index].customerName}",style: TextStyle(fontWeight: FontWeight.bold,),),
-                             ),
-                             Divider(
-                               indent: 10,
-                               endIndent: 10,
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                 right: 10.0,
-                                 left: 10.0,
-
-
-                               ),
-                               child: Text("${parcel.parcelHistory[index].customerAddress}",),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
+                               Padding(
+                                 padding: const EdgeInsets.only(
                                    right: 10.0,
                                    left: 10.0,
                                    top: 2,
-                                   bottom: 10
+                       
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].pickupDate}",style: TextStyle(fontSize: 12)),
                                ),
-                               child: Text("${parcel.parcelHistory[index].deliveryDate}",style: TextStyle(fontSize: 12)),
-                             ),
-                           ],
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                                   top: 8.0,
+                       
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].customerName}",style: TextStyle(fontWeight: FontWeight.bold,),),
+                               ),
+                               Divider(
+                                 indent: 10,
+                                 endIndent: 10,
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                   right: 10.0,
+                                   left: 10.0,
+                       
+                       
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].customerAddress}",),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.only(
+                                     right: 10.0,
+                                     left: 10.0,
+                                     top: 2,
+                                     bottom: 10
+                                 ),
+                                 child: Text("${parcel.parcelHistory[index].deliveryDate}",style: TextStyle(fontSize: 12)),
+                               ),
+                             ],
+                           ),
                          ),
                        ),
                      );

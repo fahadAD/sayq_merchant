@@ -662,7 +662,8 @@ class _ParcelPageState extends State<ParcelPage> {
                                               Padding(
                                               padding: EdgeInsets.all(5.r),
                                               child:InkWell(
-                                                onTap: () => ParcelDetails(parcel:parcel.parcelList[index],id:parcel.parcelList[index].id).launch(context),
+                                                onTap: () => ParcelDetails(parcel:parcel.parcelList[index],
+                                                    id:parcel.parcelList[index].id).launch(context),
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(16.r),

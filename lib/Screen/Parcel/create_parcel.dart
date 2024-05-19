@@ -27,13 +27,14 @@ class _CreateParcelState extends State<CreateParcel> {
   ParcelController parcelController = Get.put(ParcelController());
   final _formKey = GlobalKey<FormState>();
   int hub = 1;
+  bool is_check=false;
   List<String> deliveryType = [
-    'Same Day',
+    'Parcel',
+    'Food',
+    'Van',
     'Next Day',
-    'Sub City',
-    'Outside City',
   ];
-  String type = 'Same Day';
+  String type = 'Parcel';
 
   DropdownButton<String> selectType() {
     List<DropdownMenuItem<String>> dropDownItems = [];
@@ -77,7 +78,7 @@ class _CreateParcelState extends State<CreateParcel> {
         appBar: AppBar(
           titleSpacing: 0,
           title: Text(
-            'Create Order'.tr,
+            '    Create Order'.tr,
             style: kTextStyle.copyWith(color: kBgColor),
           ),
           // leading: IconButton(
@@ -708,15 +709,14 @@ class _CreateParcelState extends State<CreateParcel> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const SizedBox(height: 30.0),
                           Container(
                             padding: const EdgeInsets.all(10.0),
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               border: Border.all(color: kGreyTextColor.withOpacity(0.2)),
                               borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30.0),
-                                topRight: Radius.circular(30.0),
+                                topLeft: Radius.circular(0.0),
+                                topRight: Radius.circular(0.0),
                               ),
                               color: Colors.white,
                             ),
@@ -749,9 +749,11 @@ class _CreateParcelState extends State<CreateParcel> {
                                            padding: const EdgeInsets.only(left: 15.0,),
                                            child: Text("Instance Pickup",style: TextStyle(fontWeight: FontWeight.bold)),
                                          ),
-                                         Checkbox(value: true,
+                                         Checkbox(value: is_check,
                                            onChanged: (value) {
-
+                                          setState(() {
+                                            is_check=value!;
+                                          });
                                          },)
                                        ],),
                                        parcel.shopList.isEmpty
@@ -977,7 +979,134 @@ class _CreateParcelState extends State<CreateParcel> {
                                               ),
                                             ),
                                             const SizedBox(height: 20.0),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                              child: AppTextField(
+                                                controller: parcel.cashCollectionController,
+                                                validator: (value) {
+                                                  if (parcel.cashCollectionController.text.isEmpty) {
+                                                    return "this_field_can_t_be_empty".tr;
+                                                  }
+                                                  return null;
+                                                },
+                                                cursorColor: kTitleColor,
+                                                textFieldType: TextFieldType.NAME,
+                                                decoration: kInputDecoration.copyWith(
+                                                  enabledBorder: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                                  ),
+                                                  labelText: 'Cash'.tr,
+                                                  labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                  hintText: 'enter_amount'.tr,
+                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20.0),
+                                            parcel.googleMapsBlockList.isEmpty
+                                                ? SizedBox()
+                                                :
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                              child: SizedBox(
+                                                height: 60.0,
+                                                child: FormField(
 
+                                                  builder: (FormFieldState<dynamic> field) {
+                                                    return InputDecorator(
+                                                      decoration: kInputDecoration.copyWith(
+                                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                        labelText: 'Block'.tr + '*',
+                                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                        ),
+                                                      ),
+                                                      child: DropdownButtonHideUnderline(
+
+                                                        child: DropdownButton2<GoogleMapsBlock>(
+                                                          iconStyleData: IconStyleData(icon: Icon(Icons.search_outlined)),
+                                                          hint: Text(
+                                                            'Select Item',
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              color: Theme.of(context).hintColor,
+                                                            ),
+                                                          ),
+                                                          value: parcel.googleMapsBlockIndex.toString() == 'null' ? null : parcel.googleMapsBlockList[parcel.googleMapsBlockIndex],
+                                                          items: parcel.googleMapsBlockList.map((GoogleMapsBlock value) {
+                                                            return new DropdownMenuItem<GoogleMapsBlock>(
+                                                              value: value,
+                                                              child: value.id == 0
+                                                                  ? Text("${value.blockName.toString()}")
+                                                                  : value.blockName == ''
+                                                                  ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
+                                                                  : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (newValue) {
+                                                            setState(() {
+                                                              parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
+                                                              parcel.customerAddress = newValue.googleMapsPlusCode.toString();
+                                                              // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
+                                                              // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
+                                                              parcel.distanceMatrixServiceLatLong();
+                                                            });
+                                                          },
+                                                          buttonStyleData: const ButtonStyleData(
+                                                            // padding: EdgeInsets.symmetric(horizontal: 16),
+                                                            height: 40,
+                                                            width: 400,
+                                                          ),
+
+                                                          dropdownSearchData: DropdownSearchData(
+
+                                                            searchController: textEditingController,
+                                                            searchInnerWidgetHeight: 50,
+                                                            searchInnerWidget: Container(
+                                                              height: 50,
+                                                              padding: const EdgeInsets.only(
+                                                                top: 8,
+                                                                bottom: 4,
+                                                                right: 8,
+                                                                left: 8,
+                                                              ),
+                                                              child: TextFormField(
+
+                                                                controller: textEditingController,
+                                                                decoration: InputDecoration(
+                                                                  contentPadding: const EdgeInsets.symmetric(
+                                                                    horizontal: 10,
+                                                                    vertical: 8,
+                                                                  ),
+                                                                  hintText: 'Search for an item...',
+                                                                  hintStyle: const TextStyle(fontSize: 12),
+                                                                  border: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+
+                                                            searchMatchFn: (item, searchValue) {
+                                                              return item.value!.blockNumber.toString().contains(searchValue);
+                                                            },
+                                                          ),
+                                                          //This to clear the search value when you close the menu
+                                                          onMenuStateChange: (isOpen) {
+                                                            if (!isOpen) {
+                                                              textEditingController.clear();
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20.0),
                                             // Column(
                                             //   mainAxisAlignment: MainAxisAlignment.center,
                                             //   mainAxisSize: MainAxisSize.min,
@@ -1048,33 +1177,10 @@ class _CreateParcelState extends State<CreateParcel> {
 
 
 
-                                            const SizedBox(height: 20.0),
 
 
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                              child: AppTextField(
-                                                controller: parcel.cashCollectionController,
-                                                validator: (value) {
-                                                  if (parcel.cashCollectionController.text.isEmpty) {
-                                                    return "this_field_can_t_be_empty".tr;
-                                                  }
-                                                  return null;
-                                                },
-                                                cursorColor: kTitleColor,
-                                                textFieldType: TextFieldType.NAME,
-                                                decoration: kInputDecoration.copyWith(
-                                                  enabledBorder: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                                                    borderSide: BorderSide(color: kBorderColorTextField, width: 2),
-                                                  ),
-                                                  labelText: 'COD Amount'.tr,
-                                                  labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                  hintText: 'enter_amount'.tr,
-                                                  hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                                ),
-                                              ),
-                                            ),
+
+
                                             // const SizedBox(height: 20.0),
                                             //
                                             // AppTextField(
@@ -1250,7 +1356,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                               ),
                                             ),
                                             const SizedBox(height: 20.0),
-                                            Padding(
+                                            is_check==true? Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                               child: TextFormField(
                                                 readOnly: true,
@@ -1275,7 +1381,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                                   return null;
                                                 },
                                               ),
-                                            ),
+                                            ):SizedBox(),
                                             const SizedBox(height: 20.0),
                                             // parcel.googleMapsBlockList.isEmpty
                                             //     ? SizedBox()
@@ -1327,109 +1433,7 @@ class _CreateParcelState extends State<CreateParcel> {
                                             //     ),
                                             //   ),
                                             // ),
-                                            parcel.googleMapsBlockList.isEmpty
-                                                ? SizedBox()
-                                                :
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                              child: SizedBox(
-                                                height: 60.0,
-                                                child: FormField(
 
-                                                  builder: (FormFieldState<dynamic> field) {
-                                                    return InputDecorator(
-                                                      decoration: kInputDecoration.copyWith(
-                                                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                        labelText: 'Block'.tr + '*',
-                                                        labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                                        border: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.circular(5.0),
-                                                        ),
-                                                      ),
-                                                      child: DropdownButtonHideUnderline(
-
-                                                        child: DropdownButton2<GoogleMapsBlock>(
-                                                          iconStyleData: IconStyleData(icon: Icon(Icons.search_outlined)),
-                                                          hint: Text(
-                                                            'Select Item',
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Theme.of(context).hintColor,
-                                                            ),
-                                                          ),
-                                                          value: parcel.googleMapsBlockIndex.toString() == 'null' ? null : parcel.googleMapsBlockList[parcel.googleMapsBlockIndex],
-                                                          items: parcel.googleMapsBlockList.map((GoogleMapsBlock value) {
-                                                            return new DropdownMenuItem<GoogleMapsBlock>(
-                                                              value: value,
-                                                              child: value.id == 0
-                                                                  ? Text("${value.blockName.toString()}")
-                                                                  : value.blockName == ''
-                                                                  ? Text("${value.blockNumber.toString()} ${value.blockName.toString()}")
-                                                                  : Text("${value.blockNumber.toString()} ${value.blockName.toString()}"),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (newValue) {
-                                                            setState(() {
-                                                              parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
-                                                              parcel.customerAddress = newValue.googleMapsPlusCode.toString();
-                                                                                // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
-                                                                                // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
-                                                              parcel.distanceMatrixServiceLatLong();
-                                                            });
-                                                          },
-                                                          buttonStyleData: const ButtonStyleData(
-                                                            // padding: EdgeInsets.symmetric(horizontal: 16),
-                                                            height: 40,
-                                                            width: 400,
-                                                          ),
-
-                                                          dropdownSearchData: DropdownSearchData(
-
-                                                            searchController: textEditingController,
-                                                            searchInnerWidgetHeight: 50,
-                                                            searchInnerWidget: Container(
-                                                              height: 50,
-                                                              padding: const EdgeInsets.only(
-                                                                top: 8,
-                                                                bottom: 4,
-                                                                right: 8,
-                                                                left: 8,
-                                                              ),
-                                                              child: TextFormField(
-
-                                                                controller: textEditingController,
-                                                                decoration: InputDecoration(
-                                                                  contentPadding: const EdgeInsets.symmetric(
-                                                                    horizontal: 10,
-                                                                    vertical: 8,
-                                                                  ),
-                                                                  hintText: 'Search for an item...',
-                                                                  hintStyle: const TextStyle(fontSize: 12),
-                                                                  border: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-
-                                                            searchMatchFn: (item, searchValue) {
-                                                              return item.value!.blockNumber.toString().contains(searchValue);
-                                                            },
-                                                          ),
-                                                          //This to clear the search value when you close the menu
-                                                          onMenuStateChange: (isOpen) {
-                                                            if (!isOpen) {
-                                                              textEditingController.clear();
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 20.0),
 
                                           ],
                                         ),
@@ -1539,7 +1543,8 @@ class _CreateParcelState extends State<CreateParcel> {
                                             FocusScope.of(context).requestFocus(new FocusNode());
                                             if (_formKey.currentState!.validate()) {
                                               if (parcel.deliveryCategoryID != '' || parcel.deliveryTypID != '') {
-                                                parcel.calculateTotal(context);
+                                                is_check==true? parcel.calculateTotal(context) :
+                                                Get.rawSnackbar(message: 'Check your pickup information & click check box');
                                               }
 
                                               else if (parcel.deliveryCategoryID == '') {

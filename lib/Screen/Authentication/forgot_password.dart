@@ -114,7 +114,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             'sign_up'.tr,
                             style: kTextStyle.copyWith(color: kSecondaryColor),
                           ).onTap(
-                            () => const SignUp().launch(context),
+                            () =>   SignUp().launch(context),
                           ),
                           const SizedBox(width: 5.0),
                           Container(

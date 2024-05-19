@@ -302,10 +302,12 @@ class _ParcelDetailsState extends State<ParcelDetails> {
                     'sender_info'.tr,
                     style: kTextStyle.copyWith(color: kTitleColor, fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
+
                   Divider(
                     thickness: 1.0,
                     color: kGreyTextColor.withOpacity(0.5),
                   ),
+
                   const SizedBox(height: 10.0),
                   Row(
                     children: [
@@ -318,6 +320,7 @@ class _ParcelDetailsState extends State<ParcelDetails> {
                         widget.parcel.merchantName.toString(),
                         style: kTextStyle.copyWith(color: kGreyTextColor),
                       ),
+
                     ],
                   ),
                   const SizedBox(height: 5.0),

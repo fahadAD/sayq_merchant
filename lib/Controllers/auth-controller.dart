@@ -1,8 +1,9 @@
-import 'dart:convert';
+ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Models/googleMapsPlusCode.dart';
 import '../Models/login_models.dart';
 import '../Models/refresh_token_model.dart';
 import '../Models/register_model.dart';
@@ -41,12 +42,14 @@ class AuthController extends GetxController {
   //google map value  start..
   var pickupLat = 0.0.obs;
   var pickupLong = 0.0.obs;
-  String pickupAddress = '';
+  var pickupAddress = ''.obs;
   //google map value end....
 
   Position? position;
   @override
   void onInit() async{
+    getBlockList();
+
 
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
@@ -57,6 +60,7 @@ class AuthController extends GetxController {
     print("position-longitude=${position?.longitude}");
     super.onInit();
   }
+
   changeVisibility() {
     obscureText = !obscureText;
     Future.delayed(const Duration(milliseconds: 10), () {
@@ -131,6 +135,7 @@ class AuthController extends GetxController {
     }
   }
 
+
   refreshToken() async {
     server.getRequest(endPoint: APIList.refreshToken).then((response) {
       try{
@@ -156,6 +161,36 @@ class AuthController extends GetxController {
   }
 
 
+  List<GoogleMapsPlusCodeList> blockHistory = <GoogleMapsPlusCodeList>[];
+  GoogleMapsPlusCodeList blockCategorysValue = GoogleMapsPlusCodeList();
+  late dynamic googleMapsBlockIndex = 0;
+  String blockCategoryID = '';
+
+  getBlockList() {
+    server.getRequestNotToken(endPoint: APIList.google_maps_plus_code_list).then((response) {
+      print(json.decode(response.body));
+
+      if (response != null && response.statusCode == 200) {
+         loader = false;
+        final jsonResponse = json.decode(response.body);
+        var blockData = GoogleMapsPlusCode.fromJson(jsonResponse);
+        blockHistory = <GoogleMapsPlusCodeList>[];
+        blockHistory.add(GoogleMapsPlusCodeList(id: 0,blockName: "Select Block Number".tr,));
+        blockHistory.addAll(blockData.data!.googleMapsPlusCodeList!);
+         Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      } else {
+        loader = false;
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      }
+    });
+  }
+
+
+
 
   signupOnTap(hubID) async {
     loader = true;
@@ -173,6 +208,7 @@ class AuthController extends GetxController {
         'hub_id': hubID.toString(),
         'latitude': position?.latitude,
         'longitude': position?.longitude,
+        'google_maps_plus_code':blockCategoryID,
       };
 
       String jsonBody = json.encode(body);
@@ -210,9 +246,9 @@ class AuthController extends GetxController {
         }else if (response != null && response.statusCode == 422) {
           final jsonResponse = json.decode(response.body);
           print(jsonResponse);
-          if (jsonResponse['data']['message']['mobile'] != null) {
-            Get.rawSnackbar(message: jsonResponse['data']['message']['mobile'].toString(),backgroundColor: Colors.red,
-                snackPosition: SnackPosition.TOP);
+          if (jsonResponse['data']['message']['mobile'] != null   ) {
+            Get.rawSnackbar(message: jsonResponse['data']['message']['mobile'].toString(),backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+
           }
           loader = false;
           Future.delayed(Duration(milliseconds: 10), () {

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:we_courier_merchant_app/Screen/Home/today_history_details.dart';
 import 'package:we_courier_merchant_app/Screen/Parcel/create_parcel.dart';
 import 'package:we_courier_merchant_app/Screen/Parcel/parcel_history.dart';
+import 'package:we_courier_merchant_app/Screen/Parcel/parcel_history_details.dart';
 import 'package:we_courier_merchant_app/Screen/Profile/profile.dart';
 import '../../Controllers/balance_controller.dart';
 import '../Parcel/parcel_all_staus.dart';
@@ -108,7 +110,7 @@ class _DashBoardState extends State<DashBoard> {
         .indexWhere((i) => i.locale == Get.locale)];
 
     return Scaffold(
-      backgroundColor: kMainColor,
+      backgroundColor: kBgColor,
       drawer: Drawer(
         backgroundColor: kBgColor,
         child: SingleChildScrollView(
@@ -620,8 +622,8 @@ class _DashBoardState extends State<DashBoard> {
                               decoration: const BoxDecoration(
                                 color: Color(0xFFf9f9fe),
                                 borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(30.0),
-                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(0.0),
+                                  topLeft: Radius.circular(0.0),
                                 ),
                               ),
                               child: SingleChildScrollView(
@@ -629,7 +631,15 @@ class _DashBoardState extends State<DashBoard> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 20,),
+                                    SizedBox(height: 10,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text("Current Orders : ",style: TextStyle(
+                                        fontWeight: FontWeight.bold,fontSize: 20,
+                                        color: kMainColor
+                                      )),
+                                    ),
+                                    SizedBox(height: 10,),
                                     dashboard.today_parcelList.isEmpty? Padding(
                                       padding: const EdgeInsets.only(
                                         top: 100.0,
@@ -643,136 +653,144 @@ class _DashBoardState extends State<DashBoard> {
                                       primary: false,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return Container(
-                                          width: double.infinity,
-                                          child: Card(
-                                            color: Colors.white,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
-                                                    top: 12.0,
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        "#${dashboard.today_parcelList[index].trackingId}",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            fontSize: 17),
-                                                      ),
-                                                      Container(
-                                                        height: 40,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(50),
-                                                          color: kMainColor,
+                                        return InkWell(
+                                          onTap: () {
+                                            Get.to(()=>TodayParcelHistoryDetails(parcel: dashboard.today_parcelList[index]));
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            child: Card(
+                                              color: Colors.white,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                      top: 12.0,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "#${dashboard.today_parcelList[index].trackingId}",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight.w700,
+                                                              fontSize: 17),
                                                         ),
-                                                        child: Center(
-                                                            child: Text(
-                                                                "${dashboard.today_parcelList[index].statusName}",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
-                                                    top: 8.0,
-                                                  ),
-                                                  child: Text(
-                                                    "${dashboard.today_parcelList[index].merchantName}",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                        Container(
+                                                          height: 40,
+
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(50),
+                                                            color: kMainColor,
+                                                          ),
+                                                           child: Center(
+                                                               child: Padding(
+                                                                 padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                                                                 child: Text(
+                                                                    "${dashboard.today_parcelList[index].statusName}",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white)),
+                                                               )),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                ),
-                                                Divider(
-                                                  indent: 10,
-                                                  endIndent: 10,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
-                                                  ),
-                                                  child: Text(
-                                                    "${dashboard.today_parcelList[index].merchantAddress}",
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
-                                                    top: 2,
-                                                  ),
-                                                  child: Text("${dashboard.today_parcelList[index].pickupDate}",
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                      top: 8.0,
+                                                    ),
+                                                    child: Text(
+                                                      "${dashboard.today_parcelList[index].merchantName}",
                                                       style: TextStyle(
-                                                          fontSize: 12)),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
-                                                    top: 8.0,
-                                                  ),
-                                                  child: Text(
-                                                    "${dashboard.today_parcelList[index].customerName}",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Divider(
-                                                  indent: 10,
-                                                  endIndent: 10,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                    right: 10.0,
-                                                    left: 10.0,
+                                                  Divider(
+                                                    indent: 10,
+                                                    endIndent: 10,
                                                   ),
-                                                  child: Text(
-                                                    "${dashboard.today_parcelList[index].customerAddress}",
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                    ),
+                                                    child: Text(
+                                                      "${dashboard.today_parcelList[index].merchantAddress}",
+                                                    ),
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0,
-                                                          left: 10.0,
-                                                          top: 2,
-                                                          bottom: 10),
-                                                  child: Text("${dashboard.today_parcelList[index].deliveryDate}",
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                      top: 2,
+                                                    ),
+                                                    child: Text("${dashboard.today_parcelList[index].pickupDate}",
+                                                        style: TextStyle(
+                                                            fontSize: 12)),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                      top: 8.0,
+                                                    ),
+                                                    child: Text(
+                                                      "${dashboard.today_parcelList[index].customerName}",
                                                       style: TextStyle(
-                                                          fontSize: 12)),
-                                                ),
-                                              ],
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    indent: 10,
+                                                    endIndent: 10,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 10.0,
+                                                      left: 10.0,
+                                                    ),
+                                                    child: Text(
+                                                      "${dashboard.today_parcelList[index].customerAddress}",
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 10.0,
+                                                            left: 10.0,
+                                                            top: 2,
+                                                            bottom: 10),
+                                                    child: Text("${dashboard.today_parcelList[index].deliveryDate}",
+                                                        style: TextStyle(
+                                                            fontSize: 12)),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         );
