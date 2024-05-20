@@ -297,28 +297,36 @@ print('object${authController.blockHistory.length}');
 
 
                           const SizedBox(height: 20),
-                          Container(
-                            height: 70,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: kBorderColorTextField)
-                            ),
-                            child: Row(
+                          Obx(() => InkWell(
+                            onTap: () {
+                              Get.to(()=>MapsScreenOne());
+                            },
+                            child: Container(
+                              height: 70,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: kBorderColorTextField)
+                              ),
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: SizedBox(
-                                      width: 290,
-                                      height: 50,
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text("AddressAddressAddressAddressAddressAddressAddressAddressAddressAddressAddressAddressAddressAddress"))),
-                                ),
-                                Icon(Icons.location_on_outlined)
-                              ],
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: 290,
+                                          child: Text(
+                                              "${auth.pickupAddress.value}"),
+                                        )),
+                                  ),
+                                  Icon(Icons.location_on_outlined)
+                                ],
+                              ),
                             ),
-                          ),
+                          )),
+
                           const SizedBox(height: 20),
 
                           // globalController.hubList.isNotEmpty ?
