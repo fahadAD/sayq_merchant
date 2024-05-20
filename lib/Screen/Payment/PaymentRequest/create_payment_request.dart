@@ -11,7 +11,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../Widgets/constant.dart';
 
 class CreatePaymentRequest extends StatefulWidget {
-  const CreatePaymentRequest({Key? key,required this.balanceDetails}) : super(key: key);
+  const CreatePaymentRequest({Key? key, required this.balanceDetails}) : super(key: key);
   final BalanceDetailsModel balanceDetails;
   @override
   State<CreatePaymentRequest> createState() => _CreatePaymentRequestState();
@@ -26,7 +26,7 @@ class _CreatePaymentRequestState extends State<CreatePaymentRequest> {
     for (Accounts account in accounts) {
       var item = DropdownMenuItem(
         value: account,
-        child: account.paymentMethod=="cash"?Text("${account.paymentMethodName}"):Text("${account.holderName}, ${account.bankName} (${account.accountNo})"),
+        child: account.paymentMethod == "cash" ? Text("${account.paymentMethodName}") : Text("${account.holderName}, ${account.bankName} (${account.accountNo})"),
       );
       dropDownItems.add(item);
     }
@@ -77,109 +77,125 @@ class _CreatePaymentRequestState extends State<CreatePaymentRequest> {
       body: GetBuilder<PaymentAccountController>(
           init: PaymentAccountController(),
           builder: (accountController) {
-            return accountController.loader ? Center(child: CircularProgressIndicator(),): SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 10.0),
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    padding: const EdgeInsets.all(10.0),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
-                      ),
-                      color: Colors.white,
-                    ),
+            return accountController.loader
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
                     child: Column(
                       children: [
                         const SizedBox(height: 10.0),
-                        Row(
-                          children: [
-                            Text("Available Balance : ",style:TextStyle(fontSize: 20,color: kTitleColor,fontWeight: FontWeight.w700,)),
-                            Text("${widget.balanceDetails.availableBalance!.toStringAsFixed(2)}",style:TextStyle(fontSize: 20,color: kTitleColor,fontWeight: FontWeight.bold,)),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Divider(),
-                        SizedBox(height: 15,),
-                        InputDecorator(
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 10.0),
-                            labelText: 'account'.tr,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                        Container(
+                          height: MediaQuery.of(context).size.height,
+                          padding: const EdgeInsets.all(10.0),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              topRight: Radius.circular(30.0),
                             ),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.0, color: kGreyTextColor.withOpacity(0.15))),
+                            color: Colors.white,
                           ),
-                          child: ListTile(
-                            title: DropdownButtonHideUnderline(
-                              child: getAccounts(accountController.accountList),
-                            ),
-                          ),
-                        ),
-                        Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 20),
-                                AppTextField(
-                                  showCursor: true,
-                                  cursorColor: kTitleColor,
-                                  validator: (value) {
-                                    if (amountController.text.isEmpty) {
-                                      return "amount".tr;
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10.0),
+                              Row(
+                                children: [
+                                  Text("Available Balance : ",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: kTitleColor,
+                                        fontWeight: FontWeight.w700,
+                                      )),
+                                  Text("${widget.balanceDetails.availableBalance!.toStringAsFixed(2)}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: kTitleColor,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Divider(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              InputDecorator(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(left: 10.0),
+                                  labelText: 'account'.tr,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.0, color: kGreyTextColor.withOpacity(0.15))),
+                                ),
+                                child: ListTile(
+                                  title: DropdownButtonHideUnderline(
+                                    child: getAccounts(accountController.accountList),
+                                  ),
+                                ),
+                              ),
+                              Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 20),
+                                      Container(
+                                        height: 50,
+                                        width: double.infinity,
+                                        padding: EdgeInsets.symmetric(horizontal: 12),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey.shade300),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(widget.balanceDetails.availableBalance.toString()),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      AppTextField(
+                                        showCursor: true,
+                                        controller: descriptionController,
+                                        validator: (value) {
+                                          if (descriptionController.text.isEmpty) {
+                                            return "description".tr;
+                                          }
+                                          return null;
+                                        },
+                                        cursorColor: kTitleColor,
+                                        textFieldType: TextFieldType.OTHER,
+                                        decoration: kInputDecoration.copyWith(
+                                          labelText: 'description'.tr,
+                                          labelStyle: kTextStyle.copyWith(color: kTitleColor),
+                                          hintText: 'description'.tr,
+                                          hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              const SizedBox(height: 30),
+                              ButtonGlobal(
+                                  buttontext: 'Create'.tr,
+                                  buttonDecoration: kButtonDecoration,
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      paymentRequestController.paymentRequestPost(widget.balanceDetails.availableBalance!, selectedAccount!.id!, descriptionController.text);
+                                    } else {
+                                      print("not validate");
                                     }
-                                    return null;
-                                  },
-                                  controller: amountController,
-                                  textFieldType: TextFieldType.NUMBER,
-                                  decoration: kInputDecoration.copyWith(
-                                    labelText: 'amount'.tr + '*',
-                                    labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                    hintText: 'amount'.tr,
-                                    hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                AppTextField(
-                                  showCursor: true,
-                                  controller: descriptionController,
-                                  validator: (value) {
-                                    // if (descriptionController.text.isEmpty) {
-                                    //   return "description".tr;
-                                    // }
-                                    return null;
-                                  },
-                                  cursorColor: kTitleColor,
-                                  textFieldType: TextFieldType.OTHER,
-                                  decoration: kInputDecoration.copyWith(
-                                    labelText: 'description'.tr,
-                                    labelStyle: kTextStyle.copyWith(color: kTitleColor),
-                                    hintText: 'description'.tr,
-                                    hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
-                                  ),
-                                ),
-                              ],
-                            )),
-                        const SizedBox(height: 30),
-                        ButtonGlobal(
-                            buttontext: 'Create'.tr,
-                            buttonDecoration: kButtonDecoration,
-                            onPressed: () {
-                              if (_formKey.currentState!.validate() && selectedAccount!=null) {
-                                 paymentRequestController.paymentRequestPost(amountController.text.toDouble(), selectedAccount!.id!,descriptionController.text) ;
-
-                              }
-                            })
+                                  })
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
-                ],
-              ),
-            );
+                  );
           }),
     );
   }
