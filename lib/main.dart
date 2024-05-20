@@ -9,7 +9,6 @@ import 'Controllers/global-controller.dart';
 import 'Locale/language.dart';
 import 'Screen/SplashScreen/splash_screen.dart';
 import 'Screen/Widgets/constant.dart';
-import 'dart:io';
 
 Future<void> main() async {
   final box = GetStorage();
@@ -31,29 +30,27 @@ Future<void> main() async {
     langValue = const Locale('en', 'US');
   }
   // es_SV
-  runApp( MyApp(lang: langValue,));
+  runApp(MyApp(
+    lang: langValue,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   final Locale lang;
   MyApp({Key? key, required this.lang}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: kMainColor
-    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: kMainColor));
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
     Get.put(GlobalController()).onInit();
 
-    return  ScreenUtilInit(
+    return ScreenUtilInit(
         designSize: Size(360, 800),
-        builder: ((context, child) =>
-            GetMaterialApp(
+        builder: ((context, child) => GetMaterialApp(
               debugShowCheckedModeBanner: false,
               translations: Languages(),
               locale: lang,

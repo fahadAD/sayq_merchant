@@ -1,4 +1,4 @@
- import 'dart:convert';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -47,9 +47,8 @@ class AuthController extends GetxController {
 
   Position? position;
   @override
-  void onInit() async{
+  void onInit() async {
     getBlockList();
-
 
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
@@ -68,8 +67,6 @@ class AuthController extends GetxController {
     });
   }
 
-
-
   loginOnTap({BuildContext? context, String? email, String? pass}) async {
     loader = true;
     Future.delayed(const Duration(milliseconds: 10), () {
@@ -79,9 +76,7 @@ class AuthController extends GetxController {
     if (passValidator == null) {
       Map body = {'email': email, 'password': pass};
       String jsonBody = json.encode(body);
-      server
-          .postRequest(endPoint: APIList.login, body: jsonBody)
-          .then((response) {
+      server.postRequest(endPoint: APIList.login, body: jsonBody).then((response) {
         if (response != null && response.statusCode == 200) {
           updateFcmSubscribe(email);
           final jsonResponse = json.decode(response.body);
@@ -89,16 +84,11 @@ class AuthController extends GetxController {
           var bearerToken = 'Bearer ' + "${loginData.data?.token}";
           userService.saveBoolean(key: 'is-user', value: true);
           userService.saveString(key: 'token', value: loginData.data?.token);
-          userService.saveString(
-              key: 'user-id', value: loginData.data!.user?.id.toString());
-          userService.saveString(
-              key: 'email', value: loginData.data!.user!.email.toString());
-          userService.saveString(
-              key: 'image', value: loginData.data!.user!.image.toString());
-          userService.saveString(
-              key: 'name', value: loginData.data!.user!.name.toString());
-          userService.saveString(
-              key: 'phone', value: loginData.data!.user!.phone.toString());
+          userService.saveString(key: 'user-id', value: loginData.data!.user?.id.toString());
+          userService.saveString(key: 'email', value: loginData.data!.user!.email.toString());
+          userService.saveString(key: 'image', value: loginData.data!.user!.image.toString());
+          userService.saveString(key: 'name', value: loginData.data!.user!.name.toString());
+          userService.saveString(key: 'phone', value: loginData.data!.user!.phone.toString());
 
           Server.initClass(token: bearerToken);
           Get.put(GlobalController()).initController();
@@ -109,21 +99,14 @@ class AuthController extends GetxController {
             update();
           });
           Get.off(() => const Home());
-          Get.rawSnackbar(
-              message: "${loginData.message}",
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.TOP);
-
+          Get.rawSnackbar(message: "${loginData.message}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
         } else {
           loader = false;
           Future.delayed(const Duration(milliseconds: 10), () {
             update();
           });
           final jsonResponse = json.decode(response.body);
-          Get.rawSnackbar(
-              message: "${jsonResponse['message']}",
-              backgroundColor: Colors.red,
-              snackPosition: SnackPosition.TOP);
+          Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
         }
       });
     } else {
@@ -135,10 +118,9 @@ class AuthController extends GetxController {
     }
   }
 
-
   refreshToken() async {
     server.getRequest(endPoint: APIList.refreshToken).then((response) {
-      try{
+      try {
         if (response != null && response.statusCode == 200) {
           final jsonResponse = json.decode(response.body);
           var refreshData = RefreshTokenModel.fromJson(jsonResponse);
@@ -153,13 +135,11 @@ class AuthController extends GetxController {
         } else {
           return false;
         }
-      }catch(e){
+      } catch (e) {
         Get.off(() => const SignIn());
       }
-
     });
   }
-
 
   List<GoogleMapsPlusCodeList> blockHistory = <GoogleMapsPlusCodeList>[];
   GoogleMapsPlusCodeList blockCategorysValue = GoogleMapsPlusCodeList();
@@ -168,17 +148,20 @@ class AuthController extends GetxController {
 
   getBlockList() {
     server.getRequestNotToken(endPoint: APIList.google_maps_plus_code_list).then((response) {
-    print("Fahad object${response.body}");
-   print("Fahad object${response.statusCode}");
+      print("Fahad object${response.body}");
+      print("Fahad object${response.statusCode}");
 
       if (response != null && response.statusCode == 200) {
-         loader = false;
+        loader = false;
         final jsonResponse = json.decode(response.body);
         var blockData = GoogleMapsPlusCode.fromJson(jsonResponse);
         blockHistory = <GoogleMapsPlusCodeList>[];
-        blockHistory.add(GoogleMapsPlusCodeList(id: 0,blockName: "Select Block Number".tr,));
+        blockHistory.add(GoogleMapsPlusCodeList(
+          id: 0,
+          blockName: "Select Block Number".tr,
+        ));
         blockHistory.addAll(blockData.data!.googleMapsPlusCodeList!);
-         Future.delayed(Duration(milliseconds: 10), () {
+        Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
       } else {
@@ -190,142 +173,120 @@ class AuthController extends GetxController {
     });
   }
 
-
-
-
   signupOnTap(hubID) async {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
     });
 
-      Map body = {
-        'business_name': businessNameController.text,
-        'full_name': firstNameController.text +' '+ lastNameController.text,
-        'address': addressController.text,
-        'email': emailController.text,
-        'mobile': phoneController.text,
-        'password': passwordController.text,
-        'hub_id': hubID.toString(),
-        // 'latitude': position?.latitude,
-        // 'longitude': position?.longitude,
-        'latitude': pickupLat.value,
-        'longitude': pickupLong.value,
-        'google_maps_plus_code':blockCategoryID,
-      };
+    Map body = {
+      'business_name': businessNameController.text,
+      'full_name': firstNameController.text + ' ' + lastNameController.text,
+      'address': pickupAddress.value,
+      'email': emailController.text,
+      'mobile': phoneController.text,
+      'password': passwordController.text,
+      'hub_id': hubID.toString(),
+      // 'latitude': position?.latitude,
+      // 'longitude': position?.longitude,
+      'latitude': pickupLat.value,
+      'longitude': pickupLong.value,
+      'google_maps_plus_code': blockCategoryID,
+    };
 
-      String jsonBody = json.encode(body);
-      print(jsonBody);
-      server.postRequest(endPoint: APIList.register, body: jsonBody)
-          .then((response) {
-        print("under ${response}");
-        print("under ${response.statusCode}");
-        print("under${response.body}");
-        if (response != null && response.statusCode == 200) {
-          print("under not${response}");
-          print("under not${response.statusCode}");
-          print("under not${response.body}");
-          final jsonResponse = json.decode(response.body);
-          print(jsonResponse);
-          var regData = RegisterModel.fromJson(jsonResponse);
-          if(regData.success!){
-            Get.off(OtpVerify(mobile:regData.data!.mobile.toString(),));
-            Get.rawSnackbar(
-                message: "${regData.message}",
-                backgroundColor: Colors.green,
-                snackPosition: SnackPosition.TOP);
-            businessNameController.clear();
-            firstNameController.clear();
-            lastNameController.clear();
-            phoneController.clear();
-            passwordController.clear();
-            emailController.clear();
-
-          }
-          loader = false;
-          Future.delayed(Duration(milliseconds: 10), () {
-            update();
-          });
-        }else if (response != null && response.statusCode == 422) {
-          final jsonResponse = json.decode(response.body);
-          print(jsonResponse);
-          if (jsonResponse['data']['message']['mobile'] != null   ) {
-            Get.rawSnackbar(message: jsonResponse['data']['message']['mobile'].toString(),backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
-
-          }
-          loader = false;
-          Future.delayed(Duration(milliseconds: 10), () {
-            update();
-          });
-        } else {
-          loader = false;
-          Future.delayed(Duration(milliseconds: 10), () {
-            update();
-          });
-          Get.rawSnackbar(message: 'Please enter valid input');
+    String jsonBody = json.encode(body);
+    print(jsonBody);
+    server.postRequest(endPoint: APIList.register, body: jsonBody).then((response) {
+      print("under ${response}");
+      print("under ${response.statusCode}");
+      print("under${response.body}");
+      if (response != null && response.statusCode == 200) {
+        print("under not${response}");
+        print("under not${response.statusCode}");
+        print("under not${response.body}");
+        final jsonResponse = json.decode(response.body);
+        print(jsonResponse);
+        var regData = RegisterModel.fromJson(jsonResponse);
+        if (regData.success!) {
+          Get.off(OtpVerify(
+            mobile: regData.data!.mobile.toString(),
+          ));
+          Get.rawSnackbar(message: "${regData.message}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
+          businessNameController.clear();
+          firstNameController.clear();
+          lastNameController.clear();
+          phoneController.clear();
+          passwordController.clear();
+          emailController.clear();
         }
-      });
-    }
+        loader = false;
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      } else if (response != null && response.statusCode == 422) {
+        final jsonResponse = json.decode(response.body);
+        print(jsonResponse);
+        if (jsonResponse['data']['message']['mobile'] != null) {
+          Get.rawSnackbar(message: jsonResponse['data']['message']['mobile'].toString(), backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+        }
+        loader = false;
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+      } else {
+        loader = false;
+        Future.delayed(Duration(milliseconds: 10), () {
+          update();
+        });
+        Get.rawSnackbar(message: 'Please enter valid input');
+      }
+    });
+  }
 
   otpVerification(mobile) async {
     loader = true;
     Future.delayed(const Duration(milliseconds: 10), () {
       update();
     });
-      Map body = {'otp': '${otp1.text.toString()+otp2.text.toString()+otp3.text.toString()+otp4.text.toString()+otp5.text.toString()}', 'mobile': mobile};
-      String jsonBody = json.encode(body);
-      print(jsonBody);
-      server
-          .postRequest(endPoint: APIList.verifyOtp, body: jsonBody)
-          .then((response) {
-        if (response != null && response.statusCode == 200) {
-          final jsonResponse = json.decode(response.body);
-          var loginData = LoginModels.fromJson(jsonResponse);
-          var bearerToken = 'Bearer ' + "${loginData.data?.token}";
-          userService.saveBoolean(key: 'is-user', value: true);
-          userService.saveString(key: 'token', value: loginData.data?.token);
-          userService.saveString(
-              key: 'user-id', value: loginData.data!.user?.id.toString());
-          userService.saveString(
-              key: 'email', value: loginData.data!.user!.email.toString());
-          userService.saveString(
-              key: 'image', value: loginData.data!.user!.image.toString());
-          userService.saveString(
-              key: 'name', value: loginData.data!.user!.name.toString());
-          userService.saveString(
-              key: 'phone', value: loginData.data!.user!.phone.toString());
+    Map body = {'otp': '${otp1.text.toString() + otp2.text.toString() + otp3.text.toString() + otp4.text.toString() + otp5.text.toString()}', 'mobile': mobile};
+    String jsonBody = json.encode(body);
+    print(jsonBody);
+    server.postRequest(endPoint: APIList.verifyOtp, body: jsonBody).then((response) {
+      if (response != null && response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        var loginData = LoginModels.fromJson(jsonResponse);
+        var bearerToken = 'Bearer ' + "${loginData.data?.token}";
+        userService.saveBoolean(key: 'is-user', value: true);
+        userService.saveString(key: 'token', value: loginData.data?.token);
+        userService.saveString(key: 'user-id', value: loginData.data!.user?.id.toString());
+        userService.saveString(key: 'email', value: loginData.data!.user!.email.toString());
+        userService.saveString(key: 'image', value: loginData.data!.user!.image.toString());
+        userService.saveString(key: 'name', value: loginData.data!.user!.name.toString());
+        userService.saveString(key: 'phone', value: loginData.data!.user!.phone.toString());
 
-          Server.initClass(token: bearerToken);
-          Get.put(GlobalController()).initController();
-          otp1.clear();
-          otp2.clear();
-          otp3.clear();
-          otp4.clear();
-          otp5.clear();
-          loader = false;
-          Future.delayed(const Duration(milliseconds: 10), () {
-            update();
-          });
-          Get.off(() => const Home());
-          Get.rawSnackbar(
-              message: "${loginData.message}",
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.TOP);
-
-        } else {
-          loader = false;
-          Future.delayed(const Duration(milliseconds: 10), () {
-            update();
-          });
-          final jsonResponse = json.decode(response.body);
-          Get.rawSnackbar(
-              message: "${jsonResponse['message']}",
-              backgroundColor: Colors.red,
-              snackPosition: SnackPosition.TOP);
-        }
-      });
-
-    }
+        Server.initClass(token: bearerToken);
+        Get.put(GlobalController()).initController();
+        otp1.clear();
+        otp2.clear();
+        otp3.clear();
+        otp4.clear();
+        otp5.clear();
+        loader = false;
+        Future.delayed(const Duration(milliseconds: 10), () {
+          update();
+        });
+        Get.off(() => const Home());
+        Get.rawSnackbar(message: "${loginData.message}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
+      } else {
+        loader = false;
+        Future.delayed(const Duration(milliseconds: 10), () {
+          update();
+        });
+        final jsonResponse = json.decode(response.body);
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+      }
+    });
+  }
 
   updateFcmSubscribe(email) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -335,9 +296,7 @@ class AuthController extends GetxController {
       "topic": email,
     };
     String jsonBody = json.encode(body);
-    server
-        .postRequest(endPoint: APIList.fcmSubscribe, body: jsonBody)
-        .then((response) {
+    server.postRequest(endPoint: APIList.fcmSubscribe, body: jsonBody).then((response) {
       if (response != null && response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         print('responseBody===========>');
@@ -345,5 +304,4 @@ class AuthController extends GetxController {
       }
     });
   }
-
 }
