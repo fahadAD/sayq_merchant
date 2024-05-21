@@ -279,7 +279,7 @@ print("object${googleMapsBlockList.length}");
     });
   }
 
-  parcelPost() {
+  parcelPost(delivery_time) {
     loaderParcel = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -315,7 +315,7 @@ print("object${googleMapsBlockList.length}");
       // 'pickup_long': end_Long.value,
       // 'customer_lat': customer_Lat.value,
       // 'customer_long': customer_Long.value,
-      'delivery_time': delivery_timeController.value.text,
+      'delivery_time': delivery_time,
       'distance_km': totalDistanceKmLive,
       'parcel_bank': isParcelBankCheck ? 'on':'',
       'packaging_id': packagingID == '0'?'':packagingID,
@@ -469,7 +469,7 @@ print("object${googleMapsBlockList.length}");
     });
   }
 
-  void calculateTotal(context) {
+  void calculateTotal(context, delivery_time) {
       totalDeliveryChargeAmount   = 0;
       totalCashCollection = 0;
       codChargeAmount = 0;
@@ -535,7 +535,7 @@ print("object${googleMapsBlockList.length}");
        print('codChargeAmount==> '+ '${codChargeAmount}');
        print('netPayable==> '+ '${netPayable}');
        print('currentPayable==> '+ '${currentPayable}');
-       showPopUp(context, totalCashCollection,deliveryChargeAmount,codChargeAmount,fragileLiquidAmounts,packagingAmount,totalDeliveryChargeAmount,vatAmount,netPayable,currentPayable);
+       showPopUp(context, totalCashCollection,deliveryChargeAmount,codChargeAmount,fragileLiquidAmounts,packagingAmount,totalDeliveryChargeAmount,vatAmount,netPayable,currentPayable,delivery_time);
       Future.delayed(Duration(milliseconds: 10), () {
       update();
       });
@@ -545,7 +545,7 @@ print("object${googleMapsBlockList.length}");
     return totalAmount * (percentageAmount / 100);
   }
 
-  void showPopUp(context, totalCashCollectionParcel,deliveryChargeAmountParcel,codChargeAmountParcel,fragileLiquidAmountsParcel,packagingAmountParcel,totalDeliveryChargeAmountParcel,vatAmountParcel,netPayableParcel,currentPayableParcel) {
+  void showPopUp(context, totalCashCollectionParcel,deliveryChargeAmountParcel,codChargeAmountParcel,fragileLiquidAmountsParcel,packagingAmountParcel,totalDeliveryChargeAmountParcel,vatAmountParcel,netPayableParcel,currentPayableParcel,delivery_time) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -703,7 +703,7 @@ print("object${googleMapsBlockList.length}");
                   const SizedBox(height: 30.0),
                   ButtonGlobal(buttontext: 'confirm'.tr, buttonDecoration: kButtonDecoration, onPressed: (){
                     FocusScope.of(context).requestFocus(new FocusNode());
-                    parcelPost();
+                    parcelPost(delivery_time);
                     // distanceMatrixServiceLatLong();
                     Get.back();
                     // Get.off(ParcelPage());

@@ -121,6 +121,7 @@ class _HomeState extends State<Home> {
 //       ),
 
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
          selectedFontSize: 18,
          unselectedFontSize: 12,
          selectedItemColor: kMainColor,

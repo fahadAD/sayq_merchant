@@ -24,7 +24,13 @@ class _SupportState extends State<Support> {
   // SupportsController supportController = SupportsController();
   SupportsController supportController = Get.put(SupportsController());
   
-
+@override
+  void initState() {
+    // TODO: implement initState
+  supportController.getSupport();
+  supportController.getSupportsList();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

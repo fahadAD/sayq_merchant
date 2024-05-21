@@ -1529,7 +1529,7 @@ class _CreateParcelState extends State<CreateParcel> {
 
 
                                     const SizedBox(height: 20.0),
-                                    ButtonGlobal(
+                                    is_check==false?    ButtonGlobal(
                                         buttontext: 'submit'.tr,
                                         buttonDecoration: kButtonDecoration,
                                         onPressed: () {
@@ -1538,7 +1538,34 @@ class _CreateParcelState extends State<CreateParcel> {
                                             FocusScope.of(context).requestFocus(new FocusNode());
                                             if (_formKey.currentState!.validate()) {
                                               if (parcel.deliveryCategoryID != '' || parcel.deliveryTypID != '') {
-                                                is_check==true? parcel.calculateTotal(context) :
+                                                is_check==true? parcel.calculateTotal(context, parcel.delivery_timeController.value) :
+                                                Get.rawSnackbar(message: 'Check your pickup information & click check box');
+                                              }
+
+                                              else if (parcel.deliveryCategoryID == '') {
+                                                Get.rawSnackbar(message: "Please select category", backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+                                              }
+
+                                              else if (parcel.deliveryTypID == '') {
+                                                Get.rawSnackbar(message: "Please select delivery type", backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+                                              } else {
+                                                Get.rawSnackbar(message: "Please check information", backgroundColor: Colors.red, snackPosition: SnackPosition.TOP);
+                                              }
+                                            }
+                                          });
+                                        }
+                                    ):
+                                    ButtonGlobal(
+                                        buttontext: 'submit'.tr,
+                                        buttonDecoration: kButtonDecoration,
+                                        onPressed: () {
+                                          DateTime date = DateTime.now();
+                                          String dates = '${date.month}-${date.day}-${date.year}  ${date.hour}:${date.minute}:${date.second}';
+                                          setState(() {
+                                            FocusScope.of(context).requestFocus(new FocusNode());
+                                            if (_formKey.currentState!.validate()) {
+                                              if (parcel.deliveryCategoryID != '' || parcel.deliveryTypID != '') {
+                                                is_check==true? parcel.calculateTotal(context, dates) :
                                                 Get.rawSnackbar(message: 'Check your pickup information & click check box');
                                               }
 

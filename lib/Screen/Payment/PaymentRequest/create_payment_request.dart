@@ -56,7 +56,7 @@ class _CreatePaymentRequestState extends State<CreatePaymentRequest> {
       backgroundColor: kMainColor,
       appBar: AppBar(
         title: Text(
-          'Create Payment Request'.tr,
+          'Withdraw Funds'.tr,
           style: kTextStyle.copyWith(color: kBgColor),
         ),
         actions: [
@@ -133,7 +133,9 @@ class _CreatePaymentRequestState extends State<CreatePaymentRequest> {
                                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.0, color: kGreyTextColor.withOpacity(0.15))),
                                 ),
                                 child: ListTile(
+
                                   title: DropdownButtonHideUnderline(
+
                                     child: getAccounts(accountController.accountList),
                                   ),
                                 ),
@@ -181,7 +183,7 @@ class _CreatePaymentRequestState extends State<CreatePaymentRequest> {
                                   )),
                               const SizedBox(height: 30),
                               ButtonGlobal(
-                                  buttontext: 'Create'.tr,
+                                  buttontext: 'Withdraw'.tr,
                                   buttonDecoration: kButtonDecoration,
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {

@@ -41,6 +41,7 @@ class SupportsController extends GetxController {
         var supportData = SupportList.fromJson(jsonResponse);
         supportList = <Supports>[];
         supportList.addAll(supportData.data!.supports!);
+
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
@@ -187,6 +188,7 @@ class SupportsController extends GetxController {
         getSupportsList();
         supportList.clear();
         Get.back();
+
         Get.rawSnackbar(
             message: "${jsonResponse['message']}",
             backgroundColor: Colors.green,

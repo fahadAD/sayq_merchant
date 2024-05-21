@@ -31,8 +31,12 @@ class PaymentAccountController extends GetxController {
 
   getPaymentAccount() {
     server.getRequest(endPoint: APIList.paymentAccountList).then((response) {
+      print('getPaymentAccount = ${response.statusCode}');
+      print('getPaymentAccount = ${response.body}');
       if (response != null && response.statusCode == 200) {
         loader = false;
+        print('getPaymentAccount = ${response.statusCode}');
+        print('getPaymentAccount = ${response.body}');
         final jsonResponse = json.decode(response.body);
         var accountData = PaymentAccountListModel.fromJson(jsonResponse);
         accountList = <Accounts>[];

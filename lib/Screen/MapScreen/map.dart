@@ -59,7 +59,8 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
                   // apiKey: 'AIzaSyCDve4ghJMb9X_S7RpwzAtpxFNq94c-qrQU',
                   // apiKey: 'AIzaSyDNTU2E3fJ55nYm5Eawb4rnlkHP21U8MdU',
                   apiKey: 'AIzaSyBxwyLXWNfom9BRx0Ccr_PdIzDCHyKDeNo',
-                  initialPosition: LatLng(currentLatLng!.latitude, currentLatLng!.longitude),
+                  initialPosition:
+                      LatLng(currentLatLng!.latitude, currentLatLng!.longitude),
                   automaticallyImplyAppBarLeading: false,
                   searchForInitialValue: true,
                   autocompleteLanguage: 'bn_BD',
@@ -68,21 +69,29 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
                   usePlaceDetailSearch: true,
 
                   onCameraMove: (position) {
-                    widget.authController.pickupLat.value = position.target.latitude;
-                    widget.authController.pickupLong.value = position.target.longitude;
+                    widget.authController.pickupLat.value =
+                        position.target.latitude;
+                    widget.authController.pickupLong.value =
+                        position.target.longitude;
                     // orderController.pickupLat.value = position.target.latitude;
                     // orderController.pickupLong.value = position.target.longitude;
                     // print(orderController.pickupLat.value);
                     // print(orderController.pickupLong.value);
                     // print('============ latitude not data=============${orderController.pickupLong.value = position.target.latitude}===========');
                     // print('============ longitude not data=============${orderController.pickupLong.value = position.target.longitude}===========');
-                    print('============ longitude not data=============${widget.authController.pickupLat.value = position.target.latitude}===========');
-                    print('============ longitude not data=============${widget.authController.pickupLong.value = position.target.longitude}===========');
+                    print(
+                        '============ longitude not data=============${widget.authController.pickupLat.value = position.target.latitude}===========');
+                    print(
+                        '============ longitude not data=============${widget.authController.pickupLong.value = position.target.longitude}===========');
                   },
 
                   selectInitialPosition: true,
-                  pickArea: CircleArea(radius: 2, center: LatLng(currentLatLng!.latitude, currentLatLng!.longitude)),
-                  selectedPlaceWidgetBuilder: (context, result, state, isFocused) {
+                  pickArea: CircleArea(
+                      radius: 2,
+                      center: LatLng(
+                          currentLatLng!.latitude, currentLatLng!.longitude)),
+                  selectedPlaceWidgetBuilder:
+                      (context, result, state, isFocused) {
                     if (state == SearchingState.Searching) {
                       return Align(
                         alignment: Alignment.bottomCenter,
@@ -92,7 +101,10 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
                               height: 50,
                               color: Colors.white,
                               child: const Center(
-                                child: SizedBox(width: 25, height: 25, child: CircularProgressIndicator()),
+                                child: SizedBox(
+                                    width: 25,
+                                    height: 25,
+                                    child: CircularProgressIndicator()),
                               )),
                         ),
                       );
@@ -112,16 +124,23 @@ class _MapsScreenOneState extends State<MapsScreenOne> {
                                   textAlign: TextAlign.center,
                                 ),
                                 ElevatedButton(
-                                  style: ElevatedButton.styleFrom(backgroundColor: kMainColor, minimumSize: const Size(double.infinity, 40)),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: kMainColor,
+                                      minimumSize:
+                                          const Size(double.infinity, 40)),
                                   onPressed: () {
                                     setState(() {
-                                      widget.authController.pickupAddress.value = result.formattedAddress!.toString();
+                                      widget.authController.pickupAddress
+                                              .value =
+                                          result.formattedAddress!.toString();
                                     });
-                                    print(widget.authController.pickupAddress.value);
+                                    print(widget
+                                        .authController.pickupAddress.value);
                                     // orderController.pickupLocation.value = result.formattedAddress!.toString();
                                     Get.back();
                                   },
-                                  child: const Text('Add Address', style: TextStyle(color: Colors.white)),
+                                  child: const Text('Add Address',
+                                      style: TextStyle(color: Colors.white)),
                                 ),
                               ],
                             ),
