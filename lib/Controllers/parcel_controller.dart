@@ -103,11 +103,11 @@ class ParcelController extends GetxController {
   }
 
 
-  var end_Lat = 0.0.obs;
-  var end_Long = 0.0.obs;
+  dynamic pickup_lat = 0.0.obs;
+  dynamic pickup_long = 0.0.obs;
 
-  var customer_Lat = 0.0.obs;
-  var customer_Long = 0.0.obs;
+  dynamic customer_Lat = 0.0.obs;
+  dynamic customer_Long = 0.0.obs;
 
 
   List<ParcelEvents> parcelLogsList = <ParcelEvents>[];
@@ -265,6 +265,8 @@ print("object${googleMapsBlockList.length}");
           pickupAddress = shopList[shopIndex].address.toString();
           pickup_plus_code = shopList[shopIndex].google_maps_plus_code.toString();
           shopID = shopList[shopIndex].id.toString();
+          pickup_lat = shopList[shopIndex].merchantLat;
+          pickup_long = shopList[shopIndex].merchantLong;
         }
 
         Future.delayed(Duration(milliseconds: 10), () {
@@ -311,10 +313,10 @@ print("object${googleMapsBlockList.length}");
       'customer_address': customerAddress,
       'customer_phone': customerPhoneController.text.toString(),
       'note': noteController.text.toString(),
-      // 'pickup_lat': end_Lat.value,
-      // 'pickup_long': end_Long.value,
-      // 'customer_lat': customer_Lat.value,
-      // 'customer_long': customer_Long.value,
+      'pickup_lat': pickup_lat.value,
+      'pickup_long': pickup_long.value,
+      'customer_lat': customer_Lat.value,
+      'customer_long': customer_Long.value,
       'delivery_time': delivery_time,
       'distance_km': totalDistanceKmLive,
       'parcel_bank': isParcelBankCheck ? 'on':'',

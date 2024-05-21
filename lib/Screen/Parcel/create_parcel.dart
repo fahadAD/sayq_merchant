@@ -786,8 +786,8 @@ class _CreateParcelState extends State<CreateParcel> {
                                                            parcel.pickupAddress = newValue.address.toString();
                                                            parcel.pickupPhone = newValue.contactNo.toString();
                                                            parcel.pickup_plus_code = newValue.google_maps_plus_code.toString();
-                                                           // parcel.end_Lat = newValue.merchantLat;
-                                                           // parcel.end_Long = newValue.merchantLong;
+                                                           parcel.pickup_lat = newValue.merchantLat;
+                                                           parcel.pickup_long = newValue.merchantLong;
                                                          });
                                                        },
                                                      ),
@@ -1044,9 +1044,10 @@ class _CreateParcelState extends State<CreateParcel> {
                                                             setState(() {
                                                               parcel.googleMapsBlockIndex = parcel.googleMapsBlockList.indexOf(newValue!);
                                                               parcel.customerAddress = newValue.googleMapsPlusCode.toString();
-                                                              // parcel.customer_Lat = newValue.latitude ? newValue.latitude : 0;
-                                                              // parcel.customer_Long = newValue.longitude? newValue.longitude : 0;
+                                                              parcel.customer_Lat = newValue.latitude;
+                                                              parcel.customer_Long = newValue.longitude;
                                                               parcel.distanceMatrixServiceLatLong();
+                                                              print(newValue);
                                                             });
                                                           },
                                                           buttonStyleData: const ButtonStyleData(

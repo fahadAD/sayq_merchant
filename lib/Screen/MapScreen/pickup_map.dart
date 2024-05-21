@@ -66,16 +66,16 @@ class _PickupMapsScreenState extends State<PickupMapsScreen> {
             hintText: 'SEARCH_LOCATION',
             usePlaceDetailSearch: true,
             onCameraMove: (position) {
-              parcelController.end_Lat.value = position.target.latitude;
-              parcelController.end_Long.value = position.target.longitude;
+              parcelController.pickup_lat.value = position.target.latitude;
+              parcelController.pickup_long.value = position.target.longitude;
               // orderController.pickupLat.value = position.target.latitude;
               // orderController.pickupLong.value = position.target.longitude;
               // print(orderController.pickupLat.value);
               // print(orderController.pickupLong.value);
               // print('============ latitude not data=============${orderController.pickupLong.value = position.target.latitude}===========');
               // print('============ longitude not data=============${orderController.pickupLong.value = position.target.longitude}===========');
-              print('============ longitude not data=============${parcelController.end_Lat.value=position.target.latitude}===========');
-              print('============ longitude not data=============${parcelController.end_Long.value = position.target.longitude}===========');
+              print('============ longitude not data=============${parcelController.pickup_lat.value=position.target.latitude}===========');
+              print('============ longitude not data=============${parcelController.pickup_long.value = position.target.longitude}===========');
 
             },
             selectInitialPosition: true,
