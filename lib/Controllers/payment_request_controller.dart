@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:we_courier_merchant_app/Controllers/balance_controller.dart';
 import '../Models/payment_request_model.dart';
 import '/services/api-list.dart';
 import '/services/server.dart';
@@ -11,8 +12,6 @@ class PaymentRequestController extends GetxController {
   Server server = Server();
   bool loader = true;
   List<Payments> requestList = <Payments>[];
-
-
 
   @override
   void onInit() {
@@ -48,8 +47,7 @@ class PaymentRequestController extends GetxController {
     });
   }
 
-
-  paymentAccountPost(String method,bankName,holderName,accountNumber,branchName,routingNumber) {
+  paymentAccountPost(String method, bankName, holderName, accountNumber, branchName, routingNumber) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -64,9 +62,7 @@ class PaymentRequestController extends GetxController {
       'payment_method': method.toLowerCase(),
     };
     String jsonBody = json.encode(body);
-    server
-        .postRequestWithToken(endPoint: APIList.paymentAccountAdd, body: jsonBody)
-        .then((response) {
+    server.postRequestWithToken(endPoint: APIList.paymentAccountAdd, body: jsonBody).then((response) {
       final jsonResponse = json.decode(response.body);
       if (response != null && response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
@@ -77,10 +73,7 @@ class PaymentRequestController extends GetxController {
         });
         getPaymentRequestList();
         Get.back();
-        Get.rawSnackbar(
-            message: "${jsonResponse['message']}",
-            backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP);
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
       } else if (response != null && response.statusCode == 422) {
         if (jsonResponse['data']['message']['name'] != null) {
           Get.rawSnackbar(message: jsonResponse['data']['message']['name'].toString());
@@ -103,11 +96,8 @@ class PaymentRequestController extends GetxController {
     });
   }
 
-
   paymentAccountDelete(id) {
-    server
-        .deleteRequest(endPoint: APIList.supportRemoveUrl!+id.toString())
-        .then((response) {
+    server.deleteRequest(endPoint: APIList.supportRemoveUrl! + id.toString()).then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if (response != null && response.statusCode == 200) {
@@ -118,10 +108,7 @@ class PaymentRequestController extends GetxController {
         });
         getPaymentRequestList();
         Get.back();
-        Get.rawSnackbar(
-            message: "${jsonResponse['message']}",
-            backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP);
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
       } else {
         loader = false;
         Future.delayed(Duration(milliseconds: 10), () {
@@ -132,7 +119,9 @@ class PaymentRequestController extends GetxController {
     });
   }
 
-  paymentRequestPost(double amount, int accountId,String description) {
+  BalanceController balanceController = Get.put(BalanceController());
+
+  paymentRequestPost(double amount, int accountId, String description) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -144,29 +133,28 @@ class PaymentRequestController extends GetxController {
     };
     String jsonBody = json.encode(body);
     print(jsonBody);
-    server
-        .postRequestWithToken(endPoint: APIList.paymentRequestAdd, body: jsonBody)
-        .then((response) {
+    server.postRequestWithToken(endPoint: APIList.paymentRequestAdd, body: jsonBody).then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if (response != null && response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
         print(jsonResponse);
+        balanceController.getBalanceDetails();
         loader = false;
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
-         Get.back();
-        Get.rawSnackbar(
-            message: "${jsonResponse['message']}",
-            backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP);
+        Get.back();
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
       } else {
         loader = false;
         Future.delayed(Duration(milliseconds: 10), () {
           update();
         });
-        Get.showSnackbar(GetSnackBar(message:'Payment Request Failed',duration: Duration(seconds: 2),));
+        Get.showSnackbar(GetSnackBar(
+          message: 'Payment Request Failed',
+          duration: Duration(seconds: 2),
+        ));
       }
     });
   }

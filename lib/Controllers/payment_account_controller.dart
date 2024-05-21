@@ -13,8 +13,6 @@ class PaymentAccountController extends GetxController {
   List<Accounts> accountList = <Accounts>[];
   List<Accounts> accountData = <Accounts>[];
 
-
-
   @override
   void onInit() {
     getPaymentAccount();
@@ -54,8 +52,7 @@ class PaymentAccountController extends GetxController {
     });
   }
 
-
-  paymentAccountPost(String method,bankName,holderName,accountNumber,branchName,routingNumber) {
+  paymentAccountPost(String method, bankName, holderName, accountNumber, branchName, routingNumber) {
     loader = true;
     Future.delayed(Duration(milliseconds: 10), () {
       update();
@@ -71,9 +68,7 @@ class PaymentAccountController extends GetxController {
     };
     String jsonBody = json.encode(body);
     print(jsonBody);
-    server
-        .postRequestWithToken(endPoint: APIList.paymentAccountAdd, body: jsonBody)
-        .then((response) {
+    server.postRequestWithToken(endPoint: APIList.paymentAccountAdd, body: jsonBody).then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if (response != null && response.statusCode == 200) {
@@ -85,10 +80,7 @@ class PaymentAccountController extends GetxController {
         });
         getPaymentAccountList();
         Get.back();
-        Get.rawSnackbar(
-            message: "${jsonResponse['message']}",
-            backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP);
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
       } else if (response != null && response.statusCode == 422) {
         if (jsonResponse['data']['message']['name'] != null) {
           Get.rawSnackbar(message: jsonResponse['data']['message']['name'].toString());
@@ -111,11 +103,8 @@ class PaymentAccountController extends GetxController {
     });
   }
 
-
   paymentAccountDelete(id) {
-    server
-        .deleteRequest(endPoint: APIList.supportRemoveUrl!+id.toString())
-        .then((response) {
+    server.deleteRequest(endPoint: APIList.supportRemoveUrl! + id.toString()).then((response) {
       final jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if (response != null && response.statusCode == 200) {
@@ -126,10 +115,7 @@ class PaymentAccountController extends GetxController {
         });
         getPaymentAccountList();
         Get.back();
-        Get.rawSnackbar(
-            message: "${jsonResponse['message']}",
-            backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP);
+        Get.rawSnackbar(message: "${jsonResponse['message']}", backgroundColor: Colors.green, snackPosition: SnackPosition.TOP);
       } else {
         loader = false;
         Future.delayed(Duration(milliseconds: 10), () {

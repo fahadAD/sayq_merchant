@@ -118,7 +118,7 @@ Map<String, String> arabic =
   'home':"مسكن",
   'charge_details':"تفاصيل الشحن",
   'title':"Title",
-  'amount_tk':"مقدار (TK)",
+  'amount_tk':"مقدار",
   'cod_charge':'رسوم COD',
   'liquid_fragile_charge':"الشحنة السائلة / الهشة",
   'total_charge':"القيمة الاجمالية",
